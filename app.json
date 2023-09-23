@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "f1hub",
+    "name": "F1HUB",
     "slug": "f1hub",
+    "scheme": "com.yabcompany.f1hub",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -9,7 +10,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#121212"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -18,9 +19,11 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.yabcompany.f1hub",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#121212"
       }
     },
     "web": {
