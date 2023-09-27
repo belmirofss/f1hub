@@ -1,18 +1,19 @@
+import { View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Home } from "./screens/Home/Home";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Theme } from "./theme";
+import { Calendar } from "./screens/Calendar/Calendar";
 
 const ICON_SIZE = 28;
 
 const StackNavigator = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const ButtomHomeNavigator = () => {
+const ButtomCalendarNavigator = () => {
   return (
     <StackNavigator.Navigator screenOptions={{ headerShown: false }}>
-      <StackNavigator.Screen name="Home" component={Home} />
+      <StackNavigator.Screen name="Calendar" component={Calendar} />
     </StackNavigator.Navigator>
   );
 };
@@ -22,33 +23,46 @@ const BottomNavigator = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: Theme.colors.accent,
-        tabBarInactiveTintColor: Theme.colors.common,
+        tabBarActiveTintColor: Theme.colors.secondary,
+        tabBarInactiveTintColor: Theme.colors.primary,
         tabBarStyle: {
-          height: 48,
-        },
-        tabBarLabelStyle: {
-          fontSize: 11,
-          fontWeight: "bold",
-          paddingBottom: Theme.space.xs,
-          padding: 0,
-          margin: 0,
-          fontFamily: Theme.font,
+          height: 64,
+          borderTopWidth: 0,
+          shadowOffset: {
+            width: 0,
+            height: 12,
+          },
+          shadowOpacity: 0.58,
+          shadowRadius: 16.0,
+          elevation: 24,
         },
         tabBarIconStyle: {
           padding: 0,
           margin: 0,
         },
-        tabBarActiveBackgroundColor: Theme.colors.background,
+        tabBarShowLabel: false,
+        tabBarActiveBackgroundColor: Theme.colors.darken,
       }}
     >
       <Tab.Screen
-        name="ButtomHomeNavigator"
-        component={ButtomHomeNavigator}
+        name="ButtomCalendarNavigator"
+        component={ButtomCalendarNavigator}
         options={{
-          title: "Home",
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="home" size={ICON_SIZE} color={color} />
+            <View
+              style={{
+                backgroundColor: color,
+                paddingHorizontal: 8,
+                paddingVertical: 4,
+                borderRadius: 4,
+              }}
+            >
+              <MaterialCommunityIcons
+                name="road"
+                size={ICON_SIZE}
+                color={Theme.colors.primary}
+              />
+            </View>
           ),
         }}
       />

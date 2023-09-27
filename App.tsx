@@ -11,8 +11,10 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { Theme } from "./src/theme";
-import Horizon from "./src/fonts/Horizon.otf";
 import { Routes } from "./src/Routes";
+import Horizon from "./src/fonts/Horizon.otf";
+import RobotoBold from "./src/fonts/Roboto-Bold.ttf";
+import RobotoRegular from "./src/fonts/Roboto-Regular.ttf";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,11 +29,11 @@ const theme = {
   roundness: Theme.roundness,
   colors: {
     ...DefaultTheme.colors,
-    primary: Theme.colors.common,
+    primary: Theme.colors.primary,
   },
   fonts: configureFonts({
     config: {
-      fontFamily: Theme.font,
+      fontFamily: Theme.fonts.regular,
     },
   }),
 };
@@ -41,6 +43,8 @@ SplashScreen.preventAutoHideAsync();
 export default function App() {
   const [fontsLoaded] = useFonts({
     Horizon,
+    RobotoBold,
+    RobotoRegular,
   });
 
   const onLayoutRootView = useCallback(async () => {

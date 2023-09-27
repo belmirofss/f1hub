@@ -4,4 +4,5 @@ export declare global {
   }
 
   declare module "*.otf";
+  declare module "*.ttf";
 }

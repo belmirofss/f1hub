@@ -1,16 +1,21 @@
 export const Theme = {
   colors: {
-    common: '#FFF',
-    accent: '#FF1801',
-    background: '#121212',
+    primary: "#FFF",
+    secondary: "#FF1801",
+    dark: "#121212",
+    darken: "#0e0e0e",
   },
   space: {
     xs: 6,
-    s: 16,
-    m: 28,
-    l: 40,
-    xl: 52,
+    s: 24,
+    m: 32,
+    l: 44,
+    xl: 56,
   },
-  font: "Horizon",
+  fonts: {
+    special: "Horizon",
+    regular: "RobotoRegular",
+    bold: "RobotoBold",
+  },
   roundness: 16,
 };
