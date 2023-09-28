@@ -1,19 +1,47 @@
-import { View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { Theme } from "./theme";
 import { Calendar } from "./screens/Calendar/Calendar";
+import { TabIconContainer } from "./components/TabIconContainer";
+import { Standings } from "./screens/Standings/Standings";
+import { Home } from "./screens/Home/Home";
+import { Archieve } from "./screens/Archieve/Archieve";
 
-const ICON_SIZE = 28;
+const ICON_SIZE = 24;
 
 const StackNavigator = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const ButtomHomeNavigator = () => {
+  return (
+    <StackNavigator.Navigator screenOptions={{ headerShown: false }}>
+      <StackNavigator.Screen name="Home" component={Home} />
+    </StackNavigator.Navigator>
+  );
+};
 
 const ButtomCalendarNavigator = () => {
   return (
     <StackNavigator.Navigator screenOptions={{ headerShown: false }}>
       <StackNavigator.Screen name="Calendar" component={Calendar} />
+    </StackNavigator.Navigator>
+  );
+};
+
+const ButtomStandingsNavigator = () => {
+  return (
+    <StackNavigator.Navigator screenOptions={{ headerShown: false }}>
+      <StackNavigator.Screen name="Standings" component={Standings} />
+    </StackNavigator.Navigator>
+  );
+};
+
+const ArchieveStandingsNavigator = () => {
+  return (
+    <StackNavigator.Navigator screenOptions={{ headerShown: false }}>
+      <StackNavigator.Screen name="Archieve" component={Archieve} />
     </StackNavigator.Navigator>
   );
 };
@@ -24,9 +52,10 @@ const BottomNavigator = () => {
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: Theme.colors.secondary,
-        tabBarInactiveTintColor: Theme.colors.primary,
+        tabBarInactiveTintColor: Theme.colors.darken,
         tabBarStyle: {
-          height: 64,
+          backgroundColor: Theme.colors.darken,
+          height: 56,
           borderTopWidth: 0,
           shadowOffset: {
             width: 0,
@@ -45,24 +74,62 @@ const BottomNavigator = () => {
       }}
     >
       <Tab.Screen
+        name="ButtomHomeNavigator"
+        component={ButtomHomeNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabIconContainer backgroundColor={color}>
+              <MaterialCommunityIcons
+                name="home"
+                size={ICON_SIZE}
+                color={Theme.colors.primary}
+              />
+            </TabIconContainer>
+          ),
+        }}
+      />
+      <Tab.Screen
         name="ButtomCalendarNavigator"
         component={ButtomCalendarNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <View
-              style={{
-                backgroundColor: color,
-                paddingHorizontal: 8,
-                paddingVertical: 4,
-                borderRadius: 4,
-              }}
-            >
+            <TabIconContainer backgroundColor={color}>
               <MaterialCommunityIcons
-                name="road"
+                name="calendar"
                 size={ICON_SIZE}
                 color={Theme.colors.primary}
               />
-            </View>
+            </TabIconContainer>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ButtomStandingsNavigator"
+        component={ButtomStandingsNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabIconContainer backgroundColor={color}>
+              <MaterialIcons
+                name="leaderboard"
+                size={ICON_SIZE}
+                color={Theme.colors.primary}
+              />
+            </TabIconContainer>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ArchieveStandingsNavigator"
+        component={ArchieveStandingsNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabIconContainer backgroundColor={color}>
+              <MaterialIcons
+                name="folder"
+                size={ICON_SIZE}
+                color={Theme.colors.primary}
+              />
+            </TabIconContainer>
           ),
         }}
       />

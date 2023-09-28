@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { Api } from "../api";
 import { Race } from "../types";
 
-type CurrentRaceScheduleResponse = {
+type Response = {
     MRData: {
         RaceTable: {
             season: "string";
@@ -12,11 +12,7 @@ type CurrentRaceScheduleResponse = {
 }
 
 export const useCurrentRaceSchedule = () => {
-  return useQuery(["CURRENT_RACE_SCHEDULE"], () => Api.get<CurrentRaceScheduleResponse>("current.json", {
-    params: {
-      limit: 1000
-    }
-  }), {
+  return useQuery(["CURRENT_RACE_SCHEDULE"], () => Api.get<Response>("current.json"), {
     select: (response) => response.data,
   });
 };

@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import {
   PaperProvider,
-  MD3LightTheme as DefaultTheme,
+  MD3LightTheme,
   configureFonts,
 } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
@@ -25,17 +25,21 @@ const queryClient = new QueryClient({
 });
 
 const theme = {
-  ...DefaultTheme,
+  ...MD3LightTheme,
   roundness: Theme.roundness,
   colors: {
-    ...DefaultTheme.colors,
+    ...MD3LightTheme.colors,
     primary: Theme.colors.primary,
+    primaryContainer: Theme.colors.primary,
+    secondary: Theme.colors.secondary,
+    secondaryContainer: Theme.colors.secondary,
   },
   fonts: configureFonts({
     config: {
       fontFamily: Theme.fonts.regular,
     },
   }),
+  dark: true,
 };
 
 SplashScreen.preventAutoHideAsync();
@@ -58,7 +62,10 @@ export default function App() {
   }
 
   return (
-    <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+    <View
+      onLayout={onLayoutRootView}
+      style={{ flex: 1, backgroundColor: Theme.colors.dark }}
+    >
       <QueryClientProvider client={queryClient}>
         <PaperProvider theme={theme}>
           <NavigationContainer>

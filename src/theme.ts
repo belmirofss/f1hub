@@ -3,10 +3,11 @@ export const Theme = {
     primary: "#FFF",
     secondary: "#FF1801",
     dark: "#121212",
-    darken: "#0e0e0e",
+    darken: "#000",
+    light: "#666666"
   },
   space: {
-    xs: 6,
+    xs: 12,
     s: 24,
     m: 32,
     l: 44,

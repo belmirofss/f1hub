@@ -23,6 +23,7 @@ export const ScreenContainer = ({ title, children }: Props) => {
           style={{
             color: Theme.colors.primary,
             fontFamily: Theme.fonts.special,
+            marginBottom: Theme.space.xs,
           }}
         >
           {title}

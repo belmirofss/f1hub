@@ -16,14 +16,43 @@ export const RaceItem = ({ race }: Props) => {
 
   return (
     <List.Item
-      style={{
-        marginHorizontal: -14, // removes the left padding of the list item component
-      }}
-      title={() => (
-        <View style={{}}>
-          <Text variant="labelSmall" style={{ color: Theme.colors.secondary }}>
-            ROUND {race.round}
+      left={() => (
+        <View
+          style={{
+            justifyContent: "center",
+          }}
+        >
+          <Text
+            variant="bodyLarge"
+            style={{
+              color: Theme.colors.light,
+              fontFamily: Theme.fonts.bold,
+            }}
+          >
+            {race.round.padStart(2, "0")}.
           </Text>
+        </View>
+      )}
+      title={
+        <View
+          style={{
+            borderBottomWidth: 1,
+            borderBottomColor: Theme.colors.darken,
+          }}
+        >
+          <Text
+            variant="labelSmall"
+            style={{
+              color: Theme.colors.secondary,
+              fontFamily: Theme.fonts.bold,
+            }}
+          >
+            {firstPractiseDay} - {raceDay}
+          </Text>
+        </View>
+      }
+      description={
+        <View>
           <Text
             variant="bodyLarge"
             style={{
@@ -31,14 +60,19 @@ export const RaceItem = ({ race }: Props) => {
               fontFamily: Theme.fonts.bold,
             }}
           >
-            {firstPractiseDay} - {raceDay}
+            {race.raceName}
+          </Text>
+          <Text
+            variant="bodyLarge"
+            style={{
+              color: Theme.colors.primary,
+              fontFamily: Theme.fonts.regular,
+            }}
+          >
+            {race.Circuit.circuitName}
           </Text>
         </View>
-      )}
-      titleStyle={{
-        fontFamily: Theme.fonts.bold,
-        color: Theme.colors.primary,
-      }}
+      }
     />
   );
 };

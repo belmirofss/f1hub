@@ -8,12 +8,12 @@ export const Loading = () => {
       style={{
         flex: 1,
         justifyContent: "center",
-        backgroundColor: Theme.colors.background,
+        backgroundColor: Theme.colors.dark,
         height: "100%",
         padding: Theme.space.s,
       }}
     >
-      <ActivityIndicator size="large" color={Theme.colors.accent} />
+      <ActivityIndicator size="large" color={Theme.colors.secondary} />
     </View>
   );
 };
