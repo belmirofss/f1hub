@@ -3,16 +3,20 @@ import { Api } from "../api";
 import { Race } from "../types";
 
 type Response = {
-    MRData: {
-        RaceTable: {
-            season: "string";
-            Races: Race[]
-        }
-    }
-}
+  MRData: {
+    RaceTable: {
+      season: "string";
+      Races: Race[];
+    };
+  };
+};
 
 export const useCurrentRaceSchedule = () => {
-  return useQuery(["CURRENT_RACE_SCHEDULE"], () => Api.get<Response>("current.json"), {
-    select: (response) => response.data,
-  });
+  return useQuery(
+    ["CURRENT_RACE_SCHEDULE"],
+    () => Api.get<Response>("current.json"),
+    {
+      select: (response) => response.data,
+    }
+  );
 };

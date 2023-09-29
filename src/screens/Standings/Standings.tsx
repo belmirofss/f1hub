@@ -7,8 +7,8 @@ import { useState } from "react";
 import { StandingType } from "../../types";
 import { useCurrentDriverStandings } from "../../hooks/useCurrentDriverStandings";
 import { Theme } from "../../theme";
-import { DriverStandings } from "./DriverStandings";
-import { ConstructorStandings } from "./ConstructorStandings";
+import { StandingsDrivers } from "./StandingsDrivers";
+import { StandingsContructors } from "./StandingsContructors";
 import { useCurrentConstructorStandings } from "../../hooks/useCurrentConstructorStandings";
 
 export const Standings = () => {
@@ -84,9 +84,9 @@ export const Standings = () => {
         }}
       />
 
-      <View>
+      <View style={{ marginTop: Theme.space.xs }}>
         {selectedStandingType === StandingType.DRIVERS && (
-          <DriverStandings
+          <StandingsDrivers
             driverStandings={
               driverStandings.MRData.StandingsTable.StandingsLists[0]
                 .DriverStandings
@@ -95,7 +95,7 @@ export const Standings = () => {
         )}
 
         {selectedStandingType === StandingType.CONSTRUCTORS && (
-          <ConstructorStandings
+          <StandingsContructors
             constructorStandings={
               constructorStandings.MRData.StandingsTable.StandingsLists[0]
                 .ConstructorStandings

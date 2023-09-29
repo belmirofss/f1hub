@@ -2,32 +2,17 @@ import { View } from "react-native";
 import { List, Text } from "react-native-paper";
 import { DriverStanding } from "../../types";
 import { Theme } from "../../theme";
+import { ListItemCounter } from "../../components/ListItemCounter";
 
 type Props = {
   driverStandings: DriverStanding[];
 };
 
-export const DriverStandings = ({ driverStandings }: Props) => {
+export const StandingsDrivers = ({ driverStandings }: Props) => {
   return driverStandings.map((driver) => (
     <List.Item
       key={driver.Driver.driverId}
-      left={() => (
-        <View
-          style={{
-            justifyContent: "center",
-          }}
-        >
-          <Text
-            variant="bodyLarge"
-            style={{
-              color: Theme.colors.light,
-              fontFamily: Theme.fonts.bold,
-            }}
-          >
-            {driver.position.padStart(2, "0")}.
-          </Text>
-        </View>
-      )}
+      left={() => <ListItemCounter value={driver.position} />}
       right={() => (
         <View
           style={{
@@ -35,10 +20,10 @@ export const DriverStandings = ({ driverStandings }: Props) => {
           }}
         >
           <Text
-            variant="labelMedium"
+            variant="labelSmall"
             style={{
               color: Theme.colors.secondary,
-              fontFamily: Theme.fonts.bold,
+              fontFamily: Theme.fonts.special,
             }}
           >
             {driver.points} PTS
@@ -61,7 +46,6 @@ export const DriverStandings = ({ driverStandings }: Props) => {
           variant="bodyLarge"
           style={{
             color: Theme.colors.primary,
-            fontFamily: Theme.fonts.regular,
           }}
         >
           {driver.Constructors.map((constructor) => constructor.name).join(

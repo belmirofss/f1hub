@@ -3,12 +3,13 @@ import { List, Text } from "react-native-paper";
 import { Race } from "../../types";
 import { Theme } from "../../theme";
 import moment from "moment";
+import { ListItemCounter } from "../../components/ListItemCounter";
 
 type Props = {
   race: Race;
 };
 
-export const RaceItem = ({ race }: Props) => {
+export const CalendarRaceItem = ({ race }: Props) => {
   const firstPractiseDay = moment(race.FirstPractice.date)
     .format("MMM DD")
     .toUpperCase();
@@ -16,23 +17,7 @@ export const RaceItem = ({ race }: Props) => {
 
   return (
     <List.Item
-      left={() => (
-        <View
-          style={{
-            justifyContent: "center",
-          }}
-        >
-          <Text
-            variant="bodyLarge"
-            style={{
-              color: Theme.colors.light,
-              fontFamily: Theme.fonts.bold,
-            }}
-          >
-            {race.round.padStart(2, "0")}.
-          </Text>
-        </View>
-      )}
+      left={() => <ListItemCounter value={race.round} />}
       title={
         <View
           style={{
@@ -44,7 +29,7 @@ export const RaceItem = ({ race }: Props) => {
             variant="labelSmall"
             style={{
               color: Theme.colors.secondary,
-              fontFamily: Theme.fonts.bold,
+              fontFamily: Theme.fonts.special,
             }}
           >
             {firstPractiseDay} - {raceDay}
@@ -54,7 +39,7 @@ export const RaceItem = ({ race }: Props) => {
       description={
         <View>
           <Text
-            variant="bodyLarge"
+            variant="titleMedium"
             style={{
               color: Theme.colors.primary,
               fontFamily: Theme.fonts.bold,
@@ -66,7 +51,6 @@ export const RaceItem = ({ race }: Props) => {
             variant="bodyLarge"
             style={{
               color: Theme.colors.primary,
-              fontFamily: Theme.fonts.regular,
             }}
           >
             {race.Circuit.circuitName}

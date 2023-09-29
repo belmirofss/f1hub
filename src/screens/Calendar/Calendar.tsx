@@ -1,6 +1,6 @@
 import { ScreenContainer } from "../../components/ScreenContainer";
 import { useCurrentRaceSchedule } from "../../hooks/useCurrentRaceSchedule";
-import { RaceItem } from "./RaceItem";
+import { CalendarRaceItem } from "./CalendarRaceItem";
 import { Loading } from "../../components/Loading";
 import { Error } from "../../components/Error";
 
@@ -18,7 +18,7 @@ export const Calendar = () => {
   return (
     <ScreenContainer title={`Season ${data.MRData.RaceTable.season} calendar`}>
       {data.MRData.RaceTable.Races.map((race) => (
-        <RaceItem race={race} key={race.raceName} />
+        <CalendarRaceItem race={race} key={race.raceName} />
       ))}
     </ScreenContainer>
   );
