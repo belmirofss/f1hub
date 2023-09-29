@@ -103,6 +103,11 @@ export type ConstructorStanding = {
   Constructor: Constructor
 }
 
+export type Season = {
+  season: string;
+  url: string;
+}
+
 export enum StandingType {
   DRIVERS = 'drivers',
   CONSTRUCTORS = 'constructors',
