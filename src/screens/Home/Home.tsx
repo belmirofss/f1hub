@@ -7,6 +7,8 @@ import { Loading } from "../../components/Loading";
 import { Error } from "../../components/Error";
 import { HomeNextRace } from "./HomeNextRace";
 import { Theme } from "../../theme";
+import { useLastRaceResults } from "../../hooks/useLastRaceResults";
+import { HomeLastRace } from "./HomeLastRace";
 
 export const Home = () => {
   const {
@@ -27,10 +29,17 @@ export const Home = () => {
     isError: isErrorCurrentRaceSchedule,
   } = useCurrentRaceSchedule();
 
+  const {
+    data: lastRaceResults,
+    isLoading: isLoadingRaceResults,
+    isError: isErrorRaceResults,
+  } = useLastRaceResults();
+
   if (
     isLoadingDriverStandings ||
     isLoadingConstructorStandings ||
-    isLoadingCurrentRaceSchedule
+    isLoadingCurrentRaceSchedule ||
+    isLoadingRaceResults
   ) {
     return <Loading />;
   }
@@ -39,9 +48,11 @@ export const Home = () => {
     isErrorDriverStandings ||
     isErrorConstructorStandings ||
     isErrorCurrentRaceSchedule ||
+    isErrorRaceResults ||
     !driverStandings ||
     !constructorStandings ||
-    !currentRaceSchedule
+    !currentRaceSchedule ||
+    !lastRaceResults
   ) {
     return <Error />;
   }
@@ -50,6 +61,13 @@ export const Home = () => {
     <ScreenContainer title="Home">
       <View style={{ marginTop: Theme.space.xs }}>
         <HomeNextRace races={currentRaceSchedule.MRData.RaceTable.Races} />
+      </View>
+
+      <View style={{ marginTop: Theme.space.xs }}>
+        <HomeLastRace
+          race={lastRaceResults.MRData.RaceTable.Races[0]}
+          results={lastRaceResults.MRData.RaceTable.Races[0].Results || []}
+        />
       </View>
     </ScreenContainer>
   );

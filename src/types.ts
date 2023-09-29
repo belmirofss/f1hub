@@ -12,6 +12,35 @@ export type Circuit = {
   Location: Location;
 };
 
+export type FastestLap = {
+  rank: string;
+  lap: string;
+  Time: {
+    time: string;
+  };
+  AverageSpeed: {
+    units: string;
+    speed: string;
+  }
+}
+
+export type Result = {
+  number: string;
+  position: string;
+  positionText: string;
+  points: string;
+  Driver: Driver;
+  Constructor: Constructor;
+  grid: string;
+  laps: string;
+  status: string;
+  Time: {
+    millis: string;
+    time: string;
+  };
+  FastestLap: FastestLap
+}
+
 export type Race = {
   season: string;
   round: string;
@@ -36,6 +65,7 @@ export type Race = {
     date: string;
     time: string;
   };
+  Results?: Result[]
 };
 
 export type Driver = {

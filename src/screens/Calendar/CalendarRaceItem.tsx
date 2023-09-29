@@ -2,18 +2,18 @@ import { View } from "react-native";
 import { List, Text } from "react-native-paper";
 import { Race } from "../../types";
 import { Theme } from "../../theme";
-import moment from "moment";
+import moment from "moment-timezone";
 import { ListItemCounter } from "../../components/ListItemCounter";
+import { ListItemTitle } from "../../components/ListItemTitle";
+import { ListItemDescription } from "../../components/ListItemDescription";
+import { useTimezone } from "../../hooks/useTimezone";
 
 type Props = {
   race: Race;
 };
 
 export const CalendarRaceItem = ({ race }: Props) => {
-  const firstPractiseDay = moment(race.FirstPractice.date)
-    .format("MMM DD")
-    .toUpperCase();
-  const raceDay = moment(race.date).format("MMM DD").toUpperCase();
+  const timezone = useTimezone();
 
   return (
     <List.Item
@@ -32,29 +32,16 @@ export const CalendarRaceItem = ({ race }: Props) => {
               fontFamily: Theme.fonts.special,
             }}
           >
-            {firstPractiseDay} - {raceDay}
+            {moment(`${race.date} ${race.time}`)
+              .tz(timezone)
+              .format("MMM DD[,] HH:mm")}
           </Text>
         </View>
       }
       description={
         <View>
-          <Text
-            variant="titleMedium"
-            style={{
-              color: Theme.colors.primary,
-              fontFamily: Theme.fonts.bold,
-            }}
-          >
-            {race.raceName}
-          </Text>
-          <Text
-            variant="bodyLarge"
-            style={{
-              color: Theme.colors.primary,
-            }}
-          >
-            {race.Circuit.circuitName}
-          </Text>
+          <ListItemTitle>{race.raceName}</ListItemTitle>
+          <ListItemDescription>{race.Circuit.circuitName}</ListItemDescription>
         </View>
       }
     />

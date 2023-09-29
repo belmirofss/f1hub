@@ -1,7 +1,8 @@
 import { View } from "react-native";
 import { List, Text } from "react-native-paper";
-import moment from "moment";
+import moment from "moment-timezone";
 import { Theme } from "../../theme";
+import { useTimezone } from "../../hooks/useTimezone";
 
 type Props = {
   title: string;
@@ -10,6 +11,10 @@ type Props = {
 };
 
 export const HomeNextRaceTime = ({ title, date, time }: Props) => {
+  const timezone = useTimezone();
+
+  const momentDate = moment(`${date} ${time}`).tz(timezone);
+
   return (
     <List.Item
       left={() => (
@@ -29,7 +34,7 @@ export const HomeNextRaceTime = ({ title, date, time }: Props) => {
               fontFamily: Theme.fonts.special,
             }}
           >
-            {moment(date).format("DD")}
+            {momentDate.format("DD")}
           </Text>
           <Text
             variant="labelSmall"
@@ -38,7 +43,7 @@ export const HomeNextRaceTime = ({ title, date, time }: Props) => {
               fontFamily: Theme.fonts.special,
             }}
           >
-            {moment(date).format("MMM")}
+            {momentDate.format("MMM")}
           </Text>
         </View>
       )}
@@ -57,7 +62,7 @@ export const HomeNextRaceTime = ({ title, date, time }: Props) => {
             color: Theme.colors.primary,
           }}
         >
-          {moment(time, "HH:mm:ss[Z]").format("HH:mm")}
+          {momentDate.format("HH:mm")}
         </Text>
       }
     />
