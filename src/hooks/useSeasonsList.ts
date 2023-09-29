@@ -10,7 +10,7 @@ type Response = {
   };
 };
 
-export const useSEasonsList = () => {
+export const useSeasonsList = () => {
   return useQuery(["SEASONS_LIST"], () => Api.get<Response>("seasons.json"), {
     select: (response) => response.data,
   });
