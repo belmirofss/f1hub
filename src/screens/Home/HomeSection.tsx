@@ -6,8 +6,8 @@ import { HomeSectionName } from "./HomeSectionName";
 
 type Props = {
   name: string;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   children: ReactNode;
 };
 
@@ -22,23 +22,28 @@ export const HomeSection = ({ name, title, description, children }: Props) => {
           paddingBottom: 6,
         }}
       >
-        <Text
-          variant="bodyLarge"
-          style={{
-            color: Theme.colors.primary,
-            fontFamily: Theme.fonts.bold,
-          }}
-        >
-          {title}
-        </Text>
-        <Text
-          variant="bodyLarge"
-          style={{
-            color: Theme.colors.primary,
-          }}
-        >
-          {description}
-        </Text>
+        {title && (
+          <Text
+            variant="bodyLarge"
+            style={{
+              color: Theme.colors.primary,
+              fontFamily: Theme.fonts.bold,
+            }}
+          >
+            {title}
+          </Text>
+        )}
+
+        {description && (
+          <Text
+            variant="bodyLarge"
+            style={{
+              color: Theme.colors.primary,
+            }}
+          >
+            {description}
+          </Text>
+        )}
       </View>
       {children}
     </>

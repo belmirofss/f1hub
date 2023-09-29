@@ -1,5 +1,4 @@
 import { View } from "react-native";
-import { SegmentedButtons, configureFonts } from "react-native-paper";
 import { Error } from "../../components/Error";
 import { Loading } from "../../components/Loading";
 import { ScreenContainer } from "../../components/ScreenContainer";
@@ -10,6 +9,7 @@ import { Theme } from "../../theme";
 import { StandingsDrivers } from "./StandingsDrivers";
 import { StandingsContructors } from "./StandingsContructors";
 import { useCurrentConstructorStandings } from "../../hooks/useCurrentConstructorStandings";
+import { SwitchDriverConstructor } from "../../components/SwitchDriverConstructor";
 
 export const Standings = () => {
   const [selectedStandingType, setSelectedStandingType] = useState(
@@ -28,17 +28,6 @@ export const Standings = () => {
     isError: isErrorConstructorStandings,
   } = useCurrentConstructorStandings();
 
-  const standingsOptions = [
-    {
-      value: StandingType.DRIVERS,
-      label: "Drivers",
-    },
-    {
-      value: StandingType.CONSTRUCTORS,
-      label: "Constructors",
-    },
-  ];
-
   if (isLoadingDriverStandings || isLoadingConstructorStandings) {
     return <Loading />;
   }
@@ -54,34 +43,11 @@ export const Standings = () => {
 
   return (
     <ScreenContainer
-      title={`Standings for ${driverStandings.MRData.StandingsTable.season} season`}
+      title={`Season ${driverStandings.MRData.StandingsTable.season} standings`}
     >
-      <SegmentedButtons
-        value={selectedStandingType}
-        onValueChange={(value) =>
-          setSelectedStandingType(value as StandingType)
-        }
-        buttons={standingsOptions.map((option) => ({
-          ...option,
-          labelStyle: {
-            color:
-              option.value === selectedStandingType
-                ? Theme.colors.darken
-                : Theme.colors.primary,
-          },
-        }))}
-        style={{ marginTop: Theme.space.xs }}
-        theme={{
-          roundness: 2,
-          colors: {
-            secondaryContainer: Theme.colors.primary,
-          },
-          fonts: configureFonts({
-            config: {
-              fontFamily: Theme.fonts.bold,
-            },
-          }),
-        }}
+      <SwitchDriverConstructor
+        selected={selectedStandingType}
+        onChange={setSelectedStandingType}
       />
 
       <View style={{ marginTop: Theme.space.xs }}>

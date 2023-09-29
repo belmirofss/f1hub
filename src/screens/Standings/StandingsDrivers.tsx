@@ -10,7 +10,7 @@ export const StandingsDrivers = ({ driverStandings }: Props) => {
     <ListItemDriver
       key={driver.Driver.driverId}
       position={driver.position}
-      points={driver.position}
+      points={driver.points}
       givenName={driver.Driver.givenName}
       familyName={driver.Driver.familyName}
       constructorName={driver.Constructors.map(

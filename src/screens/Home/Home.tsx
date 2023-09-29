@@ -9,6 +9,7 @@ import { HomeNextRace } from "./HomeNextRace";
 import { Theme } from "../../theme";
 import { useLastRaceResults } from "../../hooks/useLastRaceResults";
 import { HomeLastRace } from "./HomeLastRace";
+import { HomeStandings } from "./HomeStandings";
 
 export const Home = () => {
   const {
@@ -67,6 +68,19 @@ export const Home = () => {
         <HomeLastRace
           race={lastRaceResults.MRData.RaceTable.Races[0]}
           results={lastRaceResults.MRData.RaceTable.Races[0].Results || []}
+        />
+      </View>
+
+      <View style={{ marginTop: Theme.space.xs }}>
+        <HomeStandings
+          driverStandings={
+            driverStandings.MRData.StandingsTable.StandingsLists[0]
+              .DriverStandings
+          }
+          constructorStandings={
+            constructorStandings.MRData.StandingsTable.StandingsLists[0]
+              .ConstructorStandings
+          }
         />
       </View>
     </ScreenContainer>
