@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
-import { Theme } from "../../theme";
-import { HomeSectionName } from "./HomeSectionName";
+import { Theme } from "../theme";
+import { SectionTitle } from "./SectionTitle";
 
 type Props = {
   name: string;
@@ -11,10 +11,15 @@ type Props = {
   children: ReactNode;
 };
 
-export const HomeSection = ({ name, title, description, children }: Props) => {
+export const SectionContainer = ({
+  name,
+  title,
+  description,
+  children,
+}: Props) => {
   return (
     <>
-      <HomeSectionName>{name}</HomeSectionName>
+      <SectionTitle>{name}</SectionTitle>
       <View
         style={{
           borderBottomColor: Theme.colors.primary,

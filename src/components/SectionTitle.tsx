@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 import { Text } from "react-native-paper";
-import { Theme } from "../../theme";
+import { Theme } from "../theme";
 
 type Props = {
   children: ReactNode;
 };
 
-export const HomeSectionName = ({ children }: Props) => {
+export const SectionTitle = ({ children }: Props) => {
   return (
     <Text
       variant="titleMedium"

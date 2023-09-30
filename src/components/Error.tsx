@@ -9,7 +9,7 @@ export const Error = () => {
       style={{
         flex: 1,
         justifyContent: "center",
-        backgroundColor: Theme.colors.background,
+        backgroundColor: Theme.colors.dark,
         height: "100%",
         padding: Theme.space.s,
       }}
@@ -17,7 +17,7 @@ export const Error = () => {
       <Text
         style={{
           textAlign: "center",
-          color: Theme.colors.common,
+          color: Theme.colors.primary,
           fontFamily: Theme.fonts.special,
         }}
       >

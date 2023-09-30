@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View } from "react-native";
 import { SwitchDriverConstructor } from "../../components/SwitchDriverConstructor";
 import { ConstructorStanding, DriverStanding, StandingType } from "../../types";
-import { HomeSection } from "./HomeSection";
+import { SectionContainer } from "../../components/SectionContainer";
 import { ListItemDriver } from "../../components/ListItemDriver";
 import { ListItemConstructor } from "../../components/ListItemConstructor";
 
@@ -20,7 +20,7 @@ export const HomeStandings = ({
   );
 
   return (
-    <HomeSection name="STANDINGS">
+    <SectionContainer name="STANDINGS">
       <View>
         <SwitchDriverConstructor
           selected={selectedStandingType}
@@ -55,6 +55,6 @@ export const HomeStandings = ({
               />
             ))}
       </View>
-    </HomeSection>
+    </SectionContainer>
   );
 };

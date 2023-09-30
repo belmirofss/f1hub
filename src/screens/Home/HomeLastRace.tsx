@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 import { Race, Result } from "../../types";
-import { HomeSection } from "./HomeSection";
+import { SectionContainer } from "../../components/SectionContainer";
 import moment from "moment-timezone";
 import { Theme } from "../../theme";
 import { useTimezone } from "../../hooks/useTimezone";
@@ -16,7 +16,7 @@ export const HomeLastRace = ({ race, results }: Props) => {
   const timezone = useTimezone();
 
   return (
-    <HomeSection
+    <SectionContainer
       name="LAST RACE"
       title={race.raceName}
       description={race.Circuit.circuitName}
@@ -43,6 +43,6 @@ export const HomeLastRace = ({ race, results }: Props) => {
           />
         ))}
       </View>
-    </HomeSection>
+    </SectionContainer>
   );
 };

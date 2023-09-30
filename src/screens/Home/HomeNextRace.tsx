@@ -1,10 +1,8 @@
 import { Race } from "../../types";
-import { Text } from "react-native-paper";
-import { Theme } from "../../theme";
 import moment from "moment";
 import { HomeNextRaceTime } from "./HomeNextRaceTime";
-import { HomeSection } from "./HomeSection";
-import { HomeSectionName } from "./HomeSectionName";
+import { SectionContainer } from "../../components/SectionContainer";
+import { SectionTitle } from "../../components/SectionTitle";
 
 type Props = {
   races: Race[];
@@ -16,11 +14,11 @@ export const HomeNextRace = ({ races }: Props) => {
   )[0];
 
   if (!nextRace) {
-    return <HomeSectionName>NO NEXT RACE</HomeSectionName>;
+    return <SectionTitle>NO NEXT RACE</SectionTitle>;
   }
 
   return (
-    <HomeSection
+    <SectionContainer
       name="NEXT RACE"
       title={nextRace.raceName}
       description={nextRace.Circuit.circuitName}
@@ -60,6 +58,6 @@ export const HomeNextRace = ({ races }: Props) => {
           time={nextRace.FirstPractice.time}
         />
       </>
-    </HomeSection>
+    </SectionContainer>
   );
 };
