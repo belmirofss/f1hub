@@ -1,8 +1,8 @@
 import { ScreenContainer } from "../../components/ScreenContainer";
 import { useCurrentRaceSchedule } from "../../hooks/useCurrentRaceSchedule";
-import { CalendarRaceItem } from "./CalendarRaceItem";
 import { Loading } from "../../components/Loading";
 import { Error } from "../../components/Error";
+import { ListItemRace } from "../../components/ListItemRace";
 
 export const Calendar = () => {
   const { data, isLoading, isError } = useCurrentRaceSchedule();
@@ -15,7 +15,15 @@ export const Calendar = () => {
         <Error />
       ) : (
         data.MRData.RaceTable.Races.map((race) => (
-          <CalendarRaceItem key={race.round} race={race} />
+          <ListItemRace
+            key={race.round}
+            round={race.round}
+            country={race.Circuit.Location.country}
+            date={race.date}
+            time={race.time}
+            raceName={race.raceName}
+            circuitName={race.Circuit.circuitName}
+          />
         ))
       )}
     </ScreenContainer>

@@ -11,6 +11,7 @@ import { SwitchDriverConstructor } from "../../components/SwitchDriverConstructo
 import { ArchieveDrivers } from "./ArchieveDrivers";
 import { SectionContainer } from "../../components/SectionContainer";
 import { ArchieveConstructors } from "./ArchieveConstructors";
+import { ArchieveCalendar } from "./ArchieveCalendar";
 
 export const Archieve = () => {
   const [selectedSeason, setSelectedSeason] = useState("");
@@ -35,7 +36,7 @@ export const Archieve = () => {
           label="Select the season"
           selected={selectedSeason}
           onSelection={setSelectedSeason}
-          items={data.MRData.SeasonTable.Seasons.map((season) => ({
+          items={data.MRData.SeasonTable.Seasons.reverse().map((season) => ({
             text: `Season ${season.season}`,
             value: season.season,
           }))}
@@ -43,20 +44,26 @@ export const Archieve = () => {
       </View>
 
       {selectedSeason && (
-        <SectionContainer name="Standings">
-          <SwitchDriverConstructor
-            selected={selectedStandingType}
-            onChange={setSelectedStandingType}
-          />
+        <>
+          <SectionContainer name="Standings" expansable startClosed>
+            <SwitchDriverConstructor
+              selected={selectedStandingType}
+              onChange={setSelectedStandingType}
+            />
 
-          {selectedStandingType === StandingType.DRIVERS && (
-            <ArchieveDrivers season={selectedSeason} />
-          )}
+            {selectedStandingType === StandingType.DRIVERS && (
+              <ArchieveDrivers season={selectedSeason} />
+            )}
 
-          {selectedStandingType === StandingType.CONSTRUCTORS && (
-            <ArchieveConstructors season={selectedSeason} />
-          )}
-        </SectionContainer>
+            {selectedStandingType === StandingType.CONSTRUCTORS && (
+              <ArchieveConstructors season={selectedSeason} />
+            )}
+          </SectionContainer>
+
+          <SectionContainer name="Calendar" expansable startClosed>
+            <ArchieveCalendar season={selectedSeason} />
+          </SectionContainer>
+        </>
       )}
     </ScreenContainer>
   );

@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { View } from "react-native";
-import { Text } from "react-native-paper";
+import { Text, IconButton } from "react-native-paper";
 import { Theme } from "../theme";
 import { SectionTitle } from "./SectionTitle";
 
@@ -10,6 +10,8 @@ type Props = {
   description?: string;
   children: ReactNode;
   right?: ReactNode;
+  expansable?: boolean;
+  startClosed?: boolean;
 };
 
 export const SectionContainer = ({
@@ -18,10 +20,30 @@ export const SectionContainer = ({
   description,
   children,
   right,
+  expansable,
+  startClosed,
 }: Props) => {
+  const [contentVisible, setContentVisible] = useState(!startClosed);
+
   return (
     <>
-      <SectionTitle>{name}</SectionTitle>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <SectionTitle>{name}</SectionTitle>
+        {expansable && (
+          <IconButton
+            icon={contentVisible ? "chevron-up" : "chevron-down"}
+            size={28}
+            iconColor={Theme.colors.primary}
+            onPress={() => setContentVisible((isVisible) => !isVisible)}
+          />
+        )}
+      </View>
       <View
         style={{
           borderBottomColor: Theme.colors.primary,
@@ -58,7 +80,7 @@ export const SectionContainer = ({
         </View>
         {right}
       </View>
-      {children}
+      {contentVisible && children}
     </>
   );
 };
