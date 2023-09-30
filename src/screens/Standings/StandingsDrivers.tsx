@@ -1,21 +1,32 @@
+import { Error } from "../../components/Error";
 import { ListItemDriver } from "../../components/ListItemDriver";
-import { DriverStanding } from "../../types";
+import { Loading } from "../../components/Loading";
+import { useCurrentDriverStandings } from "../../hooks/useCurrentDriverStandings";
 
-type Props = {
-  driverStandings: DriverStanding[];
-};
+export const StandingsDrivers = () => {
+  const { data, isLoading, isError } = useCurrentDriverStandings();
 
-export const StandingsDrivers = ({ driverStandings }: Props) => {
-  return driverStandings.map((driver) => (
-    <ListItemDriver
-      key={driver.Driver.driverId}
-      position={driver.position}
-      points={driver.points}
-      givenName={driver.Driver.givenName}
-      familyName={driver.Driver.familyName}
-      constructorName={driver.Constructors.map(
-        (constructor) => constructor.name
-      ).join(" - ")}
-    />
-  ));
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (isError || !data) {
+    return <Error />;
+  }
+
+  return data.MRData.StandingsTable.StandingsLists[0].DriverStandings.map(
+    (driver) => (
+      <ListItemDriver
+        key={driver.Driver.driverId}
+        position={driver.position}
+        points={driver.points}
+        givenName={driver.Driver.givenName}
+        familyName={driver.Driver.familyName}
+        constructorName={driver.Constructors.map(
+          (constructor) => constructor.name
+        ).join(" - ")}
+        nationality={driver.Driver.nationality}
+      />
+    )
+  );
 };

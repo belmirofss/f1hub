@@ -7,19 +7,17 @@ import { Error } from "../../components/Error";
 export const Calendar = () => {
   const { data, isLoading, isError } = useCurrentRaceSchedule();
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (isError || !data) {
-    return <Error />;
-  }
-
   return (
-    <ScreenContainer title={`Season ${data.MRData.RaceTable.season} calendar`}>
-      {data.MRData.RaceTable.Races.map((race) => (
-        <CalendarRaceItem race={race} key={race.raceName} />
-      ))}
+    <ScreenContainer title="Calendar">
+      {isLoading ? (
+        <Loading />
+      ) : isError || !data ? (
+        <Error />
+      ) : (
+        data.MRData.RaceTable.Races.map((race) => (
+          <CalendarRaceItem key={race.round} race={race} />
+        ))
+      )}
     </ScreenContainer>
   );
 };

@@ -27,6 +27,7 @@ export const ArchieveConstructors = ({ season }: Props) => {
         position={constructor.position}
         points={constructor.points}
         constructorName={constructor.Constructor.name}
+        nationality={constructor.Constructor.nationality}
       />
     )
   );

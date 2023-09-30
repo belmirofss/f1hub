@@ -7,6 +7,8 @@ import { ListItemCounter } from "../../components/ListItemCounter";
 import { ListItemTitle } from "../../components/ListItemTitle";
 import { ListItemDescription } from "../../components/ListItemDescription";
 import { useTimezone } from "../../hooks/useTimezone";
+import { FlagIcon } from "../../components/FlagIcon";
+import { buildCountryFlagUrlByName } from "../../helpers/countries";
 
 type Props = {
   race: Race;
@@ -17,14 +19,16 @@ export const CalendarRaceItem = ({ race }: Props) => {
 
   return (
     <List.Item
-      left={() => <ListItemCounter value={race.round} />}
+      left={() => (
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <ListItemCounter value={race.round} />
+          <FlagIcon
+            url={buildCountryFlagUrlByName(race.Circuit.Location.country)}
+          />
+        </View>
+      )}
       title={
-        <View
-          style={{
-            borderBottomWidth: 1,
-            borderBottomColor: Theme.colors.darken,
-          }}
-        >
+        <View>
           <Text
             variant="labelSmall"
             style={{
@@ -36,13 +40,11 @@ export const CalendarRaceItem = ({ race }: Props) => {
               .tz(timezone)
               .format("MMM DD[,] HH:mm")}
           </Text>
+          <ListItemTitle>{race.raceName}</ListItemTitle>
         </View>
       }
       description={
-        <View>
-          <ListItemTitle>{race.raceName}</ListItemTitle>
-          <ListItemDescription>{race.Circuit.circuitName}</ListItemDescription>
-        </View>
+        <ListItemDescription>{race.Circuit.circuitName}</ListItemDescription>
       }
     />
   );

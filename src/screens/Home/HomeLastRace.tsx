@@ -6,6 +6,8 @@ import moment from "moment-timezone";
 import { Theme } from "../../theme";
 import { useTimezone } from "../../hooks/useTimezone";
 import { ListItemDriver } from "../../components/ListItemDriver";
+import { FlagIcon } from "../../components/FlagIcon";
+import { buildCountryFlagUrlByName } from "../../helpers/countries";
 
 type Props = {
   race: Race;
@@ -20,6 +22,11 @@ export const HomeLastRace = ({ race, results }: Props) => {
       name="LAST RACE"
       title={race.raceName}
       description={race.Circuit.circuitName}
+      right={
+        <FlagIcon
+          url={buildCountryFlagUrlByName(race.Circuit.Location.country)}
+        />
+      }
     >
       <View style={{ marginTop: Theme.space.xs }}>
         <Text
@@ -40,6 +47,7 @@ export const HomeLastRace = ({ race, results }: Props) => {
             givenName={result.Driver.givenName}
             familyName={result.Driver.familyName}
             constructorName={result.Constructor.name}
+            nationality={result.Driver.nationality}
           />
         ))}
       </View>

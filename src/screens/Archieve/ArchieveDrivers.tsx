@@ -29,6 +29,7 @@ export const ArchieveDrivers = ({ season }: Props) => {
         constructorName={driver.Constructors.map(
           (constructor) => constructor.name
         ).join(" - ")}
+        nationality={driver.Driver.nationality}
       />
     )
   );

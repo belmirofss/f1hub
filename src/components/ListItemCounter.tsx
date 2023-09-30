@@ -11,7 +11,7 @@ export const ListItemCounter = ({ value }: Props) => {
     <View
       style={{
         justifyContent: "center",
-        width: 44,
+        width: 40,
       }}
     >
       <Text

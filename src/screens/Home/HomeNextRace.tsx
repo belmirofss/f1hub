@@ -3,6 +3,8 @@ import moment from "moment";
 import { HomeNextRaceTime } from "./HomeNextRaceTime";
 import { SectionContainer } from "../../components/SectionContainer";
 import { SectionTitle } from "../../components/SectionTitle";
+import { FlagIcon } from "../../components/FlagIcon";
+import { buildCountryFlagUrlByName } from "../../helpers/countries";
 
 type Props = {
   races: Race[];
@@ -22,6 +24,11 @@ export const HomeNextRace = ({ races }: Props) => {
       name="NEXT RACE"
       title={nextRace.raceName}
       description={nextRace.Circuit.circuitName}
+      right={
+        <FlagIcon
+          url={buildCountryFlagUrlByName(nextRace.Circuit.Location.country)}
+        />
+      }
     >
       <>
         <HomeNextRaceTime

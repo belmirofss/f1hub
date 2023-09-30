@@ -11,6 +11,9 @@ export const ListItemPts = ({ points }: Props) => {
     <View
       style={{
         justifyContent: "center",
+        alignItems: "flex-end",
+        width: 52,
+        marginRight: -22, // fixes the right alignment
       }}
     >
       <Text
@@ -18,9 +21,20 @@ export const ListItemPts = ({ points }: Props) => {
         style={{
           color: Theme.colors.secondary,
           fontFamily: Theme.fonts.special,
+          textAlign: "right",
         }}
       >
-        {points} PTS
+        {points}
+      </Text>
+      <Text
+        variant="labelSmall"
+        style={{
+          color: Theme.colors.secondary,
+          fontFamily: Theme.fonts.special,
+          textAlign: "right",
+        }}
+      >
+        PTS
       </Text>
     </View>
   );
