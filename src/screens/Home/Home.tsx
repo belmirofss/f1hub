@@ -10,6 +10,7 @@ import { Theme } from "../../theme";
 import { useLastRaceResults } from "../../hooks/useLastRaceResults";
 import { HomeLastRace } from "./HomeLastRace";
 import { HomeStandings } from "./HomeStandings";
+import { BuyMeACoffe } from "../../components/BuyMeACoffee";
 
 export const Home = () => {
   const {
@@ -83,6 +84,8 @@ export const Home = () => {
           }
         />
       </View>
+
+      <BuyMeACoffe />
     </ScreenContainer>
   );
 };

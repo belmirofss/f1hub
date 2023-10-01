@@ -1,3 +1,4 @@
+import "react-native-gesture-handler";
 import { useCallback } from "react";
 import { View } from "react-native";
 import { StatusBar } from "expo-status-bar";
@@ -15,6 +16,8 @@ import { Routes } from "./src/Routes";
 import Horizon from "./src/fonts/Horizon.otf";
 import RobotoBold from "./src/fonts/Roboto-Bold.ttf";
 import RobotoRegular from "./src/fonts/Roboto-Regular.ttf";
+import { AppProvider } from "./src/context";
+import { Ad } from "./src/components/Ad";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -68,9 +71,12 @@ export default function App() {
     >
       <QueryClientProvider client={queryClient}>
         <PaperProvider theme={theme}>
-          <NavigationContainer>
-            <Routes />
-          </NavigationContainer>
+          <AppProvider>
+            <NavigationContainer>
+              <Routes />
+            </NavigationContainer>
+            <Ad />
+          </AppProvider>
           <StatusBar hidden />
         </PaperProvider>
       </QueryClientProvider>
