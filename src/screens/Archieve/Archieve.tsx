@@ -21,48 +21,52 @@ export const Archieve = () => {
 
   const { data, isLoading, isError } = useSeasonsList();
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (isError || !data) {
-    return <Error />;
-  }
-
   return (
     <ScreenContainer title="Archieve">
-      <View style={{ marginTop: Theme.space.xs, marginBottom: Theme.space.xs }}>
-        <Picker
-          label="Select the season"
-          selected={selectedSeason}
-          onSelection={setSelectedSeason}
-          items={data.MRData.SeasonTable.Seasons.reverse().map((season) => ({
-            text: `Season ${season.season}`,
-            value: season.season,
-          }))}
-        />
-      </View>
-
-      {selectedSeason && (
+      {isLoading ? (
+        <Loading />
+      ) : isError || !data ? (
+        <Error />
+      ) : (
         <>
-          <SectionContainer name="Standings" expansable startClosed>
-            <SwitchDriverConstructor
-              selected={selectedStandingType}
-              onChange={setSelectedStandingType}
+          <View
+            style={{ marginTop: Theme.space.xs, marginBottom: Theme.space.xs }}
+          >
+            <Picker
+              label="Select the season"
+              selected={selectedSeason}
+              onSelection={setSelectedSeason}
+              items={data.MRData.SeasonTable.Seasons.reverse().map(
+                (season) => ({
+                  text: `Season ${season.season}`,
+                  value: season.season,
+                })
+              )}
             />
+          </View>
 
-            {selectedStandingType === StandingType.DRIVERS && (
-              <ArchieveDrivers season={selectedSeason} />
-            )}
+          {selectedSeason && (
+            <>
+              <SectionContainer name="Standings" expansable startClosed>
+                <SwitchDriverConstructor
+                  selected={selectedStandingType}
+                  onChange={setSelectedStandingType}
+                />
 
-            {selectedStandingType === StandingType.CONSTRUCTORS && (
-              <ArchieveConstructors season={selectedSeason} />
-            )}
-          </SectionContainer>
+                {selectedStandingType === StandingType.DRIVERS && (
+                  <ArchieveDrivers season={selectedSeason} />
+                )}
 
-          <SectionContainer name="Calendar" expansable startClosed>
-            <ArchieveCalendar season={selectedSeason} />
-          </SectionContainer>
+                {selectedStandingType === StandingType.CONSTRUCTORS && (
+                  <ArchieveConstructors season={selectedSeason} />
+                )}
+              </SectionContainer>
+
+              <SectionContainer name="Calendar" expansable startClosed>
+                <ArchieveCalendar season={selectedSeason} />
+              </SectionContainer>
+            </>
+          )}
         </>
       )}
     </ScreenContainer>
