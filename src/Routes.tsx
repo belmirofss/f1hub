@@ -1,5 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Theme } from "./theme";
@@ -9,44 +10,49 @@ import { Standings } from "./screens/Standings/Standings";
 import { Home } from "./screens/Home/Home";
 import { Archive } from "./screens/Archive/Archive";
 
+type BottomNavigatorProps = {
+  initialRouteName: string;
+};
+
 const ICON_SIZE = 24;
 
-const StackNavigator = createStackNavigator();
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
-const ButtomHomeNavigator = () => {
+const StackHomeNavigator = () => {
   return (
-    <StackNavigator.Navigator screenOptions={{ headerShown: false }}>
-      <StackNavigator.Screen name="Home" component={Home} />
-    </StackNavigator.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" component={Home} />
+    </Stack.Navigator>
   );
 };
 
-const ButtomCalendarNavigator = () => {
+const StackCalendarNavigator = () => {
   return (
-    <StackNavigator.Navigator screenOptions={{ headerShown: false }}>
-      <StackNavigator.Screen name="Calendar" component={Calendar} />
-    </StackNavigator.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Calendar" component={Calendar} />
+    </Stack.Navigator>
   );
 };
 
-const ButtomStandingsNavigator = () => {
+const StackStandingsNavigator = () => {
   return (
-    <StackNavigator.Navigator screenOptions={{ headerShown: false }}>
-      <StackNavigator.Screen name="Standings" component={Standings} />
-    </StackNavigator.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Standings" component={Standings} />
+    </Stack.Navigator>
   );
 };
 
-const ArchiveStandingsNavigator = () => {
+const StackArchiveNavigator = () => {
   return (
-    <StackNavigator.Navigator screenOptions={{ headerShown: false }}>
-      <StackNavigator.Screen name="Archive" component={Archive} />
-    </StackNavigator.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Archive" component={Archive} />
+    </Stack.Navigator>
   );
 };
 
-const BottomNavigator = () => {
+const BottomNavigator = ({ initialRouteName }: BottomNavigatorProps) => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -72,10 +78,11 @@ const BottomNavigator = () => {
         tabBarShowLabel: false,
         tabBarActiveBackgroundColor: Theme.colors.darken,
       }}
+      initialRouteName={initialRouteName}
     >
       <Tab.Screen
-        name="ButtomHomeNavigator"
-        component={ButtomHomeNavigator}
+        name="StackHomeNavigator"
+        component={StackHomeNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <TabIconContainer backgroundColor={color}>
@@ -89,8 +96,8 @@ const BottomNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="ButtomCalendarNavigator"
-        component={ButtomCalendarNavigator}
+        name="StackCalendarNavigator"
+        component={StackCalendarNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <TabIconContainer backgroundColor={color}>
@@ -104,8 +111,8 @@ const BottomNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="ButtomStandingsNavigator"
-        component={ButtomStandingsNavigator}
+        name="StackStandingsNavigator"
+        component={StackStandingsNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <TabIconContainer backgroundColor={color}>
@@ -119,8 +126,8 @@ const BottomNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="ArchiveStandingsNavigator"
-        component={ArchiveStandingsNavigator}
+        name="StackArchiveNavigator"
+        component={StackArchiveNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <TabIconContainer backgroundColor={color}>
@@ -137,17 +144,54 @@ const BottomNavigator = () => {
   );
 };
 
+const HomeBottomNavigator = () => (
+  <BottomNavigator initialRouteName="StackHomeNavigator" />
+);
+const CalendarBottomNavigator = () => (
+  <BottomNavigator initialRouteName="StackCalendarNavigator" />
+);
+const StandingsBottomNavigator = () => (
+  <BottomNavigator initialRouteName="StackStandingsNavigator" />
+);
+const ArchiveBottomNavigator = () => (
+  <BottomNavigator initialRouteName="ArchiveBottomNavigator" />
+);
+
 export const Routes = () => {
   return (
-    <StackNavigator.Navigator
+    <Drawer.Navigator
       screenOptions={{
         headerShown: false,
+        drawerContentStyle: { backgroundColor: Theme.colors.darken },
+        drawerLabelStyle: {
+          fontFamily: Theme.fonts.special,
+          color: Theme.colors.primary,
+          fontSize: 12,
+        },
+        drawerActiveBackgroundColor: Theme.colors.secondary,
+        drawerPosition: "right",
       }}
     >
-      <StackNavigator.Screen
-        name="BottomNavigator"
-        component={BottomNavigator}
+      <Drawer.Screen
+        name="HomeBottomNavigator"
+        component={HomeBottomNavigator}
+        options={{ title: "Home" }}
       />
-    </StackNavigator.Navigator>
+      <Drawer.Screen
+        name="CalendarBottomNavigator"
+        component={CalendarBottomNavigator}
+        options={{ title: "Calendar" }}
+      />
+      <Drawer.Screen
+        name="StandingsBottomNavigator"
+        component={StandingsBottomNavigator}
+        options={{ title: "Standings" }}
+      />
+      <Drawer.Screen
+        name="ArchiveBottomNavigator"
+        component={ArchiveBottomNavigator}
+        options={{ title: "Archive" }}
+      />
+    </Drawer.Navigator>
   );
 };
