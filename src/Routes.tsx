@@ -9,6 +9,7 @@ import { TabIconContainer } from "./components/TabIconContainer";
 import { Standings } from "./screens/Standings/Standings";
 import { Home } from "./screens/Home/Home";
 import { Archive } from "./screens/Archive/Archive";
+import { About } from "./screens/About/About";
 
 type BottomNavigatorProps = {
   initialRouteName: string;
@@ -48,6 +49,14 @@ const StackArchiveNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Archive" component={Archive} />
+    </Stack.Navigator>
+  );
+};
+
+const StackAboutNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="About" component={About} />
     </Stack.Navigator>
   );
 };
@@ -191,6 +200,11 @@ export const Routes = () => {
         name="ArchiveBottomNavigator"
         component={ArchiveBottomNavigator}
         options={{ title: "Archive" }}
+      />
+      <Drawer.Screen
+        name="StackAboutNavigator"
+        component={StackAboutNavigator}
+        options={{ title: "About" }}
       />
     </Drawer.Navigator>
   );
