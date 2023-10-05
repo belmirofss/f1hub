@@ -8,12 +8,12 @@ import { Picker } from "../../components/Picker";
 import { Theme } from "../../theme";
 import { StandingType } from "../../types";
 import { SwitchDriverConstructor } from "../../components/SwitchDriverConstructor";
-import { ArchieveDrivers } from "./ArchieveDrivers";
+import { ArchiveDrivers } from "./ArchiveDrivers";
 import { SectionContainer } from "../../components/SectionContainer";
-import { ArchieveConstructors } from "./ArchieveConstructors";
-import { ArchieveCalendar } from "./ArchieveCalendar";
+import { ArchiveConstructors } from "./ArchiveConstructors";
+import { ArchiveCalendar } from "./ArchiveCalendar";
 
-export const Archieve = () => {
+export const Archive = () => {
   const [selectedSeason, setSelectedSeason] = useState("");
   const [selectedStandingType, setSelectedStandingType] = useState(
     StandingType.DRIVERS
@@ -22,7 +22,7 @@ export const Archieve = () => {
   const { data, isLoading, isError } = useSeasonsList();
 
   return (
-    <ScreenContainer title="Archieve">
+    <ScreenContainer title="Archive">
       {isLoading ? (
         <Loading />
       ) : isError || !data ? (
@@ -54,16 +54,16 @@ export const Archieve = () => {
                 />
 
                 {selectedStandingType === StandingType.DRIVERS && (
-                  <ArchieveDrivers season={selectedSeason} />
+                  <ArchiveDrivers season={selectedSeason} />
                 )}
 
                 {selectedStandingType === StandingType.CONSTRUCTORS && (
-                  <ArchieveConstructors season={selectedSeason} />
+                  <ArchiveConstructors season={selectedSeason} />
                 )}
               </SectionContainer>
 
               <SectionContainer name="Calendar" expansable startClosed>
-                <ArchieveCalendar season={selectedSeason} />
+                <ArchiveCalendar season={selectedSeason} />
               </SectionContainer>
             </>
           )}

@@ -7,7 +7,7 @@ type Props = {
   season: string;
 };
 
-export const ArchieveConstructors = ({ season }: Props) => {
+export const ArchiveConstructors = ({ season }: Props) => {
   const { data, isLoading, isError } = useSeasonConstructorStandings({
     season,
   });

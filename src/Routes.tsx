@@ -7,7 +7,7 @@ import { Calendar } from "./screens/Calendar/Calendar";
 import { TabIconContainer } from "./components/TabIconContainer";
 import { Standings } from "./screens/Standings/Standings";
 import { Home } from "./screens/Home/Home";
-import { Archieve } from "./screens/Archieve/Archieve";
+import { Archive } from "./screens/Archive/Archive";
 
 const ICON_SIZE = 24;
 
@@ -38,10 +38,10 @@ const ButtomStandingsNavigator = () => {
   );
 };
 
-const ArchieveStandingsNavigator = () => {
+const ArchiveStandingsNavigator = () => {
   return (
     <StackNavigator.Navigator screenOptions={{ headerShown: false }}>
-      <StackNavigator.Screen name="Archieve" component={Archieve} />
+      <StackNavigator.Screen name="Archive" component={Archive} />
     </StackNavigator.Navigator>
   );
 };
@@ -119,8 +119,8 @@ const BottomNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="ArchieveStandingsNavigator"
-        component={ArchieveStandingsNavigator}
+        name="ArchiveStandingsNavigator"
+        component={ArchiveStandingsNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <TabIconContainer backgroundColor={color}>

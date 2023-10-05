@@ -7,7 +7,7 @@ type Props = {
   season: string;
 };
 
-export const ArchieveCalendar = ({ season }: Props) => {
+export const ArchiveCalendar = ({ season }: Props) => {
   const { data, isLoading, isError } = useSeasonRaceSchedule({
     season,
   });

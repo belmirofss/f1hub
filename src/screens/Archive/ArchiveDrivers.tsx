@@ -7,7 +7,7 @@ type Props = {
   season: string;
 };
 
-export const ArchieveDrivers = ({ season }: Props) => {
+export const ArchiveDrivers = ({ season }: Props) => {
   const { data, isLoading, isError } = useSeasonDriverStandings({ season });
 
   if (isLoading) {
