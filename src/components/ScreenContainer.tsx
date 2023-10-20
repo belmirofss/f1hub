@@ -42,6 +42,9 @@ export const ScreenContainer = ({ title, children }: Props) => {
             iconColor={Theme.colors.primary}
             size={30}
             onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+            style={{
+              marginRight: -Theme.space.xs, // removes extra right padding
+            }}
           />
         </View>
         {children}
