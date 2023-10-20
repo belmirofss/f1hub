@@ -13,7 +13,6 @@ export const ListItemPts = ({ points }: Props) => {
         justifyContent: "center",
         alignItems: "flex-end",
         width: 52,
-        marginRight: -22, // fixes the right alignment
       }}
     >
       <Text

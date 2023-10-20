@@ -1,10 +1,11 @@
 import { View } from "react-native";
-import { List } from "react-native-paper";
 import { ListItemCounter } from "./ListItemCounter";
 import { ListItemPts } from "./ListItemPts";
 import { ListItemTitle } from "./ListItemTitle";
 import { FlagIcon } from "./FlagIcon";
 import { buildCountryFlagUrlByNationality } from "../helpers/countries";
+import { ListItem } from "./ListItem";
+import { Theme } from "../theme";
 
 export type Props = {
   position: string;
@@ -20,15 +21,27 @@ export const ListItemConstructor = ({
   nationality,
 }: Props) => {
   return (
-    <List.Item
-      left={() => (
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <ListItemCounter value={position} />
-          <FlagIcon url={buildCountryFlagUrlByNationality(nationality)} />
+    <ListItem onClick={() => {}}>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: Theme.space.xs,
+        }}
+      >
+        <View style={{ flexDirection: "row", gap: Theme.space.xs }}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <ListItemCounter value={position} />
+            <FlagIcon url={buildCountryFlagUrlByNationality(nationality)} />
+          </View>
+
+          <ListItemTitle>{constructorName}</ListItemTitle>
         </View>
-      )}
-      right={() => <ListItemPts points={points} />}
-      title={() => <ListItemTitle>{constructorName}</ListItemTitle>}
-    />
+
+        <ListItemPts points={points} />
+      </View>
+    </ListItem>
   );
 };

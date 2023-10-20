@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { List, Text } from "react-native-paper";
+import { Text, TouchableRipple } from "react-native-paper";
 import { useTimezone } from "../hooks/useTimezone";
 import { ListItemCounter } from "./ListItemCounter";
 import { FlagIcon } from "./FlagIcon";
@@ -8,6 +8,8 @@ import { Theme } from "../theme";
 import moment from "moment";
 import { ListItemTitle } from "./ListItemTitle";
 import { ListItemDescription } from "./ListItemDescription";
+import { Ionicons } from "@expo/vector-icons";
+import { ListItem } from "./ListItem";
 
 export type Props = {
   round: string;
@@ -29,34 +31,45 @@ export const ListItemRace = ({
   const timezone = useTimezone();
 
   return (
-    <List.Item
-      left={() => (
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <ListItemCounter value={round} />
-          <FlagIcon url={buildCountryFlagUrlByName(country)} />
-        </View>
-      )}
-      title={
-        <View>
-          <Text
-            variant="labelSmall"
+    <ListItem onClick={() => {}}>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: Theme.space.xs,
+        }}
+      >
+        <View style={{ flexDirection: "row", gap: Theme.space.xs }}>
+          <View
             style={{
-              color: Theme.colors.secondary,
-              fontFamily: Theme.fonts.special,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            {moment(`${date} ${time}`).tz(timezone).format("MMM DD[,] HH:mm")}
-          </Text>
-          <ListItemTitle>{raceName}</ListItemTitle>
+            <ListItemCounter value={round} />
+            <FlagIcon url={buildCountryFlagUrlByName(country)} />
+          </View>
+
+          <View>
+            <Text
+              variant="labelSmall"
+              style={{
+                color: Theme.colors.secondary,
+                fontFamily: Theme.fonts.special,
+              }}
+            >
+              {moment(`${date} ${time}`).tz(timezone).format("MMM DD[,] HH:mm")}
+            </Text>
+            <ListItemTitle>{raceName}</ListItemTitle>
+            <ListItemDescription>{circuitName}</ListItemDescription>
+          </View>
         </View>
-      }
-      description={<ListItemDescription>{circuitName}</ListItemDescription>}
-    />
+
+        <Ionicons name="chevron-forward" size={18} color={Theme.colors.light} />
+      </View>
+    </ListItem>
   );
 };
