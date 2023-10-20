@@ -31,7 +31,11 @@ export const HomeLastRace = ({ race, results }: Props) => {
       <View style={{ marginTop: Theme.space.xs }}>
         <Text
           variant="labelSmall"
-          style={{ color: Theme.colors.light, fontFamily: Theme.fonts.special }}
+          style={{
+            color: Theme.colors.light,
+            fontFamily: Theme.fonts.special,
+            textAlign: "center",
+          }}
         >
           {moment(`${race.date} ${race.time}`)
             .tz(timezone)
