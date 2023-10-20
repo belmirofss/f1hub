@@ -10,8 +10,10 @@ import { ListItemTitle } from "./ListItemTitle";
 import { ListItemDescription } from "./ListItemDescription";
 import { Ionicons } from "@expo/vector-icons";
 import { ListItem } from "./ListItem";
+import { useNavigation } from "@react-navigation/native";
 
 export type Props = {
+  season: string;
   round: string;
   country: string;
   date: string;
@@ -21,6 +23,7 @@ export type Props = {
 };
 
 export const ListItemRace = ({
+  season,
   round,
   country,
   date,
@@ -29,9 +32,12 @@ export const ListItemRace = ({
   circuitName,
 }: Props) => {
   const timezone = useTimezone();
+  const navigation = useNavigation();
 
   return (
-    <ListItem onClick={() => {}}>
+    <ListItem
+      onClick={() => navigation.navigate("RaceResult", { season, round })}
+    >
       <View
         style={{
           flex: 1,

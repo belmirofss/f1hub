@@ -1,6 +1,8 @@
 export declare global {
   namespace ReactNavigation {
-    interface RootParamList {}
+    interface RootParamList {
+      RaceResult: { season: string; round: string };
+    }
   }
 
   declare module "*.otf";

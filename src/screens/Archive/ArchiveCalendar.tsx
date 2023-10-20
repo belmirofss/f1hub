@@ -23,6 +23,7 @@ export const ArchiveCalendar = ({ season }: Props) => {
   return data.MRData.RaceTable.Races.map((race) => (
     <ListItemRace
       key={race.round}
+      season={race.season}
       round={race.round}
       country={race.Circuit.Location.country}
       date={race.date}

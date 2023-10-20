@@ -7,9 +7,16 @@ import { useNavigation, DrawerActions } from "@react-navigation/native";
 type Props = {
   title: string;
   children: ReactNode;
+  showMenu?: boolean;
+  showBack?: boolean;
 };
 
-export const ScreenContainer = ({ title, children }: Props) => {
+export const ScreenContainer = ({
+  title,
+  children,
+  showMenu = true,
+  showBack,
+}: Props) => {
   const navigation = useNavigation();
 
   return (
@@ -24,7 +31,8 @@ export const ScreenContainer = ({ title, children }: Props) => {
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "space-between",
+            justifyContent:
+              showMenu || showBack ? "space-between" : "flex-start",
             alignItems: "center",
           }}
         >
@@ -37,15 +45,29 @@ export const ScreenContainer = ({ title, children }: Props) => {
           >
             {title}
           </Text>
-          <IconButton
-            icon="menu"
-            iconColor={Theme.colors.primary}
-            size={30}
-            onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-            style={{
-              marginRight: -Theme.space.xs, // removes extra right padding
-            }}
-          />
+          {showMenu && (
+            <IconButton
+              icon="menu"
+              iconColor={Theme.colors.primary}
+              size={30}
+              onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+              style={{
+                marginRight: -Theme.space.xs, // removes extra right padding
+              }}
+            />
+          )}
+
+          {showBack && (
+            <IconButton
+              icon="arrow-left"
+              iconColor={Theme.colors.primary}
+              size={30}
+              onPress={() => navigation.goBack}
+              style={{
+                marginRight: -Theme.space.xs, // removes extra right padding
+              }}
+            />
+          )}
         </View>
         {children}
       </View>

@@ -10,6 +10,7 @@ import { Standings } from "./screens/Standings/Standings";
 import { Home } from "./screens/Home/Home";
 import { Archive } from "./screens/Archive/Archive";
 import { About } from "./screens/About/About";
+import { RaceResult } from "./screens/RaceResult/RaceResult";
 
 type BottomNavigatorProps = {
   initialRouteName: string;
@@ -166,7 +167,7 @@ const ArchiveBottomNavigator = () => (
   <BottomNavigator initialRouteName="ArchiveBottomNavigator" />
 );
 
-export const Routes = () => {
+const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -207,5 +208,14 @@ export const Routes = () => {
         options={{ title: "About" }}
       />
     </Drawer.Navigator>
+  );
+};
+
+export const Routes = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
+      <Stack.Screen name="RaceResult" component={RaceResult} />
+    </Stack.Navigator>
   );
 };
