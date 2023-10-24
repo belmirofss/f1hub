@@ -26,7 +26,7 @@ export const ListItemDriver = ({
   nationality,
 }: Props) => {
   return (
-    <ListItem onClick={() => {}}>
+    <ListItem>
       <View
         style={{
           flex: 1,

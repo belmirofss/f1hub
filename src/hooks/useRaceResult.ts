@@ -12,14 +12,14 @@ type Response = {
 };
 
 type Props = {
-    year: string;
-    round: string;
-}
+  season: string;
+  round: string;
+};
 
-export const useRaceResults = ({ year, round }: Props) => {
+export const useRaceResults = ({ season, round }: Props) => {
   return useQuery(
-    ["RACE_RESULTS", year, round],
-    () => Api.get<Response>(`${year}/${round}/results.json`),
+    ["RACE_RESULTS", season, round],
+    () => Api.get<Response>(`${season}/${round}/results.json`),
     {
       select: (response) => response.data,
     }

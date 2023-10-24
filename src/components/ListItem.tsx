@@ -3,7 +3,7 @@ import { TouchableRipple } from "react-native-paper";
 import { Theme } from "../theme";
 
 type Props = {
-  onClick: () => void;
+  onClick?: () => void;
   children: ReactNode;
 };
 
@@ -17,6 +17,7 @@ export const ListItem = ({ children, onClick }: Props) => {
         padding: 3,
         marginHorizontal: -6,
       }}
+      disabled={!onClick}
     >
       {children}
     </TouchableRipple>

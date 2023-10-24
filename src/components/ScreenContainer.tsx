@@ -62,7 +62,7 @@ export const ScreenContainer = ({
               icon="arrow-left"
               iconColor={Theme.colors.primary}
               size={30}
-              onPress={() => navigation.goBack}
+              onPress={navigation.goBack}
               style={{
                 marginRight: -Theme.space.xs, // removes extra right padding
               }}

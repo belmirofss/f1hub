@@ -8,7 +8,6 @@ import { Theme } from "../theme";
 const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : AD_UNIT_ID;
 
 export const Ad = () => {
-  const [count, setCount] = useState(5);
   const [visible, setVisible] = useState(false);
 
   const { adShowed, markAdAsShowed } = useAppContext();
@@ -25,16 +24,6 @@ export const Ad = () => {
   useEffect(() => {
     load();
   }, [load]);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCount((prevCount) => (prevCount > 1 ? prevCount - 1 : 1));
-    }, 1000);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
 
   const showAd = () => {
     show();
@@ -54,8 +43,7 @@ export const Ad = () => {
         duration={5000}
       >
         <Text style={{ color: Theme.colors.primary }}>
-          Showing ad in {count} second{count > 1 ? "s" : ""}. Ad helps us to
-          mantain the app.
+          Showing ad in 5 seconds. Ad helps us to mantain the app.
         </Text>
       </Snackbar>
     </Portal>
