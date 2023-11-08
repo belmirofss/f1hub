@@ -1,42 +1,47 @@
 import { View } from "react-native";
-import { Text, TouchableRipple } from "react-native-paper";
-import { useTimezone } from "../hooks/useTimezone";
+import { Text } from "react-native-paper";
 import { ListItemCounter } from "./ListItemCounter";
 import { FlagIcon } from "./FlagIcon";
-import { buildCountryFlagUrlByName } from "../helpers/countries";
 import { Theme } from "../theme";
-import moment from "moment";
 import { ListItemTitle } from "./ListItemTitle";
 import { ListItemDescription } from "./ListItemDescription";
 import { Ionicons } from "@expo/vector-icons";
 import { ListItem } from "./ListItem";
 import { useNavigation } from "@react-navigation/native";
+import { useLastRaceResults } from "../hooks/useLastRaceResults";
+import { Race } from "../types";
+import { formatDate } from "../helpers/formatDate";
 
 export type Props = {
-  season: string;
-  round: string;
-  country: string;
-  date: string;
-  time: string;
-  raceName: string;
-  circuitName: string;
+  race: Race;
 };
 
-export const ListItemRace = ({
-  season,
-  round,
-  country,
-  date,
-  time,
-  raceName,
-  circuitName,
-}: Props) => {
-  const timezone = useTimezone();
+export const ListItemRace = ({ race }: Props) => {
   const navigation = useNavigation();
+
+  const { data, isLoading, isError } = useLastRaceResults();
+
+  if (isLoading || isError || !data) {
+    return null;
+  }
+
+  const lastRace = data.MRData.RaceTable.Races[0];
+  const existResults =
+    Number(race.season) < Number(lastRace.season) ||
+    (Number(race.season) === Number(lastRace.season) &&
+      Number(race.round) <= Number(lastRace.round));
 
   return (
     <ListItem
-      onClick={() => navigation.navigate("RaceResult", { season, round })}
+      onClick={
+        existResults
+          ? () =>
+              navigation.navigate("RaceResult", {
+                season: race.season,
+                round: race.round,
+              })
+          : undefined
+      }
     >
       <View
         style={{
@@ -55,8 +60,8 @@ export const ListItemRace = ({
               justifyContent: "center",
             }}
           >
-            <ListItemCounter value={round} />
-            <FlagIcon url={buildCountryFlagUrlByName(country)} />
+            <ListItemCounter value={race.round} />
+            <FlagIcon country={race.Circuit.Location.country} />
           </View>
 
           <View>
@@ -67,14 +72,20 @@ export const ListItemRace = ({
                 fontFamily: Theme.fonts.special,
               }}
             >
-              {moment(`${date} ${time}`).tz(timezone).format("MMM DD[,] HH:mm")}
+              {formatDate(race.date, race.time)}
             </Text>
-            <ListItemTitle>{raceName}</ListItemTitle>
-            <ListItemDescription>{circuitName}</ListItemDescription>
+            <ListItemTitle>{race.raceName}</ListItemTitle>
+            <ListItemDescription>
+              {race.Circuit.circuitName}
+            </ListItemDescription>
           </View>
         </View>
 
-        <Ionicons name="chevron-forward" size={18} color={Theme.colors.light} />
+        <Ionicons
+          name={existResults ? "chevron-forward" : "hourglass-outline"}
+          size={18}
+          color={Theme.colors.light}
+        />
       </View>
     </ListItem>
   );

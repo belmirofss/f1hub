@@ -21,8 +21,8 @@ export type FastestLap = {
   AverageSpeed: {
     units: string;
     speed: string;
-  }
-}
+  };
+};
 
 export type Result = {
   number: string;
@@ -34,12 +34,12 @@ export type Result = {
   grid: string;
   laps: string;
   status: string;
-  Time: {
+  Time?: {
     millis: string;
     time: string;
   };
-  FastestLap: FastestLap
-}
+  FastestLap: FastestLap;
+};
 
 export type Race = {
   season: string;
@@ -48,7 +48,7 @@ export type Race = {
   raceName: string;
   Circuit: Circuit;
   date: string;
-  time: string;
+  time?: string;
   FirstPractice: {
     date: string;
     time: string;
@@ -65,7 +65,7 @@ export type Race = {
     date: string;
     time: string;
   };
-  Results?: Result[]
+  Results?: Result[];
 };
 
 export type Driver = {
@@ -77,14 +77,14 @@ export type Driver = {
   familyName: string;
   dateOfBirth: string;
   nationality: string;
-}
+};
 
 export type Constructor = {
   constructorId: string;
   url: string;
   name: string;
   nationality: string;
-}
+};
 
 export type DriverStanding = {
   position: string;
@@ -92,23 +92,23 @@ export type DriverStanding = {
   points: string;
   wins: string;
   Driver: Driver;
-  Constructors: Constructor[]
-}
+  Constructors: Constructor[];
+};
 
 export type ConstructorStanding = {
   position: string;
   positionText: string;
   points: string;
   wins: string;
-  Constructor: Constructor
-}
+  Constructor: Constructor;
+};
 
 export type Season = {
   season: string;
   url: string;
-}
+};
 
 export enum StandingType {
-  DRIVERS = 'drivers',
-  CONSTRUCTORS = 'constructors',
+  DRIVERS = "drivers",
+  CONSTRUCTORS = "constructors",
 }

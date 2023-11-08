@@ -3,24 +3,27 @@ import { Text } from "react-native-paper";
 import { Theme } from "../theme";
 
 type Props = {
-  value: string;
+  time?: string;
+  status?: string;
 };
 
-export const ListItemCounter = ({ value }: Props) => {
+export const ListItemTime = ({ time, status }: Props) => {
+  const timeAlternative = status?.includes("Lap") ? status : "DNF";
+
   return (
     <View
       style={{
-        width: 36,
+        flexDirection: "row",
       }}
     >
       <Text
-        variant="bodyMedium"
+        variant="bodySmall"
         style={{
-          color: Theme.colors.light,
+          color: Theme.colors.secondary,
           fontFamily: Theme.fonts.special,
         }}
       >
-        {value.padStart(2, "0")}.
+        {time ?? timeAlternative}
       </Text>
     </View>
   );

@@ -4,13 +4,15 @@ import { Button, Menu, Text } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Theme } from "../theme";
 
+type Item = {
+  value: string;
+  text: string;
+};
+
 type Props = {
   label: string;
   selected: string;
-  items: {
-    value: string;
-    text: string;
-  }[];
+  items: Item[];
   onSelection: (value: string) => void;
 };
 

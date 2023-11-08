@@ -1,5 +1,3 @@
-import { View } from "react-native";
-import { Text } from "react-native-paper";
 import { useRoute, RouteProp } from "@react-navigation/native";
 import { ScreenContainer } from "../../components/ScreenContainer";
 import { useRaceResults } from "../../hooks/useRaceResult";

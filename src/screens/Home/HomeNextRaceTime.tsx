@@ -1,19 +1,16 @@
 import { View } from "react-native";
 import { List, Text } from "react-native-paper";
-import moment from "moment-timezone";
 import { Theme } from "../../theme";
-import { useTimezone } from "../../hooks/useTimezone";
+import { convertToMoment, getTimezone } from "../../helpers/formatDate";
 
 type Props = {
   title: string;
   date: string;
-  time: string;
+  time?: string;
 };
 
 export const HomeNextRaceTime = ({ title, date, time }: Props) => {
-  const timezone = useTimezone();
-
-  const momentDate = moment(`${date} ${time}`).tz(timezone);
+  const momentDate = convertToMoment(date, time).tz(getTimezone());
 
   return (
     <List.Item

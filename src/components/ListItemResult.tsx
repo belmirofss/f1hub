@@ -1,26 +1,18 @@
 import { ListItemCounter } from "./ListItemCounter";
-import { ListItemPts } from "./ListItemPts";
 import { ListItemTitle } from "./ListItemTitle";
 import { ListItemDescription } from "./ListItemDescription";
 import { FlagIcon } from "./FlagIcon";
 import { View } from "react-native";
 import { ListItem } from "./ListItem";
 import { Theme } from "../theme";
-import { Driver } from "../types";
+import { ListItemTime } from "./ListItemTime";
+import { Result } from "../types";
 
 export type Props = {
-  position: string;
-  points: string;
-  driver: Driver;
-  constructorName: string;
+  result: Result;
 };
 
-export const ListItemDriver = ({
-  position,
-  points,
-  driver,
-  constructorName,
-}: Props) => {
+export const ListItemResult = ({ result }: Props) => {
   return (
     <ListItem>
       <View
@@ -34,19 +26,19 @@ export const ListItemDriver = ({
       >
         <View style={{ flexDirection: "row", gap: Theme.space.xs }}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <ListItemCounter value={position} />
-            <FlagIcon nationality={driver.nationality} />
+            <ListItemCounter value={result.position} />
+            <FlagIcon nationality={result.Driver.nationality} />
           </View>
 
           <View>
             <ListItemTitle>
-              {driver.givenName} {driver.familyName}
+              {result.Driver.givenName} {result.Driver.familyName}
             </ListItemTitle>
-            <ListItemDescription>{constructorName}</ListItemDescription>
+            <ListItemDescription>{result.Constructor.name}</ListItemDescription>
           </View>
         </View>
 
-        <ListItemPts points={points} />
+        <ListItemTime time={result.Time?.time} status={result.status} />
       </View>
     </ListItem>
   );

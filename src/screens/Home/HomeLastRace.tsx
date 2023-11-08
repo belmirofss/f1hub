@@ -1,13 +1,12 @@
 import { View } from "react-native";
-import { Text } from "react-native-paper";
+import { Button, Text } from "react-native-paper";
 import { Race, Result } from "../../types";
 import { SectionContainer } from "../../components/SectionContainer";
-import moment from "moment-timezone";
 import { Theme } from "../../theme";
-import { useTimezone } from "../../hooks/useTimezone";
-import { ListItemDriver } from "../../components/ListItemDriver";
 import { FlagIcon } from "../../components/FlagIcon";
-import { buildCountryFlagUrlByName } from "../../helpers/countries";
+import { ListItemResult } from "../../components/ListItemResult";
+import { formatDate } from "../../helpers/formatDate";
+import { useNavigation } from "@react-navigation/native";
 
 type Props = {
   race: Race;
@@ -15,18 +14,14 @@ type Props = {
 };
 
 export const HomeLastRace = ({ race, results }: Props) => {
-  const timezone = useTimezone();
+  const navigation = useNavigation();
 
   return (
     <SectionContainer
       name="LAST RACE"
       title={race.raceName}
       description={race.Circuit.circuitName}
-      right={
-        <FlagIcon
-          url={buildCountryFlagUrlByName(race.Circuit.Location.country)}
-        />
-      }
+      right={<FlagIcon country={race.Circuit.Location.country} />}
     >
       <View style={{ marginTop: Theme.space.xs }}>
         <Text
@@ -37,23 +32,34 @@ export const HomeLastRace = ({ race, results }: Props) => {
             textAlign: "center",
           }}
         >
-          {moment(`${race.date} ${race.time}`)
-            .tz(timezone)
-            .format("MMM DD[,] HH:mm")}{" "}
-          - Podium
+          {formatDate(race.date, race.time)} - Podium
         </Text>
 
         {results.slice(0, 3).map((result) => (
-          <ListItemDriver
-            key={result.position}
-            position={result.position}
-            points={result.points}
-            givenName={result.Driver.givenName}
-            familyName={result.Driver.familyName}
-            constructorName={result.Constructor.name}
-            nationality={result.Driver.nationality}
-          />
+          <ListItemResult key={result.position} result={result} />
         ))}
+
+        <Button
+          mode="text"
+          onPress={() =>
+            navigation.navigate("RaceResult", {
+              season: race.season,
+              round: race.round,
+            })
+          }
+        >
+          <Text
+            variant="labelSmall"
+            style={{
+              color: Theme.colors.primary,
+              fontFamily: Theme.fonts.special,
+              textAlign: "center",
+              textDecorationLine: "underline",
+            }}
+          >
+            See results
+          </Text>
+        </Button>
       </View>
     </SectionContainer>
   );

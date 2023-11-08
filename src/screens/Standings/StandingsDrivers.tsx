@@ -20,12 +20,10 @@ export const StandingsDrivers = () => {
         key={driver.Driver.driverId}
         position={driver.position}
         points={driver.points}
-        givenName={driver.Driver.givenName}
-        familyName={driver.Driver.familyName}
+        driver={driver.Driver}
         constructorName={driver.Constructors.map(
           (constructor) => constructor.name
         ).join(" - ")}
-        nationality={driver.Driver.nationality}
       />
     )
   );

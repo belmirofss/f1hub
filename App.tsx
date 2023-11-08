@@ -72,10 +72,10 @@ export default function App() {
       <QueryClientProvider client={queryClient}>
         <PaperProvider theme={theme}>
           <AppProvider>
+            <Ad />
             <NavigationContainer>
               <Routes />
             </NavigationContainer>
-            <Ad />
           </AppProvider>
           <StatusBar hidden />
         </PaperProvider>

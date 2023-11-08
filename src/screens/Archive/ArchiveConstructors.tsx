@@ -26,8 +26,7 @@ export const ArchiveConstructors = ({ season }: Props) => {
         key={constructor.Constructor.constructorId}
         position={constructor.position}
         points={constructor.points}
-        constructorName={constructor.Constructor.name}
-        nationality={constructor.Constructor.nationality}
+        konstructor={constructor.Constructor}
       />
     )
   );

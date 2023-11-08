@@ -35,12 +35,10 @@ export const HomeStandings = ({
                 key={driver.Driver.driverId}
                 position={driver.position}
                 points={driver.points}
-                givenName={driver.Driver.givenName}
-                familyName={driver.Driver.familyName}
+                driver={driver.Driver}
                 constructorName={driver.Constructors.map(
                   (constructor) => constructor.name
                 ).join(" - ")}
-                nationality={driver.Driver.nationality}
               />
             ))}
 
@@ -52,8 +50,7 @@ export const HomeStandings = ({
                 key={constructor.Constructor.constructorId}
                 position={constructor.position}
                 points={constructor.points}
-                constructorName={constructor.Constructor.name}
-                nationality={constructor.Constructor.nationality}
+                konstructor={constructor.Constructor}
               />
             ))}
       </View>

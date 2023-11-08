@@ -2,16 +2,13 @@ import { View } from "react-native";
 import { Theme } from "../../theme";
 import { InfoItem } from "../../components/InfoItem";
 import { Race } from "../../types";
-import { useTimezone } from "../../hooks/useTimezone";
-import moment from "moment";
+import { formatDate } from "../../helpers/formatDate";
 
 type Props = {
   race: Race;
 };
 
 export const RaceResultContentInfo = ({ race }: Props) => {
-  const timezone = useTimezone();
-
   return (
     <View
       style={{
@@ -22,15 +19,16 @@ export const RaceResultContentInfo = ({ race }: Props) => {
         title="Season / Round"
         value={`${race.season} / ${race.round}`}
       />
-      <InfoItem
-        title="Date"
-        value={moment(`${race.date} ${race.time}`)
-          .tz(timezone)
-          .format("MMM DD[,] HH:mm")}
-      />
+      <InfoItem title="Date" value={formatDate(race.date, race.time)} />
       <InfoItem title="Country" value={race.Circuit.Location.country} />
       <InfoItem title="Locality" value={race.Circuit.Location.locality} />
       <InfoItem title="Circuit" value={race.Circuit.circuitName} />
+      {!!race.Results?.length && (
+        <InfoItem
+          title="Winner"
+          value={`${race.Results[0].Driver.givenName} ${race.Results[0].Driver.familyName}`}
+        />
+      )}
     </View>
   );
 };

@@ -4,7 +4,7 @@ import { HomeNextRaceTime } from "./HomeNextRaceTime";
 import { SectionContainer } from "../../components/SectionContainer";
 import { SectionTitle } from "../../components/SectionTitle";
 import { FlagIcon } from "../../components/FlagIcon";
-import { buildCountryFlagUrlByName } from "../../helpers/countries";
+import { convertToMoment } from "../../helpers/formatDate";
 
 type Props = {
   races: Race[];
@@ -12,7 +12,7 @@ type Props = {
 
 export const HomeNextRace = ({ races }: Props) => {
   const nextRace = races.filter(
-    (race) => moment(`${race.date} ${race.time}`) > moment()
+    (race) => convertToMoment(race.date, race.time) > moment()
   )[0];
 
   if (!nextRace) {
@@ -24,11 +24,7 @@ export const HomeNextRace = ({ races }: Props) => {
       name="NEXT RACE"
       title={nextRace.raceName}
       description={nextRace.Circuit.circuitName}
-      right={
-        <FlagIcon
-          url={buildCountryFlagUrlByName(nextRace.Circuit.Location.country)}
-        />
-      }
+      right={<FlagIcon country={nextRace.Circuit.Location.country} />}
     >
       <>
         <HomeNextRaceTime
