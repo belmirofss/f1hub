@@ -10,7 +10,7 @@ type Props = {
   round: string;
 };
 
-export const RaceResultContentInfo = ({ season, round }: Props) => {
+export const RaceResultInfo = ({ season, round }: Props) => {
   const { data, isLoading, isError } = useRaceResults({ season, round });
 
   const race = data?.MRData.RaceTable.Races[0];

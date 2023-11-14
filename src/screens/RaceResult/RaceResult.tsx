@@ -1,7 +1,7 @@
 import { useRoute, RouteProp } from "@react-navigation/native";
 import { ScreenContainer } from "../../components/ScreenContainer";
-import { RaceResultContentInfo } from "./RaceResultContentInfo";
-import { RaceResultContentResults } from "./RaceResultContentResults";
+import { RaceResultInfo } from "./RaceResultInfo";
+import { RaceResultResults } from "./RaceResultResults";
 import { Theme } from "../../theme";
 import { Text } from "react-native-paper";
 
@@ -29,8 +29,8 @@ export const RaceResult = () => {
         {raceName}
       </Text>
 
-      <RaceResultContentInfo season={season} round={round} />
-      <RaceResultContentResults season={season} round={round} />
+      <RaceResultInfo season={season} round={round} />
+      <RaceResultResults season={season} round={round} />
     </ScreenContainer>
   );
 };
