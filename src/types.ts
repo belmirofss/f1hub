@@ -81,7 +81,7 @@ export type RaceResults = Race & {
 
 export type RaceSprintResults = Race & { SprintResults?: Result[] };
 
-export type RaceQualifyResults = Race & { QualifyingResults?: QualifyingResult[] };
+export type QualifyingResults = Race & { QualifyingResults?: QualifyingResult[] };
 
 export type Driver = {
   driverId: string;

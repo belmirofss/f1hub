@@ -41,7 +41,7 @@ export const Archive = () => {
 
           {selectedSeason && (
             <>
-              <SectionContainer name="Standings" expansable>
+              <SectionContainer name="Standings" expansable startClosed>
                 <SwitchDriverConstructor
                   selected={selectedStandingType}
                   onChange={setSelectedStandingType}
@@ -56,7 +56,7 @@ export const Archive = () => {
                 )}
               </SectionContainer>
 
-              <SectionContainer name="Calendar" expansable>
+              <SectionContainer name="Calendar" expansable startClosed>
                 <ArchiveCalendar season={selectedSeason} />
               </SectionContainer>
             </>

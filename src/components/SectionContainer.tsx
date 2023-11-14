@@ -5,6 +5,7 @@ import { Theme } from "../theme";
 import { SectionTitle } from "./SectionTitle";
 import { Loading } from "./Loading";
 import { Error } from "./Error";
+import { TouchableRipple } from "react-native-paper";
 
 type Props = {
   name: string;
@@ -15,6 +16,7 @@ type Props = {
   expansable?: boolean;
   isLoading?: boolean;
   isError?: boolean;
+  startClosed?: boolean;
 };
 
 export const SectionContainer = ({
@@ -26,28 +28,34 @@ export const SectionContainer = ({
   expansable,
   isLoading,
   isError,
+  startClosed,
 }: Props) => {
-  const [contentVisible, setContentVisible] = useState(true);
+  const [contentVisible, setContentVisible] = useState(!startClosed);
 
   return (
     <>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
+      <TouchableRipple
+        onPress={() => setContentVisible((isVisible) => !isVisible)}
+        rippleColor={Theme.colors.darken}
+        disabled={!expansable}
       >
-        <SectionTitle>{name}</SectionTitle>
-        {expansable && !isLoading && (
-          <IconButton
-            icon={contentVisible ? "chevron-up" : "chevron-down"}
-            size={28}
-            iconColor={Theme.colors.primary}
-            onPress={() => setContentVisible((isVisible) => !isVisible)}
-          />
-        )}
-      </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <SectionTitle>{name}</SectionTitle>
+          {expansable && !isLoading && (
+            <IconButton
+              icon={contentVisible ? "chevron-up" : "chevron-down"}
+              size={28}
+              iconColor={Theme.colors.primary}
+            />
+          )}
+        </View>
+      </TouchableRipple>
 
       {isLoading ? (
         <Loading />

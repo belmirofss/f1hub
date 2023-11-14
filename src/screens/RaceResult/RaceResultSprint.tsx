@@ -10,7 +10,8 @@ type Props = {
 export const RaceResultSprint = ({ season, round }: Props) => {
   const { data, isLoading, isError } = useSprintResults({ season, round });
 
-  const results = data?.MRData.RaceTable.Races[0].SprintResults;
+  const race = data?.MRData.RaceTable.Races[0];
+  const results = race?.SprintResults;
 
   if (!isLoading && !isError && !results?.length) {
     return null;
@@ -22,6 +23,7 @@ export const RaceResultSprint = ({ season, round }: Props) => {
       expansable
       isLoading={isLoading}
       isError={isError}
+      startClosed
     >
       {results?.map((result) => (
         <ListItemResult key={result.position} result={result} />

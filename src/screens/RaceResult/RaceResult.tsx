@@ -1,10 +1,12 @@
 import { useRoute, RouteProp } from "@react-navigation/native";
+import { View } from "react-native";
 import { ScreenContainer } from "../../components/ScreenContainer";
 import { RaceResultInfo } from "./RaceResultInfo";
 import { RaceResultResults } from "./RaceResultResults";
 import { Theme } from "../../theme";
 import { Text } from "react-native-paper";
 import { RaceResultSprint } from "./RaceResultSprint";
+import { RaceQualifyingResults } from "./RaceQualifying";
 
 type ParamList = {
   RaceResult: {
@@ -30,9 +32,16 @@ export const RaceResult = () => {
         {raceName}
       </Text>
 
-      <RaceResultInfo season={season} round={round} />
-      <RaceResultResults season={season} round={round} />
-      <RaceResultSprint season={season} round={round} />
+      <View
+        style={{
+          marginTop: Theme.space.xs,
+        }}
+      >
+        <RaceResultInfo season={season} round={round} />
+        <RaceResultResults season={season} round={round} />
+        <RaceResultSprint season={season} round={round} />
+        <RaceQualifyingResults season={season} round={round} />
+      </View>
     </ScreenContainer>
   );
 };
