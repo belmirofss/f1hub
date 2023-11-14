@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { View } from "react-native";
 import { Theme } from "../../theme";
 import { InfoItem } from "../../components/InfoItem";
@@ -14,6 +15,15 @@ export const RaceResultInfo = ({ season, round }: Props) => {
   const { data, isLoading, isError } = useRaceResults({ season, round });
 
   const race = data?.MRData.RaceTable.Races[0];
+  const results = race?.Results || [];
+  const winner = results[0] ? results[0].Driver : null;
+  const fastestLap = useMemo(() => {
+    const result = results.filter((r) => r.FastestLap?.rank === "1");
+
+    if (result.length === 1) {
+      return result[0];
+    }
+  }, [results]);
 
   return (
     <SectionContainer
@@ -36,10 +46,16 @@ export const RaceResultInfo = ({ season, round }: Props) => {
           <InfoItem title="Country" value={race.Circuit.Location.country} />
           <InfoItem title="Locality" value={race.Circuit.Location.locality} />
           <InfoItem title="Circuit" value={race.Circuit.circuitName} />
-          {!!race.Results?.length && (
+          {!!winner && (
             <InfoItem
               title="Winner"
-              value={`${race.Results[0].Driver.givenName} ${race.Results[0].Driver.familyName}`}
+              value={`${winner.givenName} ${winner.familyName}`}
+            />
+          )}
+          {!!fastestLap && (
+            <InfoItem
+              title="Fastest lap"
+              value={`${fastestLap.Driver.givenName} ${fastestLap.Driver.familyName} / ${fastestLap.FastestLap.Time.time}`}
             />
           )}
         </View>

@@ -22,7 +22,7 @@ import { Ad } from "./src/components/Ad";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 15,
+      staleTime: 1000 * 60 * 5, // 5 minutes
     },
   },
 });
