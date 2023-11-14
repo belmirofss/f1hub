@@ -41,6 +41,18 @@ export type Result = {
   FastestLap: FastestLap;
 };
 
+export type QualifyingResult = {
+  number: string;
+  position: string;
+  points: string;
+  Driver: Driver;
+  Constructor: Constructor;
+  grid: string;
+  Q1: string;
+  Q2: string;
+  Q3: string
+};
+
 export type Race = {
   season: string;
   round: string;
@@ -61,9 +73,15 @@ export type Race = {
     date: string;
     time: string;
   };
-  SprintResults?: Result[];
+};
+
+export type RaceResults = Race & {
   Results?: Result[];
 };
+
+export type RaceSprintResults = Race & { SprintResults?: Result[] };
+
+export type RaceQualifyResults = Race & { QualifyingResults?: QualifyingResult[] };
 
 export type Driver = {
   driverId: string;
