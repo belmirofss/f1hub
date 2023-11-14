@@ -3,12 +3,16 @@ import { ScrollView, View } from "react-native";
 import { Theme } from "../theme";
 import { IconButton, Text } from "react-native-paper";
 import { useNavigation, DrawerActions } from "@react-navigation/native";
+import { Loading } from "./Loading";
+import { Error } from "./Error";
 
 type Props = {
   title: string;
   children: ReactNode;
   showMenu?: boolean;
   showBack?: boolean;
+  isLoading?: boolean;
+  isError?: boolean;
 };
 
 export const ScreenContainer = ({
@@ -16,6 +20,8 @@ export const ScreenContainer = ({
   children,
   showMenu = true,
   showBack,
+  isLoading,
+  isError,
 }: Props) => {
   const navigation = useNavigation();
 
@@ -69,7 +75,7 @@ export const ScreenContainer = ({
             />
           )}
         </View>
-        {children}
+        {isLoading ? <Loading /> : isError ? <Error /> : children}
       </View>
     </ScrollView>
   );

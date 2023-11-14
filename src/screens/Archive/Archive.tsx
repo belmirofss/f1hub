@@ -2,8 +2,6 @@ import { View } from "react-native";
 import { useState } from "react";
 import { ScreenContainer } from "../../components/ScreenContainer";
 import { useSeasonsList } from "../../hooks/useSeasonsList";
-import { Loading } from "../../components/Loading";
-import { Error } from "../../components/Error";
 import { Picker } from "../../components/Picker";
 import { Theme } from "../../theme";
 import { StandingType } from "../../types";
@@ -22,12 +20,8 @@ export const Archive = () => {
   const { data, isLoading, isError } = useSeasonsList();
 
   return (
-    <ScreenContainer title="Archive">
-      {isLoading ? (
-        <Loading />
-      ) : isError || !data ? (
-        <Error />
-      ) : (
+    <ScreenContainer title="Archive" isLoading={isLoading} isError={isError}>
+      {data && (
         <>
           <View
             style={{ marginTop: Theme.space.xs, marginBottom: Theme.space.xs }}

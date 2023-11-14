@@ -10,11 +10,11 @@ export const StandingsContructors = () => {
     return <Loading />;
   }
 
-  if (isError || !data) {
+  if (isError) {
     return <Error />;
   }
 
-  return data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings.map(
+  return data?.MRData.StandingsTable.StandingsLists[0].ConstructorStandings.map(
     (constructor) => (
       <ListItemConstructor
         key={constructor.Constructor.constructorId}

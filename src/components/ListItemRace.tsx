@@ -39,6 +39,7 @@ export const ListItemRace = ({ race }: Props) => {
               navigation.navigate("RaceResult", {
                 season: race.season,
                 round: race.round,
+                raceName: race.raceName,
               })
           : undefined
       }

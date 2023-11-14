@@ -10,11 +10,11 @@ export const StandingsDrivers = () => {
     return <Loading />;
   }
 
-  if (isError || !data) {
+  if (isError) {
     return <Error />;
   }
 
-  return data.MRData.StandingsTable.StandingsLists[0].DriverStandings.map(
+  return data?.MRData.StandingsTable.StandingsLists[0].DriverStandings.map(
     (driver) => (
       <ListItemDriver
         key={driver.Driver.driverId}
