@@ -61,10 +61,7 @@ export type Race = {
     date: string;
     time: string;
   };
-  Sprint?: {
-    date: string;
-    time: string;
-  };
+  SprintResults?: Result[];
   Results?: Result[];
 };
 

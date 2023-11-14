@@ -4,6 +4,7 @@ import { RaceResultInfo } from "./RaceResultInfo";
 import { RaceResultResults } from "./RaceResultResults";
 import { Theme } from "../../theme";
 import { Text } from "react-native-paper";
+import { RaceResultSprint } from "./RaceResultSprint";
 
 type ParamList = {
   RaceResult: {
@@ -31,6 +32,7 @@ export const RaceResult = () => {
 
       <RaceResultInfo season={season} round={round} />
       <RaceResultResults season={season} round={round} />
+      <RaceResultSprint season={season} round={round} />
     </ScreenContainer>
   );
 };

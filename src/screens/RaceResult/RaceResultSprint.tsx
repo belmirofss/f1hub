@@ -1,16 +1,16 @@
 import { ListItemResult } from "../../components/ListItemResult";
 import { SectionContainer } from "../../components/SectionContainer";
-import { useRaceResults } from "../../hooks/useRaceResult";
+import { useSprintResults } from "../../hooks/useSprintResults";
 
 type Props = {
   season: string;
   round: string;
 };
 
-export const RaceResultResults = ({ season, round }: Props) => {
-  const { data, isLoading, isError } = useRaceResults({ season, round });
+export const RaceResultSprint = ({ season, round }: Props) => {
+  const { data, isLoading, isError } = useSprintResults({ season, round });
 
-  const results = data?.MRData.RaceTable.Races[0].Results;
+  const results = data?.MRData.RaceTable.Races[0].SprintResults;
 
   if (!isLoading && !isError && !results?.length) {
     return null;
@@ -18,7 +18,7 @@ export const RaceResultResults = ({ season, round }: Props) => {
 
   return (
     <SectionContainer
-      name="Results"
+      name="Sprint"
       expansable
       isLoading={isLoading}
       isError={isError}
