@@ -2,6 +2,7 @@ export declare global {
   namespace ReactNavigation {
     interface RootParamList {
       RaceResult: { season: string; round: string; raceName: string };
+      RaceSchedule: { season: string; round: string; raceName: string };
     }
   }
 

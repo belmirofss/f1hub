@@ -42,13 +42,15 @@ export const HomeNextRace = () => {
             />
           )}
 
-          <HomeNextRaceTime
-            title="Qualifying"
-            date={nextRace.Qualifying.date}
-            time={nextRace.Qualifying.time}
-          />
+          {nextRace.Qualifying && (
+            <HomeNextRaceTime
+              title="Qualifying"
+              date={nextRace.Qualifying.date}
+              time={nextRace.Qualifying.time}
+            />
+          )}
 
-          {!nextRace.Sprint && (
+          {!nextRace.Sprint && nextRace.SecondPractice && (
             <HomeNextRaceTime
               title="Practice 2"
               date={nextRace.SecondPractice.date}
@@ -56,11 +58,13 @@ export const HomeNextRace = () => {
             />
           )}
 
-          <HomeNextRaceTime
-            title="Practice 1"
-            date={nextRace.FirstPractice.date}
-            time={nextRace.FirstPractice.time}
-          />
+          {nextRace.FirstPractice && (
+            <HomeNextRaceTime
+              title="Practice 1"
+              date={nextRace.FirstPractice.date}
+              time={nextRace.FirstPractice.time}
+            />
+          )}
         </>
       )}
     </SectionContainer>

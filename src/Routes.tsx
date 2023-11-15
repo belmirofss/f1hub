@@ -11,6 +11,7 @@ import { Home } from "./screens/Home/Home";
 import { Archive } from "./screens/Archive/Archive";
 import { About } from "./screens/About/About";
 import { RaceResult } from "./screens/RaceResult/RaceResult";
+import { RaceSchedule } from "./screens/RaceSchedule/RaceSchedule";
 
 type BottomNavigatorProps = {
   initialRouteName: string;
@@ -216,6 +217,7 @@ export const Routes = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
       <Stack.Screen name="RaceResult" component={RaceResult} />
+      <Stack.Screen name="RaceSchedule" component={RaceSchedule} />
     </Stack.Navigator>
   );
 };

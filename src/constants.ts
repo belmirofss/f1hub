@@ -1,3 +1,4 @@
+export const YEAR_SPRINT_RACES_STARTED = 2021;
 export const F1_API = "https://ergast.com/api/f1/";
 export const COUNTRY_FLAGS_URL = "https://flagsapi.com/";
 export const BUY_ME_A_COFFEE_URL = "https://www.buymeacoffee.com/belmirofss";

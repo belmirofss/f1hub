@@ -33,15 +33,12 @@ export const ListItemRace = ({ race }: Props) => {
 
   return (
     <ListItem
-      onClick={
-        existResults
-          ? () =>
-              navigation.navigate("RaceResult", {
-                season: race.season,
-                round: race.round,
-                raceName: race.raceName,
-              })
-          : undefined
+      onClick={() =>
+        navigation.navigate(existResults ? "RaceResult" : "RaceSchedule", {
+          season: race.season,
+          round: race.round,
+          raceName: race.raceName,
+        })
       }
     >
       <View
@@ -66,15 +63,37 @@ export const ListItemRace = ({ race }: Props) => {
           </View>
 
           <View>
-            <Text
-              variant="labelSmall"
-              style={{
-                color: Theme.colors.secondary,
-                fontFamily: Theme.fonts.special,
-              }}
-            >
-              {formatDate(race.date, race.time)}
-            </Text>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Text
+                variant="labelSmall"
+                style={{
+                  color: Theme.colors.secondary,
+                  fontFamily: Theme.fonts.special,
+                }}
+              >
+                {formatDate(race.date, race.time)}{" "}
+              </Text>
+              {!existResults && (
+                <View
+                  style={{
+                    paddingVertical: 1,
+                    paddingHorizontal: 4,
+                    borderRadius: Theme.roundness,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: Theme.fonts.special,
+                      color: Theme.colors.primary,
+                      fontSize: 8,
+                    }}
+                  >
+                    | SOON
+                  </Text>
+                </View>
+              )}
+            </View>
+
             <ListItemTitle>{race.raceName}</ListItemTitle>
             <ListItemDescription>
               {race.Circuit.circuitName}
@@ -82,11 +101,7 @@ export const ListItemRace = ({ race }: Props) => {
           </View>
         </View>
 
-        <Ionicons
-          name={existResults ? "chevron-forward" : "hourglass-outline"}
-          size={18}
-          color={Theme.colors.light}
-        />
+        <Ionicons name="chevron-forward" size={18} color={Theme.colors.light} />
       </View>
     </ListItem>
   );

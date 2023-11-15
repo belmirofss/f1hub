@@ -7,6 +7,7 @@ import { Theme } from "../../theme";
 import { Text } from "react-native-paper";
 import { RaceResultSprint } from "./RaceResultSprint";
 import { RaceQualifyingResults } from "./RaceQualifying";
+import { useRaceSchedule } from "../../hooks/useRaceSchedule";
 
 type ParamList = {
   RaceResult: {
@@ -20,8 +21,18 @@ export const RaceResult = () => {
   const route = useRoute<RouteProp<ParamList, "RaceResult">>();
   const { season, round, raceName } = route.params;
 
+  const { data, isLoading, isError } = useRaceSchedule({ season, round });
+
+  const race = data?.MRData.RaceTable.Races[0];
+
   return (
-    <ScreenContainer title="RACE RESULT" showBack showMenu={false}>
+    <ScreenContainer
+      title="RACE RESULT"
+      showBack
+      showMenu={false}
+      isLoading={isLoading}
+      isError={isError}
+    >
       <Text
         variant="titleLarge"
         style={{
@@ -39,7 +50,7 @@ export const RaceResult = () => {
       >
         <RaceResultInfo season={season} round={round} />
         <RaceResultResults season={season} round={round} />
-        <RaceResultSprint season={season} round={round} />
+        {race?.Sprint && <RaceResultSprint season={season} round={round} />}
         <RaceQualifyingResults season={season} round={round} />
       </View>
     </ScreenContainer>

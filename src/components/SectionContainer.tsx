@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 import { View } from "react-native";
-import { Text, IconButton } from "react-native-paper";
+import { Text, IconButton, ActivityIndicator } from "react-native-paper";
 import { Theme } from "../theme";
 import { SectionTitle } from "./SectionTitle";
 import { Loading } from "./Loading";
@@ -37,13 +37,15 @@ export const SectionContainer = ({
       <TouchableRipple
         onPress={() => setContentVisible((isVisible) => !isVisible)}
         rippleColor={Theme.colors.darken}
-        disabled={!expansable}
+        disabled={!expansable || isLoading}
       >
         <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            minHeight: 56,
+            marginTop: Theme.space.xs,
           }}
         >
           <SectionTitle>{name}</SectionTitle>
@@ -54,25 +56,28 @@ export const SectionContainer = ({
               iconColor={Theme.colors.primary}
             />
           )}
+          {isLoading && (
+            <ActivityIndicator
+              size="small"
+              color={Theme.colors.secondary}
+              style={{ marginRight: Theme.space.xs }}
+            />
+          )}
         </View>
       </TouchableRipple>
 
-      {isLoading ? (
-        <Loading />
-      ) : isError ? (
-        <Error />
-      ) : (
-        <>
-          <View
-            style={{
-              borderBottomColor: Theme.colors.primary,
-              borderBottomWidth: 1,
-              paddingBottom: 6,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
+      <View
+        style={{
+          borderBottomColor: Theme.colors.primary,
+          borderBottomWidth: 1,
+          paddingBottom: 6,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        {contentVisible && (
+          <>
             <View>
               {title && (
                 <Text
@@ -98,10 +103,11 @@ export const SectionContainer = ({
               )}
             </View>
             {right}
-          </View>
-          {contentVisible && children}
-        </>
-      )}
+          </>
+        )}
+      </View>
+
+      {contentVisible && <>{isError ? <Error /> : children}</>}
     </>
   );
 };

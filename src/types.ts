@@ -53,7 +53,7 @@ export type QualifyingResult = {
   Q3: string
 };
 
-export type Race = {
+export type RaceBase = {
   season: string;
   round: string;
   url: string;
@@ -61,27 +61,34 @@ export type Race = {
   Circuit: Circuit;
   date: string;
   time?: string;
-  FirstPractice: {
+}
+
+export type Race = RaceBase & {
+  FirstPractice?: {
     date: string;
     time: string;
   };
-  Qualifying: {
+  Qualifying?: {
     date: string;
     time: string;
   };
-  SecondPractice: {
+  SecondPractice?: {
+    date: string;
+    time: string;
+  };
+  Sprint?: {
     date: string;
     time: string;
   };
 };
 
-export type RaceResults = Race & {
+export type RaceResults = RaceBase & {
   Results?: Result[];
 };
 
-export type RaceSprintResults = Race & { SprintResults?: Result[] };
+export type RaceSprintResults = RaceBase & { SprintResults?: Result[] };
 
-export type QualifyingResults = Race & { QualifyingResults?: QualifyingResult[] };
+export type QualifyingResults = RaceBase & { QualifyingResults?: QualifyingResult[] };
 
 export type Driver = {
   driverId: string;

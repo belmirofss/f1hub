@@ -1,6 +1,8 @@
+import { Text } from "react-native-paper";
 import { ListItemResult } from "../../components/ListItemResult";
 import { SectionContainer } from "../../components/SectionContainer";
 import { useSprintResults } from "../../hooks/useSprintResults";
+import { Theme } from "../../theme";
 
 type Props = {
   season: string;
@@ -13,10 +15,6 @@ export const RaceResultSprint = ({ season, round }: Props) => {
   const race = data?.MRData.RaceTable.Races[0];
   const results = race?.SprintResults;
 
-  if (!isLoading && !isError && !results?.length) {
-    return null;
-  }
-
   return (
     <SectionContainer
       name="Sprint"
@@ -28,6 +26,18 @@ export const RaceResultSprint = ({ season, round }: Props) => {
       {results?.map((result) => (
         <ListItemResult key={result.position} result={result} />
       ))}
+
+      {!results?.length && (
+        <Text
+          style={{
+            fontFamily: Theme.fonts.special,
+            color: Theme.colors.primary,
+            marginTop: Theme.space.xs,
+          }}
+        >
+          No sprint race
+        </Text>
+      )}
     </SectionContainer>
   );
 };

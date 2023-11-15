@@ -38,7 +38,7 @@ export const ListItemQualifying = ({ result }: Props) => {
           </View>
         </View>
 
-        <ListItemTime time={result.Q3 ?? result.Q2 ?? result.Q1 ?? "-"} />
+        <ListItemTime time={result.Q3 || result.Q2 || result.Q1 || "NO TIME"} />
       </View>
     </ListItem>
   );
