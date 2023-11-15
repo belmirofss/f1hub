@@ -45,7 +45,6 @@ export const SectionContainer = ({
             justifyContent: "space-between",
             alignItems: "center",
             minHeight: 56,
-            marginTop: Theme.space.xs,
           }}
         >
           <SectionTitle>{name}</SectionTitle>

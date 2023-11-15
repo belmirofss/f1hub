@@ -9,9 +9,7 @@ import { BuyMeACoffe } from "../../components/BuyMeACoffee";
 export const Home = () => {
   return (
     <ScreenContainer title="Home">
-      <View style={{ marginTop: Theme.space.xs }}>
-        <HomeNextRace />
-      </View>
+      <HomeNextRace />
 
       <View style={{ marginTop: Theme.space.xs }}>
         <HomeLastRace />

@@ -74,23 +74,16 @@ export const ListItemRace = ({ race }: Props) => {
                 {formatDate(race.date, race.time)}{" "}
               </Text>
               {!existResults && (
-                <View
+                <Text
                   style={{
-                    paddingVertical: 1,
-                    paddingHorizontal: 4,
-                    borderRadius: Theme.roundness,
+                    fontFamily: Theme.fonts.special,
+                    color: Theme.colors.primary,
+                    fontSize: 7,
+                    paddingLeft: 4,
                   }}
                 >
-                  <Text
-                    style={{
-                      fontFamily: Theme.fonts.special,
-                      color: Theme.colors.primary,
-                      fontSize: 8,
-                    }}
-                  >
-                    | SOON
-                  </Text>
-                </View>
+                  SOON
+                </Text>
               )}
             </View>
 

@@ -49,8 +49,29 @@ export const RaceResult = () => {
         }}
       >
         <RaceResultInfo season={season} round={round} />
+      </View>
+
+      <View
+        style={{
+          marginTop: Theme.space.xs,
+        }}
+      >
         <RaceResultResults season={season} round={round} />
+      </View>
+
+      <View
+        style={{
+          marginTop: Theme.space.xs,
+        }}
+      >
         {race?.Sprint && <RaceResultSprint season={season} round={round} />}
+      </View>
+
+      <View
+        style={{
+          marginTop: Theme.space.xs,
+        }}
+      >
         <RaceQualifyingResults season={season} round={round} />
       </View>
     </ScreenContainer>
