@@ -75,7 +75,7 @@ export const SectionContainer = ({
           alignItems: "center",
         }}
       >
-        {contentVisible && (
+        {contentVisible && !isLoading && (
           <>
             <View>
               {title && (
@@ -106,7 +106,7 @@ export const SectionContainer = ({
         )}
       </View>
 
-      {contentVisible && <>{isError ? <Error /> : children}</>}
+      {contentVisible && !isLoading && <>{isError ? <Error /> : children}</>}
     </>
   );
 };
