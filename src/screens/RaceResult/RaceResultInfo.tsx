@@ -5,6 +5,8 @@ import { InfoItem } from "../../components/InfoItem";
 import { formatDate } from "../../helpers/formatDate";
 import { useRaceResults } from "../../hooks/useRaceResult";
 import { SectionContainer } from "../../components/SectionContainer";
+import { useQualifyingResults } from "../../hooks/useQualifyingResults";
+import { useSprintResults } from "../../hooks/useSprintResults";
 
 type Props = {
   season: string;
@@ -12,11 +14,29 @@ type Props = {
 };
 
 export const RaceResultInfo = ({ season, round }: Props) => {
-  const { data, isLoading, isError } = useRaceResults({ season, round });
+  const {
+    data: raceResultsData,
+    isLoading: isLoadingRaceResults,
+    isError: isErrorRaceResults,
+  } = useRaceResults({ season, round });
 
-  const race = data?.MRData.RaceTable.Races[0];
+  const {
+    data: qualifyingResultsData,
+    isLoading: isLoadingQualifyingResults,
+    isError: isErrorQualifyingResults,
+  } = useQualifyingResults({ season, round });
+
+  const {
+    data: sprintResultsData,
+    isLoading: isLoadingSprintResults,
+    isError: isErrorSprintResults,
+  } = useSprintResults({ season, round });
+
+  const race = raceResultsData?.MRData.RaceTable.Races[0];
   const results = race?.Results || [];
   const winner = results[0] ? results[0].Driver : null;
+  const second = results[1] ? results[1].Driver : null;
+  const third = results[2] ? results[2].Driver : null;
   const fastestLap = useMemo(() => {
     const result = results.filter((r) => r.FastestLap?.rank === "1");
 
@@ -25,12 +45,26 @@ export const RaceResultInfo = ({ season, round }: Props) => {
     }
   }, [results]);
 
+  const sprint = sprintResultsData?.MRData.RaceTable.Races[0];
+  const sprintResults = sprint?.SprintResults || [];
+  const sprintWinner = sprintResults[0] ? sprintResults[0].Driver : null;
+
+  const qualifying = qualifyingResultsData?.MRData.RaceTable.Races[0];
+  const qualifyingResults = qualifying?.QualifyingResults || [];
+  const pole = qualifyingResults[0] ? qualifyingResults[0].Driver : null;
+
   return (
     <SectionContainer
       name="Info"
       expansable
-      isLoading={isLoading}
-      isError={isError}
+      isLoading={
+        isLoadingRaceResults ||
+        isLoadingSprintResults ||
+        isLoadingQualifyingResults
+      }
+      isError={
+        isErrorRaceResults || isErrorSprintResults || isErrorQualifyingResults
+      }
     >
       {race && (
         <View
@@ -52,10 +86,34 @@ export const RaceResultInfo = ({ season, round }: Props) => {
               value={`${winner.givenName} ${winner.familyName}`}
             />
           )}
+          {!!second && (
+            <InfoItem
+              title="Second"
+              value={`${second.givenName} ${second.familyName}`}
+            />
+          )}
+          {!!third && (
+            <InfoItem
+              title="Third"
+              value={`${third.givenName} ${third.familyName}`}
+            />
+          )}
           {!!fastestLap && (
             <InfoItem
               title="Fastest lap"
               value={`${fastestLap.Driver.givenName} ${fastestLap.Driver.familyName} / ${fastestLap.FastestLap.Time.time}`}
+            />
+          )}
+          {!!sprintWinner && (
+            <InfoItem
+              title="Sprint winner"
+              value={`${sprintWinner.givenName} ${sprintWinner.familyName}`}
+            />
+          )}
+          {!!pole && (
+            <InfoItem
+              title="Pole position"
+              value={`${pole.givenName} ${pole.familyName}`}
             />
           )}
         </View>
