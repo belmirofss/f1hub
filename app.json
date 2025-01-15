@@ -42,8 +42,15 @@
             "buildToolsVersion": "35.0.0"
           },
           "ios": {
-            "deploymentTarget": "15.1"
+            "deploymentTarget": "15.1",
+            "useFrameworks": "static"
           }
+        }
+      ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-6575307967199593~6297208864"
         }
       ],
       "expo-font"
@@ -53,8 +60,5 @@
         "projectId": "f6e6edea-1266-4a9b-b384-7d1db0b1342a"
       }
     }
-  },
-  "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-6575307967199593~6297208864"
   }
 }
