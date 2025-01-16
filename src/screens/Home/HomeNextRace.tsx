@@ -5,6 +5,7 @@ import { SectionTitle } from "../../components/SectionTitle";
 import { FlagIcon } from "../../components/FlagIcon";
 import { convertToMoment } from "../../helpers/formatDate";
 import { useCurrentRaceSchedule } from "../../hooks/useCurrentRaceSchedule";
+import React from "react";
 
 export const HomeNextRace = () => {
   const { data, isLoading, isError } = useCurrentRaceSchedule();
@@ -13,13 +14,9 @@ export const HomeNextRace = () => {
     (race) => convertToMoment(race.date, race.time) > moment()
   )[0];
 
-  if (!nextRace && !isLoading) {
-    return <SectionTitle>NO NEXT RACE</SectionTitle>;
-  }
-
   return (
     <SectionContainer
-      name="NEXT RACE"
+      name={nextRace ? "NEXT RACE" : "NO RACE SCHEDULED"}
       title={nextRace?.raceName}
       description={nextRace?.Circuit.circuitName}
       right={<FlagIcon country={nextRace?.Circuit.Location.country} />}

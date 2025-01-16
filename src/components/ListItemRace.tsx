@@ -27,9 +27,10 @@ export const ListItemRace = ({ race }: Props) => {
 
   const lastRace = data.MRData.RaceTable.Races[0];
   const existResults =
-    Number(race.season) < Number(lastRace.season) ||
-    (Number(race.season) === Number(lastRace.season) &&
-      Number(race.round) <= Number(lastRace.round));
+    lastRace &&
+    (Number(race.season) < Number(lastRace.season) ||
+      (Number(race.season) === Number(lastRace.season) &&
+        Number(race.round) <= Number(lastRace.round)));
 
   return (
     <ListItem

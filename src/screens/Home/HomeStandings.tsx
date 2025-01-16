@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { View } from "react-native";
 import { SwitchDriverConstructor } from "../../components/SwitchDriverConstructor";
-import { ConstructorStanding, DriverStanding, StandingType } from "../../types";
+import { StandingType } from "../../types";
 import { SectionContainer } from "../../components/SectionContainer";
 import { ListItemDriver } from "../../components/ListItemDriver";
 import { ListItemConstructor } from "../../components/ListItemConstructor";
@@ -27,11 +27,13 @@ export const HomeStandings = () => {
 
   const driverStandings =
     driverStandingsData?.MRData.StandingsTable.StandingsLists[0]
-      .DriverStandings;
+      ?.DriverStandings;
 
   const constructorStandings =
     constructorStandingsData?.MRData.StandingsTable.StandingsLists[0]
-      .ConstructorStandings;
+      ?.ConstructorStandings;
+
+  if (!constructorStandings && !constructorStandings) return null;
 
   return (
     <SectionContainer
@@ -46,7 +48,8 @@ export const HomeStandings = () => {
             onChange={setSelectedStandingType}
           />
 
-          {selectedStandingType === StandingType.DRIVERS &&
+          {driverStandings &&
+            selectedStandingType === StandingType.DRIVERS &&
             driverStandings
               .slice(0, 3)
               .map((driver) => (
@@ -61,7 +64,8 @@ export const HomeStandings = () => {
                 />
               ))}
 
-          {selectedStandingType === StandingType.CONSTRUCTORS &&
+          {constructorStandings &&
+            selectedStandingType === StandingType.CONSTRUCTORS &&
             constructorStandings
               .slice(0, 3)
               .map((constructor) => (

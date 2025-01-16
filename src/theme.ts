@@ -7,11 +7,11 @@ export const Theme = {
     light: "#B3B3B3",
   },
   space: {
-    xs: 12,
-    s: 24,
-    m: 32,
-    l: 44,
-    xl: 56,
+    xs: 8,
+    s: 20,
+    m: 28,
+    l: 36,
+    xl: 48,
   },
   fonts: {
     special: "Horizon",

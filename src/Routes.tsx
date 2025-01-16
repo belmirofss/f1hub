@@ -72,7 +72,7 @@ const BottomNavigator = ({ initialRouteName }: BottomNavigatorProps) => {
         tabBarInactiveTintColor: Theme.colors.darken,
         tabBarStyle: {
           backgroundColor: Theme.colors.darken,
-          height: 56,
+          height: 100,
           borderTopWidth: 0,
           shadowOffset: {
             width: 0,

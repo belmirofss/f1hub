@@ -14,7 +14,9 @@ export const HomeLastRace = () => {
   const { data, isLoading, isError } = useLastRaceResults();
 
   const race = data?.MRData.RaceTable.Races[0];
-  const results = data?.MRData.RaceTable.Races[0].Results || [];
+  const results = race?.Results || [];
+
+  if (!race) return null;
 
   return (
     <SectionContainer

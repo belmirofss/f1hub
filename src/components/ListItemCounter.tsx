@@ -16,7 +16,7 @@ export const ListItemCounter = ({ value }: Props) => {
       <Text
         variant="bodyMedium"
         style={{
-          color: Theme.colors.light,
+          color: Theme.colors.primary,
           fontFamily: Theme.fonts.special,
         }}
       >

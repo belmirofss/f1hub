@@ -1,12 +1,12 @@
 import { useQuery } from "react-query";
 import { Api } from "../api";
-import { Race } from "../types";
+import { RaceResults } from "../types";
 
 type Response = {
   MRData: {
     RaceTable: {
       season: "string";
-      Races: Race[];
+      Races: RaceResults[];
     };
   };
 };

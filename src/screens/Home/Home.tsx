@@ -9,17 +9,12 @@ import { BuyMeACoffe } from "../../components/BuyMeACoffee";
 export const Home = () => {
   return (
     <ScreenContainer title="Home">
-      <HomeNextRace />
-
-      <View style={{ marginTop: Theme.space.xs }}>
+      <View style={{ flex: 1, gap: Theme.space.xs }}>
+        <HomeNextRace />
         <HomeLastRace />
-      </View>
-
-      <View style={{ marginTop: Theme.space.xs }}>
         <HomeStandings />
+        <BuyMeACoffe />
       </View>
-
-      <BuyMeACoffe />
     </ScreenContainer>
   );
 };

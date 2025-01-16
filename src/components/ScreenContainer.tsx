@@ -31,7 +31,8 @@ export const ScreenContainer = ({
         style={{
           flex: 1,
           backgroundColor: Theme.colors.dark,
-          padding: Theme.space.s,
+          paddingVertical: Theme.space.m,
+          paddingHorizontal: Theme.space.s,
         }}
       >
         <View
@@ -40,6 +41,8 @@ export const ScreenContainer = ({
             justifyContent:
               showMenu || showBack ? "space-between" : "flex-start",
             alignItems: "center",
+            borderBottomColor: Theme.colors.light,
+            borderBottomWidth: 1,
           }}
         >
           <Text
@@ -75,7 +78,12 @@ export const ScreenContainer = ({
             />
           )}
         </View>
-        {isLoading ? <Loading /> : isError ? <Error /> : children}
+
+        <View style={{ marginTop: Theme.space.xs }}>
+          {isLoading && <Loading />}
+          {isError && <Error />}
+          {!isLoading && !isError && children}
+        </View>
       </View>
     </ScrollView>
   );
