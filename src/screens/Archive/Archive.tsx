@@ -10,6 +10,12 @@ import { ArchiveDrivers } from "./ArchiveDrivers";
 import { SectionContainer } from "../../components/SectionContainer";
 import { ArchiveConstructors } from "./ArchiveConstructors";
 import { ArchiveCalendar } from "./ArchiveCalendar";
+import { AdBanner } from "../../components/AdBanner";
+import {
+  AD_BANNER_ARCHIVE_1_ID,
+  AD_BANNER_ARCHIVE_2_ID,
+  AD_BANNER_ARCHIVE_3_ID,
+} from "../../constants";
 
 export const Archive = () => {
   const [selectedSeason, setSelectedSeason] = useState("");
@@ -37,6 +43,8 @@ export const Archive = () => {
                 })
               )}
             />
+
+            <AdBanner adUnitId={AD_BANNER_ARCHIVE_1_ID} />
           </View>
 
           {selectedSeason && (
@@ -56,9 +64,13 @@ export const Archive = () => {
                 )}
               </SectionContainer>
 
+              <AdBanner adUnitId={AD_BANNER_ARCHIVE_2_ID} />
+
               <SectionContainer name="Calendar">
                 <ArchiveCalendar season={selectedSeason} />
               </SectionContainer>
+
+              <AdBanner adUnitId={AD_BANNER_ARCHIVE_3_ID} />
             </>
           )}
         </React.Fragment>
