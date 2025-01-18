@@ -1,11 +1,9 @@
-import { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import { View } from "react-native";
-import { Text, IconButton, ActivityIndicator } from "react-native-paper";
+import { Text, ActivityIndicator } from "react-native-paper";
 import { Theme } from "../theme";
 import { SectionTitle } from "./SectionTitle";
-import { Loading } from "./Loading";
 import { Error } from "./Error";
-import { TouchableRipple } from "react-native-paper";
 
 type Props = {
   name: string;
@@ -13,7 +11,6 @@ type Props = {
   description?: string;
   children: ReactNode;
   right?: ReactNode;
-  expansable?: boolean;
   isLoading?: boolean;
   isError?: boolean;
   startClosed?: boolean;
@@ -25,45 +22,29 @@ export const SectionContainer = ({
   description,
   children,
   right,
-  expansable,
   isLoading,
   isError,
-  startClosed,
 }: Props) => {
-  const [contentVisible, setContentVisible] = useState(!startClosed);
-
   return (
-    <>
-      <TouchableRipple
-        onPress={() => setContentVisible((isVisible) => !isVisible)}
-        rippleColor={Theme.colors.darken}
-        disabled={!expansable || isLoading}
+    <React.Fragment>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          minHeight: 56,
+        }}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            minHeight: 56,
-          }}
-        >
-          <SectionTitle>{name}</SectionTitle>
-          {expansable && !isLoading && (
-            <IconButton
-              icon={contentVisible ? "chevron-up" : "chevron-down"}
-              size={28}
-              iconColor={Theme.colors.primary}
-            />
-          )}
-          {isLoading && (
-            <ActivityIndicator
-              size="small"
-              color={Theme.colors.secondary}
-              style={{ marginRight: Theme.space.xs }}
-            />
-          )}
-        </View>
-      </TouchableRipple>
+        <SectionTitle>{name}</SectionTitle>
+
+        {isLoading && (
+          <ActivityIndicator
+            size="small"
+            color={Theme.colors.secondary}
+            style={{ marginRight: Theme.space.xs }}
+          />
+        )}
+      </View>
 
       <View
         style={{
@@ -75,12 +56,12 @@ export const SectionContainer = ({
           alignItems: "center",
         }}
       >
-        {contentVisible && !isLoading && (
+        {!isLoading && (
           <>
             <View>
               {title && (
                 <Text
-                  variant="bodyLarge"
+                  variant="titleMedium"
                   style={{
                     color: Theme.colors.primary,
                     fontFamily: Theme.fonts.bold,
@@ -106,7 +87,7 @@ export const SectionContainer = ({
         )}
       </View>
 
-      {contentVisible && !isLoading && <>{isError ? <Error /> : children}</>}
-    </>
+      {!isLoading && <>{isError ? <Error /> : children}</>}
+    </React.Fragment>
   );
 };

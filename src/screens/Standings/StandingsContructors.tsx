@@ -2,7 +2,8 @@ import { ListItemConstructor } from "../../components/ListItemConstructor";
 import { useCurrentConstructorStandings } from "../../hooks/useCurrentConstructorStandings";
 import { Loading } from "../../components/Loading";
 import { Error } from "../../components/Error";
-import { SectionTitle } from "../../components/SectionTitle";
+import { Text } from "react-native-paper";
+import { Theme } from "../../theme";
 
 export const StandingsContructors = () => {
   const { data, isLoading, isError } = useCurrentConstructorStandings();
@@ -19,7 +20,18 @@ export const StandingsContructors = () => {
     data?.MRData.StandingsTable.StandingsLists[0]?.ConstructorStandings;
 
   if (!constructorStandings) {
-    return <SectionTitle>The season has not started yet</SectionTitle>;
+    return (
+      <Text
+        style={{
+          fontFamily: Theme.fonts.special,
+          color: Theme.colors.primary,
+          textAlign: "center",
+        }}
+        variant="titleMedium"
+      >
+        The season has not started yet
+      </Text>
+    );
   }
 
   return constructorStandings.map((constructor) => (

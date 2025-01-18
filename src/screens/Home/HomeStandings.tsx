@@ -51,7 +51,7 @@ export const HomeStandings = () => {
           {driverStandings &&
             selectedStandingType === StandingType.DRIVERS &&
             driverStandings
-              .slice(0, 3)
+              .slice(0, 5)
               .map((driver) => (
                 <ListItemDriver
                   key={driver.Driver.driverId}
@@ -67,7 +67,7 @@ export const HomeStandings = () => {
           {constructorStandings &&
             selectedStandingType === StandingType.CONSTRUCTORS &&
             constructorStandings
-              .slice(0, 3)
+              .slice(0, 5)
               .map((constructor) => (
                 <ListItemConstructor
                   key={constructor.Constructor.constructorId}

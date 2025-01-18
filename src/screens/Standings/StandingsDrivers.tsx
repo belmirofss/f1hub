@@ -1,8 +1,9 @@
+import { Text } from "react-native-paper";
 import { Error } from "../../components/Error";
 import { ListItemDriver } from "../../components/ListItemDriver";
 import { Loading } from "../../components/Loading";
-import { SectionTitle } from "../../components/SectionTitle";
 import { useCurrentDriverStandings } from "../../hooks/useCurrentDriverStandings";
+import { Theme } from "../../theme";
 
 export const StandingsDrivers = () => {
   const { data, isLoading, isError } = useCurrentDriverStandings();
@@ -19,7 +20,18 @@ export const StandingsDrivers = () => {
     data?.MRData.StandingsTable.StandingsLists[0]?.DriverStandings;
 
   if (!driverStandings) {
-    return <SectionTitle>The season has not started yet</SectionTitle>;
+    return (
+      <Text
+        style={{
+          fontFamily: Theme.fonts.special,
+          color: Theme.colors.primary,
+          textAlign: "center",
+        }}
+        variant="titleMedium"
+      >
+        The season has not started yet
+      </Text>
+    );
   }
 
   return driverStandings.map((driver) => (

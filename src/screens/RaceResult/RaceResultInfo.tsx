@@ -7,13 +7,15 @@ import { useRaceResults } from "../../hooks/useRaceResult";
 import { SectionContainer } from "../../components/SectionContainer";
 import { useQualifyingResults } from "../../hooks/useQualifyingResults";
 import { useSprintResults } from "../../hooks/useSprintResults";
+import { Text } from "react-native-paper";
 
 type Props = {
   season: string;
   round: string;
+  raceName: string;
 };
 
-export const RaceResultInfo = ({ season, round }: Props) => {
+export const RaceResultInfo = ({ season, round, raceName }: Props) => {
   const {
     data: raceResultsData,
     isLoading: isLoadingRaceResults,
@@ -56,7 +58,6 @@ export const RaceResultInfo = ({ season, round }: Props) => {
   return (
     <SectionContainer
       name="Info"
-      expansable
       isLoading={
         isLoadingRaceResults ||
         isLoadingSprintResults ||
@@ -67,11 +68,18 @@ export const RaceResultInfo = ({ season, round }: Props) => {
       }
     >
       {race && (
-        <View
-          style={{
-            marginTop: Theme.space.xs,
-          }}
-        >
+        <View>
+          <Text
+            variant="titleMedium"
+            style={{
+              color: Theme.colors.primary,
+              fontFamily: Theme.fonts.special,
+              marginTop: Theme.space.s,
+              textAlign: "center",
+            }}
+          >
+            {raceName}
+          </Text>
           <InfoItem
             title="Season / Round"
             value={`${race.season} / ${race.round}`}

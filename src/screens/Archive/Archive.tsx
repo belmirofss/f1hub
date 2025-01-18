@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { useState } from "react";
+import React, { useState } from "react";
 import { ScreenContainer } from "../../components/ScreenContainer";
 import { useSeasonsList } from "../../hooks/useSeasonsList";
 import { Picker } from "../../components/Picker";
@@ -22,7 +22,7 @@ export const Archive = () => {
   return (
     <ScreenContainer title="Archive" isLoading={isLoading} isError={isError}>
       {data && (
-        <>
+        <React.Fragment>
           <View
             style={{ marginTop: Theme.space.xs, marginBottom: Theme.space.xs }}
           >
@@ -41,7 +41,7 @@ export const Archive = () => {
 
           {selectedSeason && (
             <>
-              <SectionContainer name="Standings" expansable startClosed>
+              <SectionContainer name="Standings">
                 <SwitchDriverConstructor
                   selected={selectedStandingType}
                   onChange={setSelectedStandingType}
@@ -56,12 +56,12 @@ export const Archive = () => {
                 )}
               </SectionContainer>
 
-              <SectionContainer name="Calendar" expansable startClosed>
+              <SectionContainer name="Calendar">
                 <ArchiveCalendar season={selectedSeason} />
               </SectionContainer>
             </>
           )}
-        </>
+        </React.Fragment>
       )}
     </ScreenContainer>
   );

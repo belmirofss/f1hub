@@ -7,9 +7,10 @@ type Props = {
   title: string;
   date: string;
   time?: string;
+  isRace?: boolean;
 };
 
-export const HomeNextRaceTime = ({ title, date, time }: Props) => {
+export const HomeNextRaceTime = ({ title, date, time, isRace }: Props) => {
   const momentDate = convertToMoment(date, time).tz(getTimezone());
 
   return (
@@ -17,7 +18,7 @@ export const HomeNextRaceTime = ({ title, date, time }: Props) => {
       left={() => (
         <View
           style={{
-            width: 50,
+            width: 64,
             alignItems: "center",
             justifyContent: "center",
             borderRightColor: Theme.colors.light,
@@ -47,20 +48,25 @@ export const HomeNextRaceTime = ({ title, date, time }: Props) => {
       title={
         <Text
           variant="bodyLarge"
-          style={{ color: Theme.colors.primary, fontFamily: Theme.fonts.bold }}
+          style={{
+            color: Theme.colors.primary,
+            fontFamily: isRace ? Theme.fonts.special : Theme.fonts.regular,
+          }}
         >
           {title}
         </Text>
       }
       description={
-        <Text
-          variant="bodyLarge"
-          style={{
-            color: Theme.colors.primary,
-          }}
-        >
-          {momentDate.format("HH:mm")}
-        </Text>
+        time ? (
+          <Text
+            variant="bodyLarge"
+            style={{
+              color: Theme.colors.primary,
+            }}
+          >
+            {momentDate.format("HH:mm")}
+          </Text>
+        ) : undefined
       }
     />
   );

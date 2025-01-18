@@ -26,11 +26,19 @@ export const ListItemRace = ({ race }: Props) => {
   }
 
   const lastRace = data.MRData.RaceTable.Races[0];
-  const existResults =
+  const season = Number(data.MRData.RaceTable.season);
+
+  const olderSeason = Number(race.season) < season;
+  const seasonIsAboutToStart = Boolean(
+    Number(race.season) === season && !lastRace
+  );
+  const isFutureRace = Boolean(
     lastRace &&
-    (Number(race.season) < Number(lastRace.season) ||
-      (Number(race.season) === Number(lastRace.season) &&
-        Number(race.round) <= Number(lastRace.round)));
+      Number(race.season) === season &&
+      Number(race.round) <= Number(lastRace.round)
+  );
+
+  const existResults = olderSeason || (!seasonIsAboutToStart && !isFutureRace);
 
   return (
     <ListItem
@@ -60,11 +68,17 @@ export const ListItemRace = ({ race }: Props) => {
             }}
           >
             <ListItemCounter value={race.round} />
-            <FlagIcon country={race.Circuit.Location.country} />
           </View>
 
           <View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: Theme.space.xs,
+              }}
+            >
+              <FlagIcon country={race.Circuit.Location.country} />
               <Text
                 variant="labelSmall"
                 style={{
@@ -74,18 +88,6 @@ export const ListItemRace = ({ race }: Props) => {
               >
                 {formatDate(race.date, race.time)}{" "}
               </Text>
-              {!existResults && (
-                <Text
-                  style={{
-                    fontFamily: Theme.fonts.special,
-                    color: Theme.colors.primary,
-                    fontSize: 7,
-                    paddingLeft: 4,
-                  }}
-                >
-                  SOON
-                </Text>
-              )}
             </View>
 
             <ListItemTitle>{race.raceName}</ListItemTitle>

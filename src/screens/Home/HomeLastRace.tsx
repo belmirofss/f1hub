@@ -40,7 +40,7 @@ export const HomeLastRace = () => {
             {formatDate(race.date, race.time)} - Podium
           </Text>
 
-          {results.slice(0, 3).map((result) => (
+          {results.slice(0, 10).map((result) => (
             <ListItemResult key={result.position} result={result} />
           ))}
 
@@ -63,7 +63,7 @@ export const HomeLastRace = () => {
                 textDecorationLine: "underline",
               }}
             >
-              See results
+              See details
             </Text>
           </Button>
         </View>

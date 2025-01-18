@@ -40,10 +40,10 @@ export const Ad = () => {
           label: "Ok",
           onPress: showAd,
         }}
-        duration={5000}
+        duration={3000}
       >
         <Text style={{ color: Theme.colors.primary }}>
-          Showing ad in 5 seconds. Ad helps us to mantain the app.
+          Showing ad in 3 seconds. Ad helps us to mantain the app.
         </Text>
       </Snackbar>
     </Portal>

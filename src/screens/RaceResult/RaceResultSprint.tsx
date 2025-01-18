@@ -3,6 +3,7 @@ import { ListItemResult } from "../../components/ListItemResult";
 import { SectionContainer } from "../../components/SectionContainer";
 import { useSprintResults } from "../../hooks/useSprintResults";
 import { Theme } from "../../theme";
+import { UseSeeAllSeeLess } from "../../hooks/useSeeAllSeeLess";
 
 type Props = {
   season: string;
@@ -10,24 +11,23 @@ type Props = {
 };
 
 export const RaceResultSprint = ({ season, round }: Props) => {
+  const { seeAll, SeeAllSeeLessButton } = UseSeeAllSeeLess();
   const { data, isLoading, isError } = useSprintResults({ season, round });
 
   const race = data?.MRData.RaceTable.Races[0];
-  const results = race?.SprintResults;
+  const results = seeAll
+    ? race?.SprintResults
+    : race?.SprintResults?.slice(0, 10);
 
   return (
-    <SectionContainer
-      name="Sprint"
-      expansable
-      isLoading={isLoading}
-      isError={isError}
-      startClosed
-    >
+    <SectionContainer name="Sprint" isLoading={isLoading} isError={isError}>
       {results?.map((result) => (
         <ListItemResult key={result.position} result={result} />
       ))}
 
-      {!results?.length && (
+      {results?.length ? (
+        <SeeAllSeeLessButton />
+      ) : (
         <Text
           style={{
             fontFamily: Theme.fonts.special,

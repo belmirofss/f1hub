@@ -32,6 +32,7 @@ export const ScreenContainer = ({
           flex: 1,
           backgroundColor: Theme.colors.dark,
           paddingVertical: Theme.space.m,
+          paddingBottom: Theme.space.l,
           paddingHorizontal: Theme.space.s,
         }}
       >
@@ -43,10 +44,11 @@ export const ScreenContainer = ({
             alignItems: "center",
             borderBottomColor: Theme.colors.light,
             borderBottomWidth: 1,
+            flexWrap: "nowrap",
           }}
         >
           <Text
-            variant="titleLarge"
+            variant="titleMedium"
             style={{
               color: Theme.colors.primary,
               fontFamily: Theme.fonts.special,

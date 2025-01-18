@@ -3,7 +3,7 @@
     "name": "F1HUB",
     "slug": "f1hub",
     "scheme": "com.yabcompany.f1hub",
-    "version": "2.3.0",
+    "version": "3.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -15,7 +15,7 @@
     },
     "android": {
       "package": "com.yabcompany.f1hub",
-      "versionCode": 12,
+      "versionCode": 13,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#121212"
@@ -53,7 +53,7 @@
         {
           "backgroundColor": "#121212",
           "image": "./assets/splash.png",
-          "imageWidth": 200
+          "imageWidth": 250
         }
       ],
       "expo-font"

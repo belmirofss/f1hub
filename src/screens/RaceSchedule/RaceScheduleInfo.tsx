@@ -4,13 +4,15 @@ import { InfoItem } from "../../components/InfoItem";
 import { formatDate } from "../../helpers/formatDate";
 import { SectionContainer } from "../../components/SectionContainer";
 import { useRaceSchedule } from "../../hooks/useRaceSchedule";
+import { Text } from "react-native-paper";
 
 type Props = {
   season: string;
   round: string;
+  raceName: string;
 };
 
-export const RaceScheduleInfo = ({ season, round }: Props) => {
+export const RaceScheduleInfo = ({ season, round, raceName }: Props) => {
   const { data, isLoading, isError } = useRaceSchedule({ season, round });
 
   const race = data?.MRData.RaceTable.Races[0];
@@ -18,11 +20,18 @@ export const RaceScheduleInfo = ({ season, round }: Props) => {
   return (
     <SectionContainer name="Info" isLoading={isLoading} isError={isError}>
       {race && (
-        <View
-          style={{
-            marginTop: Theme.space.xs,
-          }}
-        >
+        <View>
+          <Text
+            variant="titleMedium"
+            style={{
+              color: Theme.colors.primary,
+              fontFamily: Theme.fonts.special,
+              marginTop: Theme.space.s,
+              textAlign: "center",
+            }}
+          >
+            {raceName}
+          </Text>
           <InfoItem
             title="Season / Round"
             value={`${race.season} / ${race.round}`}

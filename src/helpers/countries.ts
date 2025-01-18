@@ -55,6 +55,7 @@ const Countries = [
     Name: "Argentina",
     CCA3: "ARG",
     Nationality: "Argentine",
+    Nationality2: "Argentinian"
   },
   {
     CCA2: "AS",
@@ -1444,6 +1445,7 @@ export const getCountryCodeByNationality = (nationality: string) =>
   Countries.find(
     (country) =>
       country.Nationality.trim().toLowerCase() ===
+      nationality.trim().toLowerCase() || country.Nationality2?.trim().toLowerCase() ===
       nationality.trim().toLowerCase()
   )?.CCA2;
 

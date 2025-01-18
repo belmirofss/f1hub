@@ -1,7 +1,6 @@
 import moment from "moment";
 import { HomeNextRaceTime } from "./HomeNextRaceTime";
 import { SectionContainer } from "../../components/SectionContainer";
-import { SectionTitle } from "../../components/SectionTitle";
 import { FlagIcon } from "../../components/FlagIcon";
 import { convertToMoment } from "../../helpers/formatDate";
 import { useCurrentRaceSchedule } from "../../hooks/useCurrentRaceSchedule";

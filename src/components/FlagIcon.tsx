@@ -16,7 +16,7 @@ export const FlagIcon = ({ nationality, country }: Props) => {
   const urlByCountry = buildCountryFlagUrlByName(country ?? "");
 
   if (!urlByNationality && !urlByCountry) {
-    return <Entypo name="block" size={24} color={Theme.colors.light} />;
+    return <Entypo name="block" size={32} color={Theme.colors.light} />;
   }
 
   return (
@@ -25,8 +25,8 @@ export const FlagIcon = ({ nationality, country }: Props) => {
         uri: urlByNationality ?? urlByCountry,
       }}
       style={{
-        width: 24,
-        height: 24,
+        width: 32,
+        height: 32,
       }}
     />
   );
