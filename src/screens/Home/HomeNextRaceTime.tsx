@@ -7,10 +7,9 @@ type Props = {
   title: string;
   date: string;
   time?: string;
-  isRace?: boolean;
 };
 
-export const HomeNextRaceTime = ({ title, date, time, isRace }: Props) => {
+export const HomeNextRaceTime = ({ title, date, time }: Props) => {
   const momentDate = convertToMoment(date, time).tz(getTimezone());
 
   return (
@@ -50,7 +49,7 @@ export const HomeNextRaceTime = ({ title, date, time, isRace }: Props) => {
           variant="bodyLarge"
           style={{
             color: Theme.colors.primary,
-            fontFamily: isRace ? Theme.fonts.special : Theme.fonts.regular,
+            fontFamily: Theme.fonts.bold,
           }}
         >
           {title}

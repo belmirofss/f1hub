@@ -46,7 +46,7 @@ export const HomeNextRace = () => {
             />
           )}
 
-          {!nextRace.Sprint && nextRace.SecondPractice && (
+          {nextRace.SecondPractice && (
             <HomeNextRaceTime
               title="Practice 2"
               date={nextRace.SecondPractice.date}

@@ -32,7 +32,6 @@ export const ScreenContainer = ({
           flex: 1,
           backgroundColor: Theme.colors.dark,
           paddingVertical: Theme.space.m,
-          paddingBottom: Theme.space.l,
           paddingHorizontal: Theme.space.s,
         }}
       >
@@ -48,7 +47,7 @@ export const ScreenContainer = ({
           }}
         >
           <Text
-            variant="titleMedium"
+            variant="titleSmall"
             style={{
               color: Theme.colors.primary,
               fontFamily: Theme.fonts.special,

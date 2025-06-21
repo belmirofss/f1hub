@@ -37,7 +37,7 @@ export const HomeLastRace = () => {
               textAlign: "center",
             }}
           >
-            {formatDate(race.date, race.time)} - Podium
+            {formatDate(race.date, race.time)}
           </Text>
 
           {results.slice(0, 10).map((result) => (

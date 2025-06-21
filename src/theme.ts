@@ -8,7 +8,7 @@ export const Theme = {
   },
   space: {
     xs: 8,
-    s: 20,
+    s: 16,
     m: 28,
     l: 36,
     xl: 48,

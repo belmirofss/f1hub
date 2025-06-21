@@ -9,7 +9,7 @@ type Props = {
 export const SectionTitle = ({ children }: Props) => {
   return (
     <Text
-      variant="titleLarge"
+      variant="titleMedium"
       style={{
         fontFamily: Theme.fonts.special,
         color: Theme.colors.secondary,
