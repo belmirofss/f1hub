@@ -15,7 +15,7 @@ export const HomeNextRace = () => {
 
   return (
     <SectionContainer
-      name={nextRace ? "NEXT RACE" : "NO RACE SCHEDULED"}
+      name={nextRace || isLoading ? "NEXT RACE" : "NO RACE SCHEDULED"}
       title={nextRace?.raceName}
       description={nextRace?.Circuit.circuitName}
       right={<FlagIcon country={nextRace?.Circuit.Location.country} />}
