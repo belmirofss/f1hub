@@ -2,20 +2,24 @@ import "react-native-gesture-handler";
 import { useCallback } from "react";
 import { View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import {
-  PaperProvider,
-  MD3LightTheme,
-  configureFonts,
-} from "react-native-paper";
-import { NavigationContainer } from "@react-navigation/native";
+import { DarkTheme, NavigationContainer } from "@react-navigation/native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { QueryClient, QueryClientProvider } from "react-query";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
+import {
+  TitilliumWeb_400Regular,
+  TitilliumWeb_600SemiBold,
+  TitilliumWeb_700Bold,
+  TitilliumWeb_900Black,
+} from "@expo-google-fonts/titillium-web";
+import {
+  JetBrainsMono_500Medium,
+  JetBrainsMono_700Bold,
+} from "@expo-google-fonts/jetbrains-mono";
 import { Theme } from "./src/theme";
 import { Routes } from "./src/Routes";
-import Horizon from "./src/fonts/Horizon.otf";
-import RobotoBold from "./src/fonts/Roboto-Bold.ttf";
-import RobotoRegular from "./src/fonts/Roboto-Regular.ttf";
+import { SettingsProvider } from "./src/settings/SettingsContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,31 +29,28 @@ const queryClient = new QueryClient({
   },
 });
 
-const theme = {
-  ...MD3LightTheme,
-  roundness: Theme.roundness,
+const navigationTheme = {
+  ...DarkTheme,
   colors: {
-    ...MD3LightTheme.colors,
-    primary: Theme.colors.primary,
-    primaryContainer: Theme.colors.primary,
-    secondary: Theme.colors.secondary,
-    secondaryContainer: Theme.colors.secondary,
+    ...DarkTheme.colors,
+    background: Theme.colors.background,
+    card: Theme.colors.background,
+    border: Theme.colors.line,
+    primary: Theme.colors.accent,
+    text: Theme.colors.text,
   },
-  fonts: configureFonts({
-    config: {
-      fontFamily: Theme.fonts.regular,
-    },
-  }),
-  dark: true,
 };
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    Horizon,
-    RobotoBold,
-    RobotoRegular,
+    TitilliumWeb_400Regular,
+    TitilliumWeb_600SemiBold,
+    TitilliumWeb_700Bold,
+    TitilliumWeb_900Black,
+    JetBrainsMono_500Medium,
+    JetBrainsMono_700Bold,
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -65,16 +66,18 @@ export default function App() {
   return (
     <View
       onLayout={onLayoutRootView}
-      style={{ flex: 1, backgroundColor: Theme.colors.dark }}
+      style={{ flex: 1, backgroundColor: Theme.colors.background }}
     >
-      <QueryClientProvider client={queryClient}>
-        <PaperProvider theme={theme}>
-          <NavigationContainer>
-            <Routes />
-          </NavigationContainer>
-          <StatusBar hidden />
-        </PaperProvider>
-      </QueryClientProvider>
+      <SafeAreaProvider>
+        <QueryClientProvider client={queryClient}>
+          <SettingsProvider>
+            <NavigationContainer theme={navigationTheme}>
+              <Routes />
+            </NavigationContainer>
+            <StatusBar style="light" />
+          </SettingsProvider>
+        </QueryClientProvider>
+      </SafeAreaProvider>
     </View>
   );
 }

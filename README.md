@@ -12,8 +12,9 @@ Your ultimate destination for Formula 1 enthusiasts! Stay up-to-date with real-t
 
 - [React Native](https://reactnative.dev/docs/getting-started)
 - [Expo](https://docs.expo.io/)
-- [React Native Paper](https://callstack.github.io/react-native-paper/)
-- [Ergast API](http://ergast.com/mrd/)
+- [React Navigation](https://reactnavigation.org/)
+- [React Query](https://tanstack.com/query/v3/)
+- [Jolpica F1 API](https://github.com/jolpica/jolpica-f1) (Ergast-compatible)
 
 ### Run to install
 

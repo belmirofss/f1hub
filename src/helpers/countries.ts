@@ -1,5 +1,3 @@
-import { COUNTRY_FLAGS_URL } from "../constants";
-
 const Countries = [
   {
     CCA2: "AD",
@@ -1441,33 +1439,9 @@ const Countries = [
   },
 ];
 
-export const getCountryCodeByNationality = (nationality: string) =>
-  Countries.find(
-    (country) =>
-      country.Nationality.trim().toLowerCase() ===
-      nationality.trim().toLowerCase() || country.Nationality2?.trim().toLowerCase() ===
-      nationality.trim().toLowerCase()
-  )?.CCA2;
-
-export const getCountryCodeByName = (name: string) =>
+export const getCountryCode3ByName = (name: string) =>
   Countries.find(
     (country) =>
       country.Name.trim().toLowerCase() === name.trim().toLowerCase() ||
       country.Name2?.trim().toLowerCase() === name.trim().toLowerCase()
-  )?.CCA2;
-
-export const buildCountryFlagUrl = (code: string | undefined) => {
-  if (!code) return;
-
-  return `${COUNTRY_FLAGS_URL}${code}/flat/32.png`;
-};
-
-export const buildCountryFlagUrlByNationality = (nationality: string) => {
-  const code = getCountryCodeByNationality(nationality);
-  return buildCountryFlagUrl(code);
-};
-
-export const buildCountryFlagUrlByName = (name: string) => {
-  const code = getCountryCodeByName(name);
-  return buildCountryFlagUrl(code);
-};
+  )?.CCA3 ?? name.slice(0, 3).toUpperCase();

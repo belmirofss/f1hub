@@ -5,15 +5,15 @@ import { Race } from "../types";
 type Response = {
   MRData: {
     RaceTable: {
-      season: "string";
+      season: string;
       Races: Race[];
     };
   };
 };
 
 type Props = {
-  season: string;
-  round: string;
+  season?: string;
+  round?: string;
 };
 
 export const useRaceSchedule = ({ season, round }: Props) => {
@@ -22,6 +22,7 @@ export const useRaceSchedule = ({ season, round }: Props) => {
     () => Api.get<Response>(`${season}/${round}.json`),
     {
       select: (response) => response.data,
+      enabled: !!season && !!round,
     }
   );
 };

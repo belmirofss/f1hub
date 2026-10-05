@@ -5,7 +5,7 @@ import { Race } from "../types";
 type Response = {
   MRData: {
     RaceTable: {
-      season: "string";
+      season: string;
       Races: Race[];
     };
   };

@@ -11,10 +11,11 @@ type Response = {
   };
 };
 
-export const useLastRaceResults = () => {
+// One request for the winner of every race in a season
+export const useSeasonWinners = ({ season }: { season: string }) => {
   return useQuery(
-    ["LAST_RACE_RESULTS"],
-    () => Api.get<Response>("current/last/results.json"),
+    ["SEASON_WINNERS", season],
+    () => Api.get<Response>(`${season}/results/1.json`),
     {
       select: (response) => response.data,
     }

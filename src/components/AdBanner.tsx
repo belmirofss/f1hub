@@ -6,7 +6,6 @@ import {
   TestIds,
   useForeground,
 } from "react-native-google-mobile-ads";
-import { Theme } from "../theme";
 
 type Props = {
   adUnitId: string;
@@ -27,7 +26,7 @@ export const AdBanner = ({ adUnitId }: Props) => {
   });
 
   return (
-    <View style={{ marginVertical: Theme.space.m }}>
+    <View style={{ alignItems: "center", marginHorizontal: -16 }}>
       <BannerAd
         ref={bannerRef}
         unitId={_adUnitId}

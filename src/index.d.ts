@@ -1,12 +1,16 @@
 export declare global {
   namespace ReactNavigation {
     interface RootParamList {
-      RaceResult: { season: string; round: string; raceName: string };
-      RaceSchedule: { season: string; round: string; raceName: string };
+      Tabs: undefined;
+      Home: undefined;
+      Calendar: undefined;
+      Standings: undefined;
+      Archive: undefined;
+      RaceWeekend: { season: string; round: string };
+      Season: { season: string };
+      Settings: undefined;
     }
   }
 
-  declare module "*.otf";
-  declare module "*.ttf";
   declare module "*.png";
 }

@@ -38,7 +38,7 @@ export type Result = {
     millis: string;
     time: string;
   };
-  FastestLap: FastestLap;
+  FastestLap?: FastestLap;
 };
 
 export type QualifyingResult = {
@@ -48,9 +48,9 @@ export type QualifyingResult = {
   Driver: Driver;
   Constructor: Constructor;
   grid: string;
-  Q1: string;
-  Q2: string;
-  Q3: string
+  Q1?: string;
+  Q2?: string;
+  Q3?: string;
 };
 
 export type RaceBase = {
@@ -63,23 +63,19 @@ export type RaceBase = {
   time?: string;
 }
 
+export type SessionTime = {
+  date: string;
+  time?: string;
+};
+
 export type Race = RaceBase & {
-  FirstPractice?: {
-    date: string;
-    time: string;
-  };
-  Qualifying?: {
-    date: string;
-    time: string;
-  };
-  SecondPractice?: {
-    date: string;
-    time: string;
-  };
-  Sprint?: {
-    date: string;
-    time: string;
-  };
+  FirstPractice?: SessionTime;
+  SecondPractice?: SessionTime;
+  ThirdPractice?: SessionTime;
+  SprintQualifying?: SessionTime;
+  SprintShootout?: SessionTime;
+  Sprint?: SessionTime;
+  Qualifying?: SessionTime;
 };
 
 export type RaceResults = RaceBase & {
@@ -92,8 +88,8 @@ export type QualifyingResults = RaceBase & { QualifyingResults?: QualifyingResul
 
 export type Driver = {
   driverId: string;
-  permanentNumber: string;
-  code: string;
+  permanentNumber?: string;
+  code?: string;
   url: string;
   givenName: string;
   familyName: string;

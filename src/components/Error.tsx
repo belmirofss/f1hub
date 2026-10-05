@@ -1,28 +1,42 @@
 import React from "react";
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 import { Theme } from "../theme";
-import { Text } from "react-native-paper";
+import { AppText } from "./AppText";
 
-export const Error = () => {
+type Props = {
+  onRetry?: () => void;
+};
+
+export const Error = ({ onRetry }: Props) => {
   return (
     <View
       style={{
-        flex: 1,
+        minHeight: 120,
+        alignItems: "center",
         justifyContent: "center",
-        backgroundColor: Theme.colors.dark,
-        height: "100%",
-        padding: Theme.space.s,
+        padding: Theme.space.m,
+        gap: Theme.space.s,
       }}
     >
-      <Text
-        style={{
-          textAlign: "center",
-          color: Theme.colors.primary,
-          fontFamily: Theme.fonts.special,
-        }}
-      >
-        Somenthing went wrong! Try again later.
-      </Text>
+      <AppText color={Theme.colors.muted} style={{ textAlign: "center" }}>
+        Couldn't load this right now.
+      </AppText>
+      {onRetry && (
+        <Pressable
+          onPress={onRetry}
+          accessibilityRole="button"
+          style={{
+            minHeight: 40,
+            paddingHorizontal: Theme.space.m,
+            borderRadius: Theme.radius.m,
+            borderWidth: 1,
+            borderColor: Theme.colors.line,
+            justifyContent: "center",
+          }}
+        >
+          <AppText weight="bold">Try again</AppText>
+        </Pressable>
+      )}
     </View>
   );
 };

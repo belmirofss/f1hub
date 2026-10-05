@@ -5,15 +5,15 @@ import { Api } from "../api";
 type Response = {
   MRData: {
     RaceTable: {
-      season: "string";
+      season: string;
       Races: QualifyingResults[];
     };
   };
 };
 
 type Props = {
-  season: string;
-  round: string;
+  season?: string;
+  round?: string;
 };
 
 export const useQualifyingResults = ({ season, round }: Props) => {
@@ -22,6 +22,7 @@ export const useQualifyingResults = ({ season, round }: Props) => {
     () => Api.get<Response>(`${season}/${round}/qualifying.json`),
     {
       select: (response) => response.data,
+      enabled: !!season && !!round,
     }
   );
 };

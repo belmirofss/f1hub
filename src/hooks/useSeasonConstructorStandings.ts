@@ -5,7 +5,7 @@ import { ConstructorStanding } from "../types";
 type Response = {
   MRData: {
     StandingsTable: {
-      season: "string";
+      season: string;
       StandingsLists: {
         season: string;
         round: string;
