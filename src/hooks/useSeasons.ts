@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Api } from "../api";
 import { Season } from "../types";
 
@@ -11,7 +11,9 @@ type Response = {
 };
 
 export const useSeasons = () => {
-  return useQuery(["SEASONS_LIST"], () => Api.get<Response>("seasons.json"), {
+  return useQuery({
+    queryKey: ["SEASONS_LIST"],
+    queryFn: () => Api.get<Response>("seasons.json"),
     select: (response) => response.data.MRData.SeasonTable.Seasons,
   });
 };

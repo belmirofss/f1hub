@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Api } from "../api";
 import { ConstructorStanding } from "../types";
 
@@ -20,11 +20,9 @@ type Props = {
 };
 
 export const useSeasonConstructorStandings = ({ season }: Props) => {
-  return useQuery(
-    ["SEASON_CONSTRUCTOR_STANDINGS", season],
-    () => Api.get<Response>(`${season}/constructorStandings.json`),
-    {
-      select: (response) => response.data,
-    }
-  );
+  return useQuery({
+    queryKey: ["SEASON_CONSTRUCTOR_STANDINGS", season],
+    queryFn: () => Api.get<Response>(`${season}/constructorStandings.json`),
+    select: (response) => response.data,
+  });
 };

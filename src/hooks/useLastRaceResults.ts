@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Api } from "../api";
 import { RaceResults } from "../types";
 
@@ -12,11 +12,9 @@ type Response = {
 };
 
 export const useLastRaceResults = () => {
-  return useQuery(
-    ["LAST_RACE_RESULTS"],
-    () => Api.get<Response>("current/last/results.json"),
-    {
-      select: (response) => response.data,
-    }
-  );
+  return useQuery({
+    queryKey: ["LAST_RACE_RESULTS"],
+    queryFn: () => Api.get<Response>("current/last/results.json"),
+    select: (response) => response.data,
+  });
 };

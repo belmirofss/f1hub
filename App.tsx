@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { DarkTheme, NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import {

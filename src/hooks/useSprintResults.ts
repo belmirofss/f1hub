@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Api } from "../api";
 import { RaceSprintResults } from "../types";
 
@@ -17,12 +17,10 @@ type Props = {
 };
 
 export const useSprintResults = ({ season, round }: Props) => {
-  return useQuery(
-    ["SPRINT_RESULTS", season, round],
-    () => Api.get<Response>(`${season}/${round}/sprint.json`),
-    {
-      select: (response) => response.data,
-      enabled: !!season && !!round,
-    }
-  );
+  return useQuery({
+    queryKey: ["SPRINT_RESULTS", season, round],
+    queryFn: () => Api.get<Response>(`${season}/${round}/sprint.json`),
+    select: (response) => response.data,
+    enabled: !!season && !!round,
+  });
 };

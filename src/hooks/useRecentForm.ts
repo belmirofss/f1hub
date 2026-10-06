@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useQueries } from "react-query";
+import { useQueries } from "@tanstack/react-query";
 import { Api } from "../api";
 import { RaceResults } from "../types";
 import { isClassified } from "../helpers/results";
@@ -30,13 +30,13 @@ export const useRecentForm = ({ season, lastRound, count = 5 }: Props) => {
     String(last - Math.min(count, last) + 1 + i)
   );
 
-  const queries = useQueries(
-    rounds.map((round) => ({
+  const queries = useQueries({
+    queries: rounds.map((round) => ({
       queryKey: ["RACE_RESULTS", season, round],
       queryFn: () => Api.get<Response>(`${season}/${round}/results.json`),
       enabled: !!season && last > 0,
-    }))
-  );
+    })),
+  });
 
   const isLoading = queries.some((q) => q.isLoading);
   const dataStamp = queries.map((q) => q.dataUpdatedAt).join(",");

@@ -1,5 +1,5 @@
 import { QualifyingResults } from './../types';
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Api } from "../api";
 
 type Response = {
@@ -17,12 +17,10 @@ type Props = {
 };
 
 export const useQualifyingResults = ({ season, round }: Props) => {
-  return useQuery(
-    ["QUALIFYING_RESULTS", season, round],
-    () => Api.get<Response>(`${season}/${round}/qualifying.json`),
-    {
-      select: (response) => response.data,
-      enabled: !!season && !!round,
-    }
-  );
+  return useQuery({
+    queryKey: ["QUALIFYING_RESULTS", season, round],
+    queryFn: () => Api.get<Response>(`${season}/${round}/qualifying.json`),
+    select: (response) => response.data,
+    enabled: !!season && !!round,
+  });
 };
