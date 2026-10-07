@@ -6,7 +6,8 @@
     "version": "4.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0B0B0D",
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
@@ -16,7 +17,7 @@
       "versionCode": 16,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#121212"
+        "backgroundColor": "#0B0B0D"
       },
       "permissions": ["com.google.android.gms.permission.AD_ID"]
     },
@@ -47,7 +48,7 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#121212",
+          "backgroundColor": "#0B0B0D",
           "image": "./assets/splash.png",
           "imageWidth": 250
         }
