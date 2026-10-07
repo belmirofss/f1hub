@@ -82,6 +82,36 @@ export const IconButton = ({
   </Pressable>
 );
 
+// Whole-card button with a chevron: "Teammate battle >", "Circuit guide >"
+export const LinkCard = ({
+  children,
+  onPress,
+  accessibilityLabel,
+}: {
+  children: ReactNode;
+  onPress: () => void;
+  accessibilityLabel?: string;
+}) => (
+  <Pressable
+    onPress={onPress}
+    accessibilityRole="button"
+    accessibilityLabel={accessibilityLabel}
+    style={({ pressed }) => ({
+      flexDirection: "row",
+      alignItems: "center",
+      gap: Theme.space.s,
+      padding: Theme.space.m,
+      borderRadius: Theme.radius.l,
+      borderWidth: 1,
+      borderColor: Theme.colors.line,
+      backgroundColor: pressed ? Theme.colors.surfaceRaised : Theme.colors.surface,
+    })}
+  >
+    <View style={{ flex: 1, gap: 6 }}>{children}</View>
+    <Ionicons name="chevron-forward" size={18} color={Theme.colors.muted} />
+  </Pressable>
+);
+
 export const TeamBar = ({ color, height = 26 }: { color: string; height?: number }) => (
   <View style={{ width: 3, height, borderRadius: 2, backgroundColor: color }} />
 );

@@ -13,6 +13,8 @@ import { NextSessionTicker } from "./NextSessionTicker";
 import { NextRaceCard } from "./NextRaceCard";
 import { LastRaceCard } from "./LastRaceCard";
 import { TopFiveCard } from "./TopFiveCard";
+import { TeammateSpotlightCard } from "./TeammateSpotlightCard";
+import { TitleFightCard } from "../Standings/TitleFightCard";
 
 const Wordmark = () => {
   const { accent } = useSettings();
@@ -57,6 +59,8 @@ export const Home = () => {
       <LastRaceCard />
       <AdBanner adUnitId={AD_BANNER_HOME_ID} />
       <TopFiveCard />
+      <TitleFightCard compact />
+      <TeammateSpotlightCard />
     </Screen>
   );
 };

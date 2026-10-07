@@ -22,7 +22,7 @@ const chipColors = (position: number | null, accent: string, onAccent: string) =
   return { background: "transparent", color: Theme.colors.subtle, border: Theme.colors.lightOff };
 };
 
-const Chip = ({ position, size }: { position: number | null; size: number }) => {
+export const FormChip = ({ position, size }: { position: number | null; size: number }) => {
   const { accent, onAccent } = useSettings();
   const { background, color, border } = chipColors(position, accent, onAccent);
   return (
@@ -56,7 +56,7 @@ export const FormLegend = () => (
       { position: 0, label: "Retired (DNF)" },
     ].map((item) => (
       <View key={item.label} style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
-        <Chip position={item.position} size={16} />
+        <FormChip position={item.position} size={16} />
         <AppText size={11} color={Theme.colors.muted}>
           {item.label}
         </AppText>
@@ -81,7 +81,7 @@ export const FormChips = ({ form, size = 20 }: Props) => {
       style={{ flexDirection: "row", gap: 3 }}
     >
       {form.map((position, index) => (
-        <Chip key={index} position={position} size={size} />
+        <FormChip key={index} position={position} size={size} />
       ))}
     </View>
   );

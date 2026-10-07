@@ -15,6 +15,10 @@ Your ultimate destination for Formula 1 enthusiasts! Stay up-to-date with real-t
 - [React Navigation](https://reactnavigation.org/)
 - [React Query](https://tanstack.com/query/v3/)
 - [Jolpica F1 API](https://github.com/jolpica/jolpica-f1) (Ergast-compatible)
+- [OpenF1](https://openf1.org) (tyres, team radio, race control and track maps, 2023 onwards)
+- [Open-Meteo](https://open-meteo.com) (race weekend forecasts)
+- [Wikipedia REST API](https://en.wikipedia.org/api/rest_v1/) (driver bios)
+- [react-native-svg](https://github.com/software-mansion/react-native-svg) and [expo-audio](https://docs.expo.dev/versions/latest/sdk/audio/)
 
 ### Run to install
 

@@ -1,4 +1,5 @@
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { Theme } from "../../theme";
 import { AppText, Label } from "../../components/AppText";
 import { Card, EmptyState, TeamBar } from "../../components/Card";
@@ -43,6 +44,7 @@ type Props = {
 };
 
 export const ResultsTab = ({ results, pole }: Props) => {
+  const navigation = useNavigation();
   if (!results.length) return <EmptyState>No results yet.</EmptyState>;
 
   const size = results.length;
@@ -119,16 +121,19 @@ export const ResultsTab = ({ results, pole }: Props) => {
           const points = Number(result.points);
 
           return (
-            <View
+            <Pressable
               key={result.Driver.driverId}
-              style={{
+              onPress={() => navigation.navigate("Driver", { driverId: result.Driver.driverId })}
+              accessibilityRole="button"
+              style={({ pressed }) => ({
                 flexDirection: "row",
                 alignItems: "center",
                 gap: 8,
                 minHeight: 48,
                 borderBottomWidth: 1,
                 borderBottomColor: Theme.colors.lineSoft,
-              }}
+                backgroundColor: pressed ? Theme.colors.surface : "transparent",
+              })}
             >
               <AppText mono weight="bold" size={14} style={{ width: COLUMNS.pos }}>
                 {classified ? result.position : getStatusLabel(result)}
@@ -167,7 +172,7 @@ export const ResultsTab = ({ results, pole }: Props) => {
               >
                 {points > 0 ? result.points : ""}
               </AppText>
-            </View>
+            </Pressable>
           );
         })}
       </View>

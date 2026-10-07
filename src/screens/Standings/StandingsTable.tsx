@@ -1,4 +1,5 @@
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { Theme } from "../../theme";
 import { AppText, Label } from "../../components/AppText";
 import { EmptyState, TeamBar } from "../../components/Card";
@@ -26,6 +27,7 @@ type Props = {
 };
 
 export const StandingsTable = ({ season, type }: Props) => {
+  const navigation = useNavigation();
   const drivers = useSeasonDriverStandings({ season });
   const constructors = useSeasonConstructorStandings({ season });
   const query = type === StandingType.DRIVERS ? drivers : constructors;
@@ -84,16 +86,23 @@ export const StandingsTable = ({ season, type }: Props) => {
       {rows.map((row, index) => {
         const gap = index === 0 ? "LEADER" : `-${+(leader - row.points).toFixed(1)}`;
         return (
-          <View
+          <Pressable
             key={row.id}
-            style={{
+            onPress={() =>
+              type === StandingType.DRIVERS
+                ? navigation.navigate("Driver", { driverId: row.id })
+                : navigation.navigate("Team", { constructorId: row.id })
+            }
+            accessibilityRole="button"
+            style={({ pressed }) => ({
               flexDirection: "row",
               alignItems: "center",
               gap: 8,
               minHeight: 54,
               borderBottomWidth: 1,
               borderBottomColor: Theme.colors.lineSoft,
-            }}
+              backgroundColor: pressed ? Theme.colors.surface : "transparent",
+            })}
           >
             <AppText mono weight="bold" size={14} style={{ width: 24 }}>
               {row.position}
@@ -111,7 +120,7 @@ export const StandingsTable = ({ season, type }: Props) => {
             <AppText mono weight="bold" size={15} style={{ width: 44, textAlign: "right" }}>
               {row.points}
             </AppText>
-          </View>
+          </Pressable>
         );
       })}
       <View style={{ paddingTop: 12 }}>

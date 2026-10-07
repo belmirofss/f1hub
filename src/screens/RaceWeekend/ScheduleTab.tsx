@@ -1,16 +1,19 @@
 import { Pressable, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
 import moment from "moment-timezone";
 import { Ionicons } from "@expo/vector-icons";
 import { Theme } from "../../theme";
 import { AppText, Label } from "../../components/AppText";
-import { Card } from "../../components/Card";
+import { Card, LinkCard } from "../../components/Card";
+import { WeekendForecast } from "../../components/Weather";
 import { AdBanner } from "../../components/AdBanner";
 import { AD_BANNER_RACE_SCHEDULE_ID } from "../../constants";
 import { useSettings } from "../../settings/SettingsContext";
 import { useNow } from "../../hooks/useNow";
+import { useWeather } from "../../hooks/useWeather";
 import { Session, getSessions } from "../../helpers/sessions";
-import { getCircuitTimezone } from "../../helpers/circuits";
+import { getCircuitLayout, getCircuitTimezone } from "../../helpers/circuits";
 import {
   formatClock,
   formatDay,
@@ -161,13 +164,18 @@ const InfoRow = ({ label, value }: { label: string; value: string }) => (
 
 export const ScheduleTab = ({ race }: { race: Race }) => {
   const { accent, clock24 } = useSettings();
+  const navigation = useNavigation();
   const now = useNow(60000);
+  const weather = useWeather({ race, now });
   const sessions = getSessions(race);
   const trackZone = getCircuitTimezone(race.Circuit.circuitId);
+  const layout = getCircuitLayout(race.Circuit.circuitId);
 
   return (
     <>
       {sessions.every((s) => s.hasTime) && <WeekendTimeline sessions={sessions} now={now} />}
+
+      {weather.data && <WeekendForecast race={race} forecast={weather.data} />}
 
       <View>
         <View style={{ flexDirection: "row", paddingBottom: 6, borderBottomWidth: 1, borderBottomColor: Theme.colors.line }}>
@@ -231,6 +239,18 @@ export const ScheduleTab = ({ race }: { race: Race }) => {
           />
         )}
       </View>
+
+      <LinkCard
+        onPress={() => navigation.navigate("Circuit", { circuitId: race.Circuit.circuitId })}
+        accessibilityLabel={`${race.Circuit.circuitName} guide`}
+      >
+        <AppText size={15} weight="bold">
+          {race.Circuit.circuitName}
+        </AppText>
+        <AppText mono size={10} color={Theme.colors.muted}>
+          {layout ? `${layout.length.toFixed(3)} KM · ${layout.corners} CORNERS · ` : ""}TRACK MAP AND HISTORY
+        </AppText>
+      </LinkCard>
 
       <Pressable
         onPress={() => WebBrowser.openBrowserAsync(race.url)}

@@ -6,7 +6,11 @@ export declare global {
       Calendar: undefined;
       Standings: undefined;
       Archive: undefined;
-      RaceWeekend: { season: string; round: string };
+      RaceWeekend: { season: string; round: string; tab?: "analysis" | "radio" };
+      Driver: { driverId: string };
+      Team: { constructorId: string };
+      Circuit: { circuitId: string };
+      Teammates: { season: string; constructorId?: string };
       Season: { season: string };
       Settings: undefined;
     }

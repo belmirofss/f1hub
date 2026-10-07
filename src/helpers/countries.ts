@@ -1445,3 +1445,9 @@ export const getCountryCode3ByName = (name: string) =>
       country.Name.trim().toLowerCase() === name.trim().toLowerCase() ||
       country.Name2?.trim().toLowerCase() === name.trim().toLowerCase()
   )?.CCA3 ?? name.slice(0, 3).toUpperCase();
+
+// "British" -> "GBR", from the API's driver nationality
+export const getCountryCode3ByNationality = (nationality: string) =>
+  Countries.find(
+    (country) => country.Nationality.trim().toLowerCase() === nationality.trim().toLowerCase()
+  )?.CCA3 ?? nationality.slice(0, 3).toUpperCase();

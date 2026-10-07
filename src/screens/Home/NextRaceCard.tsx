@@ -6,9 +6,11 @@ import { Theme } from "../../theme";
 import { AppText, Label } from "../../components/AppText";
 import { Card } from "../../components/Card";
 import { Segmented } from "../../components/Segmented";
+import { SessionTemperature, WeatherSummary } from "../../components/Weather";
 import { Loading } from "../../components/Loading";
 import { Error } from "../../components/Error";
 import { useSettings } from "../../settings/SettingsContext";
+import { useWeather } from "../../hooks/useWeather";
 import { findNextRace, getSessions, isSprintWeekend } from "../../helpers/sessions";
 import { getCircuitTimezone } from "../../helpers/circuits";
 import { getCountryCode3ByName } from "../../helpers/countries";
@@ -29,11 +31,11 @@ export const NextRaceCard = ({ races, now, isLoading, isError, onRetry }: Props)
   const navigation = useNavigation();
   const { accent, clock24 } = useSettings();
   const [zone, setZone] = useState<"mine" | "track">("mine");
+  const race = findNextRace(races, now);
+  const weather = useWeather({ race, now });
 
   if (isLoading) return <Card><Loading /></Card>;
   if (isError) return <Card><Error onRetry={onRetry} /></Card>;
-
-  const race = findNextRace(races, now);
 
   if (!race) {
     return (
@@ -118,6 +120,8 @@ export const NextRaceCard = ({ races, now, isLoading, isError, onRetry }: Props)
         </View>
       )}
 
+      {weather.data && <WeatherSummary race={race} forecast={weather.data} />}
+
       <View style={{ gap: 2 }}>
         <View
           style={{
@@ -162,6 +166,7 @@ export const NextRaceCard = ({ races, now, isLoading, isError, onRetry }: Props)
               <AppText size={15} weight="semibold" color={color} style={{ flex: 1 }}>
                 {session.name}
               </AppText>
+              <SessionTemperature forecast={weather.data} start={session.start.valueOf()} />
               <AppText mono weight="bold" size={15} color={color}>
                 {session.hasTime ? formatClock(session.start, clock24, timezone) : "TBC"}
               </AppText>
@@ -170,26 +175,48 @@ export const NextRaceCard = ({ races, now, isLoading, isError, onRetry }: Props)
         })}
       </View>
 
-      <Pressable
-        onPress={() =>
-          navigation.navigate("RaceWeekend", { season: race.season, round: race.round })
-        }
-        accessibilityRole="button"
-        style={({ pressed }) => ({
-          minHeight: 44,
-          borderRadius: Theme.radius.m,
-          paddingHorizontal: 12,
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          backgroundColor: pressed ? Theme.colors.line : Theme.colors.surfaceRaised,
-        })}
-      >
-        <AppText size={14} weight="semibold">
-          Weekend details
-        </AppText>
-        <Ionicons name="chevron-forward" size={16} color={Theme.colors.text} />
-      </Pressable>
+      <View style={{ flexDirection: "row", gap: 8 }}>
+        <Pressable
+          onPress={() =>
+            navigation.navigate("RaceWeekend", { season: race.season, round: race.round })
+          }
+          accessibilityRole="button"
+          style={({ pressed }) => ({
+            flex: 1,
+            minHeight: 44,
+            borderRadius: Theme.radius.m,
+            paddingHorizontal: 12,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            backgroundColor: pressed ? Theme.colors.line : Theme.colors.surfaceRaised,
+          })}
+        >
+          <AppText size={14} weight="semibold">
+            Weekend details
+          </AppText>
+          <Ionicons name="chevron-forward" size={16} color={Theme.colors.text} />
+        </Pressable>
+        <Pressable
+          onPress={() => navigation.navigate("Circuit", { circuitId: race.Circuit.circuitId })}
+          accessibilityRole="button"
+          accessibilityLabel="Circuit guide"
+          style={({ pressed }) => ({
+            minHeight: 44,
+            borderRadius: Theme.radius.m,
+            paddingHorizontal: 12,
+            flexDirection: "row",
+            gap: 8,
+            alignItems: "center",
+            backgroundColor: pressed ? Theme.colors.line : Theme.colors.surfaceRaised,
+          })}
+        >
+          <Ionicons name="map-outline" size={16} color={Theme.colors.text} />
+          <AppText size={14} weight="semibold">
+            Circuit
+          </AppText>
+        </Pressable>
+      </View>
     </Card>
   );
 };

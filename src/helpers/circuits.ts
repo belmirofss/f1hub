@@ -39,3 +39,35 @@ const CIRCUIT_TIMEZONES: Record<string, string> = {
 
 export const getCircuitTimezone = (circuitId: string) =>
   CIRCUIT_TIMEZONES[circuitId];
+
+// Current layouts of circuits on recent calendars: lap length (km) and corners
+const CIRCUIT_LAYOUTS: Record<string, { length: number; corners: number }> = {
+  albert_park: { length: 5.278, corners: 14 },
+  americas: { length: 5.513, corners: 20 },
+  bahrain: { length: 5.412, corners: 15 },
+  baku: { length: 6.003, corners: 20 },
+  catalunya: { length: 4.657, corners: 14 },
+  hungaroring: { length: 4.381, corners: 14 },
+  imola: { length: 4.909, corners: 19 },
+  interlagos: { length: 4.309, corners: 15 },
+  jeddah: { length: 6.174, corners: 27 },
+  losail: { length: 5.419, corners: 16 },
+  madring: { length: 5.474, corners: 22 },
+  marina_bay: { length: 4.94, corners: 19 },
+  miami: { length: 5.412, corners: 19 },
+  monaco: { length: 3.337, corners: 19 },
+  monza: { length: 5.793, corners: 11 },
+  red_bull_ring: { length: 4.318, corners: 10 },
+  rodriguez: { length: 4.304, corners: 17 },
+  sepang: { length: 5.543, corners: 15 },
+  shanghai: { length: 5.451, corners: 16 },
+  silverstone: { length: 5.891, corners: 18 },
+  spa: { length: 7.004, corners: 19 },
+  suzuka: { length: 5.807, corners: 18 },
+  vegas: { length: 6.201, corners: 17 },
+  villeneuve: { length: 4.361, corners: 14 },
+  yas_marina: { length: 5.281, corners: 16 },
+  zandvoort: { length: 4.259, corners: 14 },
+};
+
+export const getCircuitLayout = (circuitId: string) => CIRCUIT_LAYOUTS[circuitId];

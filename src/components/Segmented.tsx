@@ -1,4 +1,4 @@
-import { Pressable, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { Theme } from "../theme";
 import { AppText } from "./AppText";
 import { useSettings } from "../settings/SettingsContext";
@@ -72,54 +72,53 @@ export const Segmented = <T extends string>({
   );
 };
 
-// Underlined tabs: "Schedule  Race  Sprint  Qualifying"
+// Underlined tabs: "Schedule  Race  Sprint  Qualifying". Scrolls sideways
+// when they don't fit (sprint weekends with Analysis and Radio).
 export const Tabs = <T extends string>({ options, value, onChange }: Props<T>) => {
   const { accent } = useSettings();
 
   return (
-    <View
-      accessibilityRole="tablist"
-      style={{
-        flexDirection: "row",
-        gap: Theme.space.l,
-        borderBottomWidth: 1,
-        borderBottomColor: Theme.colors.line,
-      }}
-    >
-      {options.map((option) => {
-        const selected = option.value === value;
-        return (
-          <Pressable
-            key={option.value}
-            accessibilityRole="tab"
-            accessibilityState={{ selected, disabled: option.disabled }}
-            disabled={option.disabled}
-            onPress={() => onChange(option.value)}
-            style={{
-              minHeight: 44,
-              justifyContent: "center",
-              borderBottomWidth: 2,
-              borderBottomColor: selected ? accent : "transparent",
-              marginBottom: -1,
-              opacity: option.disabled ? 0.35 : 1,
-            }}
-          >
-            <AppText
-              size={14}
-              weight="bold"
-              color={
-                option.disabled
-                  ? Theme.colors.subtle
-                  : selected
-                  ? Theme.colors.text
-                  : Theme.colors.muted
-              }
+    <View style={{ borderBottomWidth: 1, borderBottomColor: Theme.colors.line }}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        accessibilityRole="tablist"
+        contentContainerStyle={{ gap: Theme.space.l }}
+      >
+        {options.map((option) => {
+          const selected = option.value === value;
+          return (
+            <Pressable
+              key={option.value}
+              accessibilityRole="tab"
+              accessibilityState={{ selected, disabled: option.disabled }}
+              disabled={option.disabled}
+              onPress={() => onChange(option.value)}
+              style={{
+                minHeight: 44,
+                justifyContent: "center",
+                borderBottomWidth: 2,
+                borderBottomColor: selected ? accent : "transparent",
+                opacity: option.disabled ? 0.35 : 1,
+              }}
             >
-              {option.label}
-            </AppText>
-          </Pressable>
-        );
-      })}
+              <AppText
+                size={14}
+                weight="bold"
+                color={
+                  option.disabled
+                    ? Theme.colors.subtle
+                    : selected
+                    ? Theme.colors.text
+                    : Theme.colors.muted
+                }
+              >
+                {option.label}
+              </AppText>
+            </Pressable>
+          );
+        })}
+      </ScrollView>
     </View>
   );
 };

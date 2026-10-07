@@ -17,18 +17,21 @@ import { getCountryCode3ByName } from "../../helpers/countries";
 import { ScheduleTab } from "./ScheduleTab";
 import { ResultsTab } from "./ResultsTab";
 import { QualifyingTab } from "./QualifyingTab";
+import { AnalysisTab } from "./AnalysisTab";
+import { RadioTab } from "./RadioTab";
+import { OPENF1_FIRST_SEASON } from "../../hooks/useOpenF1";
 
 type ParamList = {
-  RaceWeekend: { season: string; round: string };
+  RaceWeekend: { season: string; round: string; tab?: "analysis" | "radio" };
 };
 
-type Tab = "schedule" | "race" | "sprint" | "qualifying";
+type Tab = "schedule" | "race" | "sprint" | "qualifying" | "analysis" | "radio";
 
 export const RaceWeekend = () => {
   const { params } = useRoute<RouteProp<ParamList, "RaceWeekend">>();
   const { season, round } = params;
   const { clock24 } = useSettings();
-  const [selected, setSelected] = useState<Tab>();
+  const [selected, setSelected] = useState<Tab | undefined>(params.tab);
 
   const schedule = useRaceSchedule({ season, round });
   const raceResults = useRaceResults({ season, round });
@@ -42,6 +45,7 @@ export const RaceWeekend = () => {
     qualifying.data?.MRData.RaceTable.Races[0]?.QualifyingResults ?? [];
   const pole = qualifyingResults[0];
 
+  const hasRadio = Number(season) >= OPENF1_FIRST_SEASON;
   const tab: Tab = selected ?? (results.length ? "race" : "schedule");
 
   // Results decide the opening tab and which tabs are enabled, so wait for
@@ -80,6 +84,10 @@ export const RaceWeekend = () => {
               ? [{ value: "sprint" as Tab, label: "Sprint", disabled: !sprintResults.length }]
               : []),
             { value: "qualifying", label: "Qualifying", disabled: !qualifyingResults.length },
+            { value: "analysis", label: "Analysis", disabled: !results.length },
+            ...(hasRadio
+              ? [{ value: "radio" as Tab, label: "Radio", disabled: !results.length }]
+              : []),
           ]}
         />
       }
@@ -88,6 +96,8 @@ export const RaceWeekend = () => {
       {tab === "race" && <ResultsTab results={results} pole={pole} />}
       {tab === "sprint" && <ResultsTab results={sprintResults} />}
       {tab === "qualifying" && <QualifyingTab results={qualifyingResults} />}
+      {tab === "analysis" && <AnalysisTab race={race} results={results} />}
+      {tab === "radio" && <RadioTab race={race} />}
     </Screen>
   );
 };

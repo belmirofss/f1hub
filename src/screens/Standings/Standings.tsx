@@ -7,9 +7,13 @@ import { useSeasonDriverStandings } from "../../hooks/useSeasonDriverStandings";
 import { useSeasonRaceSchedule } from "../../hooks/useSeasonRaceSchedule";
 import { StandingType } from "../../types";
 import { StandingsTable } from "./StandingsTable";
+import { TitleFightCard } from "./TitleFightCard";
+import { Teammates } from "./Teammates";
+
+type StandingsView = StandingType | "teammates";
 
 export const Standings = () => {
-  const [type, setType] = useState(StandingType.DRIVERS);
+  const [view, setView] = useState<StandingsView>(StandingType.DRIVERS);
   const drivers = useSeasonDriverStandings({ season: "current" });
   const schedule = useSeasonRaceSchedule({ season: "current" });
 
@@ -28,16 +32,24 @@ export const Standings = () => {
       }
       header={
         <Segmented
-          value={type}
-          onChange={setType}
+          value={view}
+          onChange={setView}
           options={[
             { value: StandingType.DRIVERS, label: "Drivers" },
             { value: StandingType.CONSTRUCTORS, label: "Constructors" },
+            { value: "teammates", label: "Teammates" },
           ]}
         />
       }
     >
-      <StandingsTable season="current" type={type} />
+      {view === "teammates" ? (
+        <Teammates season="current" />
+      ) : (
+        <>
+          {view === StandingType.DRIVERS && <TitleFightCard />}
+          <StandingsTable season="current" type={view} />
+        </>
+      )}
       <AdBanner adUnitId={AD_BANNER_STANDINGS_DRIVERS_ID} />
     </Screen>
   );

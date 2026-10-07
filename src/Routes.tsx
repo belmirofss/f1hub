@@ -9,6 +9,10 @@ import { Archive } from "./screens/Archive/Archive";
 import { Season } from "./screens/Archive/Season";
 import { RaceWeekend } from "./screens/RaceWeekend/RaceWeekend";
 import { Settings } from "./screens/Settings/Settings";
+import { Driver } from "./screens/Driver/Driver";
+import { Team } from "./screens/Team/Team";
+import { Circuit } from "./screens/Circuit/Circuit";
+import { TeammatesScreen } from "./screens/Standings/Teammates";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -38,6 +42,10 @@ export const Routes = () => {
       <Stack.Screen name="RaceWeekend" component={RaceWeekend} />
       <Stack.Screen name="Season" component={Season} />
       <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name="Driver" component={Driver} />
+      <Stack.Screen name="Team" component={Team} />
+      <Stack.Screen name="Circuit" component={Circuit} />
+      <Stack.Screen name="Teammates" component={TeammatesScreen} />
     </Stack.Navigator>
   );
 };

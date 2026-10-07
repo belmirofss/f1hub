@@ -130,3 +130,90 @@ export enum StandingType {
   DRIVERS = "drivers",
   CONSTRUCTORS = "constructors",
 }
+
+export type LapTiming = {
+  driverId: string;
+  position: string;
+  time: string;
+};
+
+export type Lap = {
+  number: string;
+  Timings: LapTiming[];
+};
+
+export type RaceLaps = RaceBase & { Laps?: Lap[] };
+
+export type PitStop = {
+  driverId: string;
+  lap: string;
+  stop: string;
+  time: string;
+  duration: string;
+};
+
+export type RacePitStops = RaceBase & { PitStops?: PitStop[] };
+
+// OpenF1 (https://openf1.org), available from 2023
+
+export type OpenF1Session = {
+  session_key: number;
+  session_name: string;
+  session_type: string;
+  date_start: string;
+  date_end: string;
+  year: number;
+};
+
+export type OpenF1Driver = {
+  driver_number: number;
+  name_acronym: string;
+  full_name: string;
+  first_name: string;
+  last_name: string;
+  team_name: string;
+  team_colour?: string;
+};
+
+export type Stint = {
+  driver_number: number;
+  stint_number: number;
+  lap_start: number;
+  lap_end: number;
+  compound: string;
+  tyre_age_at_start: number;
+};
+
+export type TeamRadio = {
+  driver_number: number;
+  date: string;
+  recording_url: string;
+};
+
+export type RaceControlMessage = {
+  date: string;
+  lap_number: number | null;
+  category: string;
+  flag: string | null;
+  scope: string | null;
+  sector: number | null;
+  driver_number: number | null;
+  message: string;
+};
+
+export type OpenF1Lap = {
+  driver_number: number;
+  lap_number: number;
+  date_start: string | null;
+  lap_duration: number | null;
+  duration_sector_1: number | null;
+  duration_sector_2: number | null;
+  duration_sector_3: number | null;
+  is_pit_out_lap: boolean;
+};
+
+export type CarLocation = {
+  date: string;
+  x: number;
+  y: number;
+};

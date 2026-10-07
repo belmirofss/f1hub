@@ -12,6 +12,8 @@ type Props = {
   color?: string;
   style?: StyleProp<TextStyle>;
   numberOfLines?: number;
+  // Shrinks the text to fit on its lines (long surnames)
+  adjustsFontSizeToFit?: boolean;
   accessibilityLabel?: string;
 };
 
@@ -30,6 +32,7 @@ export const AppText = ({
   color = Theme.colors.text,
   style,
   numberOfLines,
+  adjustsFontSizeToFit,
   accessibilityLabel,
 }: Props) => {
   const fontFamily = mono
@@ -41,6 +44,7 @@ export const AppText = ({
   return (
     <Text
       numberOfLines={numberOfLines}
+      adjustsFontSizeToFit={adjustsFontSizeToFit}
       accessibilityLabel={accessibilityLabel}
       style={[{ fontFamily, fontSize: size, color }, style]}
     >

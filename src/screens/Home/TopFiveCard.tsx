@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Theme } from "../../theme";
 import { AppText, Label } from "../../components/AppText";
@@ -36,16 +36,19 @@ export const TopFiveCard = () => {
       </View>
 
       {list.DriverStandings.slice(0, 5).map((standing) => (
-        <View
+        <Pressable
           key={standing.Driver.driverId}
-          style={{
+          onPress={() => navigation.navigate("Driver", { driverId: standing.Driver.driverId })}
+          accessibilityRole="button"
+          style={({ pressed }) => ({
             flexDirection: "row",
             alignItems: "center",
             gap: 8,
-            minHeight: 40,
+            minHeight: 44,
             borderTopWidth: 1,
             borderTopColor: Theme.colors.lineSoft,
-          }}
+            opacity: pressed ? 0.7 : 1,
+          })}
         >
           <AppText mono weight="bold" size={14} style={{ width: 18 }}>
             {standing.position}
@@ -58,7 +61,7 @@ export const TopFiveCard = () => {
           <AppText mono weight="bold" size={14} style={{ width: 40, textAlign: "right" }}>
             {standing.points}
           </AppText>
-        </View>
+        </Pressable>
       ))}
       <View style={{ borderTopWidth: 1, borderTopColor: Theme.colors.lineSoft, paddingTop: 10 }}>
         <FormLegend />
