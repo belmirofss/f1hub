@@ -13,6 +13,7 @@ import { Driver } from "./screens/Driver/Driver";
 import { Team } from "./screens/Team/Team";
 import { Circuit } from "./screens/Circuit/Circuit";
 import { TeammatesScreen } from "./screens/Standings/Teammates";
+import { Search } from "./screens/Search/Search";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -46,6 +47,7 @@ export const Routes = () => {
       <Stack.Screen name="Team" component={Team} />
       <Stack.Screen name="Circuit" component={Circuit} />
       <Stack.Screen name="Teammates" component={TeammatesScreen} />
+      <Stack.Screen name="Search" component={Search} />
     </Stack.Navigator>
   );
 };

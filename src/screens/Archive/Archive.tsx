@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { Theme } from "../../theme";
 import { AppText, Label } from "../../components/AppText";
-import { EmptyState } from "../../components/Card";
+import { EmptyState, IconButton } from "../../components/Card";
 import { Screen } from "../../components/Screen";
 import { Loading } from "../../components/Loading";
 import { Error } from "../../components/Error";
@@ -47,6 +47,13 @@ export const Archive = () => {
   return (
     <Screen
       title="Archive"
+      right={
+        <IconButton
+          icon="search"
+          label="Search drivers, teams, circuits, races and seasons"
+          onPress={() => navigation.navigate("Search")}
+        />
+      }
       header={
         <View
           style={{

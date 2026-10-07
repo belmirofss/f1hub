@@ -1,5 +1,6 @@
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 import { Theme } from "../../theme";
 import { AppText } from "../../components/AppText";
 import { IconButton } from "../../components/Card";
@@ -27,6 +28,31 @@ const Wordmark = () => {
   );
 };
 
+// Looks like a field but opens the search screen, where the real input lives
+const SearchBar = ({ onPress }: { onPress: () => void }) => (
+  <Pressable
+    onPress={onPress}
+    accessibilityRole="button"
+    accessibilityLabel="Search drivers, teams, circuits, races and seasons"
+    style={({ pressed }) => ({
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 10,
+      minHeight: 46,
+      paddingHorizontal: 14,
+      backgroundColor: pressed ? Theme.colors.surfaceRaised : Theme.colors.surface,
+      borderColor: Theme.colors.line,
+      borderWidth: 1,
+      borderRadius: Theme.radius.l,
+    })}
+  >
+    <Ionicons name="search" size={18} color={Theme.colors.muted} />
+    <AppText color={Theme.colors.subtle} numberOfLines={1} style={{ flex: 1 }}>
+      Drivers, teams, circuits, races, years
+    </AppText>
+  </Pressable>
+);
+
 export const Home = () => {
   const navigation = useNavigation();
   const now = useNow(30000);
@@ -49,6 +75,7 @@ export const Home = () => {
         </View>
       }
     >
+      <SearchBar onPress={() => navigation.navigate("Search")} />
       <NextRaceCard
         races={races}
         now={now}

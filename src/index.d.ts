@@ -13,6 +13,7 @@ export declare global {
       Teammates: { season: string; constructorId?: string };
       Season: { season: string };
       Settings: undefined;
+      Search: undefined;
     }
   }
 
