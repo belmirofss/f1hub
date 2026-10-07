@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Pressable, View } from "react-native";
+import { ActivityIndicator, Pressable, View } from "react-native";
 import { setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus } from "expo-audio";
 import { Ionicons } from "@expo/vector-icons";
 import moment from "moment-timezone";
@@ -50,10 +50,35 @@ const categoryLabel = (m: RaceControlMessage) => {
 const formatDuration = (seconds: number) =>
   `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
 
-const Summary = ({ messages }: { messages: RaceControlMessage[] }) => {
-  const yellows = messages.filter((m) => m.flag === "YELLOW" || m.flag === "DOUBLE YELLOW").length;
-  const safetyCars = messages.filter((m) => /^(VIRTUAL )?SAFETY CAR DEPLOYED/.test(m.message)).length;
-  const deleted = messages.filter((m) => m.message.includes("DELETED")).length;
+// Race control posts one yellow per marshal sector, so a single incident can be a dozen
+// messages. Count periods instead: from the first yellow on a clear track until every
+// sector is clear again.
+const countYellowPeriods = (messages: RaceControlMessage[]) => {
+  const active = new Set<number | null>();
+  let periods = 0;
+  for (const m of messages) {
+    if (m.flag === "YELLOW" || m.flag === "DOUBLE YELLOW") {
+      if (!active.size) periods++;
+      active.add(m.scope === "Sector" ? m.sector : null);
+    } else if (m.flag === "CLEAR" && m.scope === "Sector") {
+      active.delete(m.sector);
+    } else if ((m.flag === "CLEAR" || m.flag === "GREEN") && m.scope === "Track") {
+      active.clear();
+    }
+  }
+  return periods;
+};
+
+const Summary = ({ messages, start }: { messages: RaceControlMessage[]; start: string }) => {
+  // Leave out the pre-race period (reconnaissance laps, delays), which can have dozens of yellows
+  const raceStart = messages.find((m) => m.message.trim() === "RACE START")?.date ?? start;
+  const race = messages
+    .filter((m) => moment.utc(m.date).valueOf() >= moment.utc(raceStart).valueOf())
+    .sort((a, b) => moment.utc(a.date).valueOf() - moment.utc(b.date).valueOf());
+
+  const yellows = countYellowPeriods(race);
+  const safetyCars = race.filter((m) => /^(VIRTUAL )?SAFETY CAR DEPLOYED/.test(m.message)).length;
+  const deleted = race.filter((m) => m.message.includes("DELETED")).length;
 
   return (
     <View style={{ flexDirection: "row", gap: 8 }}>
@@ -90,11 +115,13 @@ const Summary = ({ messages }: { messages: RaceControlMessage[] }) => {
 const RadioRow = ({
   item,
   playing,
+  loading,
   progress,
   onToggle,
 }: {
   item: Extract<Item, { kind: "radio" }>;
   playing: boolean;
+  loading: boolean;
   progress: number;
   onToggle: () => void;
 }) => {
@@ -144,6 +171,7 @@ const RadioRow = ({
         onPress={onToggle}
         accessibilityRole="button"
         accessibilityLabel={`${playing ? "Pause" : "Play"} radio from ${name}`}
+        accessibilityState={{ busy: loading }}
         style={{
           width: 44,
           height: 44,
@@ -153,7 +181,11 @@ const RadioRow = ({
           backgroundColor: playing ? accent : Theme.colors.surfaceRaised,
         }}
       >
-        <Ionicons name={playing ? "pause" : "play"} size={16} color={playing ? onAccent : Theme.colors.text} />
+        {loading ? (
+          <ActivityIndicator size="small" color={onAccent} />
+        ) : (
+          <Ionicons name={playing ? "pause" : "play"} size={16} color={playing ? onAccent : Theme.colors.text} />
+        )}
       </Pressable>
     </View>
   );
@@ -273,6 +305,8 @@ export const RadioTab = ({ race }: { race: Race }) => {
   ].sort((a, b) => b.time - a.time);
 
   const progress = status.duration ? status.currentTime / status.duration : 0;
+  // The clip is streamed, so there is a gap between tapping play and hearing it
+  const loading = !!playingUrl && (!status.isLoaded || status.isBuffering || !status.playing);
 
   return (
     <>
@@ -285,7 +319,7 @@ export const RadioTab = ({ race }: { race: Race }) => {
           { value: "control", label: "Race control" },
         ]}
       />
-      <Summary messages={control.data ?? []} />
+      <Summary messages={control.data ?? []} start={session.data.date_start} />
       {items.length === 0 && <EmptyState>Nothing here for this race.</EmptyState>}
       <View>
         {items.map((item, index) => (
@@ -301,6 +335,7 @@ export const RadioTab = ({ race }: { race: Race }) => {
                 <RadioRow
                   item={item}
                   playing={playingUrl === item.radio.recording_url}
+                  loading={playingUrl === item.radio.recording_url && loading}
                   progress={progress}
                   onToggle={() => toggle(item.radio.recording_url)}
                 />

@@ -310,7 +310,7 @@ const PitStops = ({ race, results }: { race: Race; results: Result[] }) => {
             <AppText size={15} weight="bold" style={{ flex: 1 }} numberOfLines={1}>
               {result ? getDriverName(result.Driver) : stop.driverId}
             </AppText>
-            <AppText mono size={11} color={Theme.colors.muted}>
+            <AppText mono size={11} color={Theme.colors.muted} numberOfLines={1}>
               LAP {stop.lap}
             </AppText>
             <AppText
@@ -318,7 +318,8 @@ const PitStops = ({ race, results }: { race: Race; results: Result[] }) => {
               weight="bold"
               size={14}
               color={index === 0 ? Theme.colors.purple : Theme.colors.text}
-              style={{ width: 60, textAlign: "right" }}
+              numberOfLines={1}
+              style={{ minWidth: 64, textAlign: "right" }}
             >
               {stop.duration}s
             </AppText>
